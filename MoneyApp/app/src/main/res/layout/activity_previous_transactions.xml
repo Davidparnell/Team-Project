@@ -60,7 +60,7 @@
         android:id="@+id/imageView2"
         android:layout_width="70dp"
         android:layout_height="65dp"
-        app:srcCompat="@drawable/tescoLogo"
+        app:srcCompat="@drawable/tesco_logo"
         tools:layout_editor_absoluteX="298dp"
         tools:layout_editor_absoluteY="146dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

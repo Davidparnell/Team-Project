@@ -107,8 +107,8 @@
         android:layout_width="156dp"
         android:layout_height="81dp"
         android:hapticFeedbackEnabled="?android:attr/windowOverscan"
-        android:src="@drawable/tenEuro"
-        app:srcCompat="@drawable/tenEuro"
+        android:src="@drawable/ten_euro"
+        app:srcCompat="@drawable/ten_euro"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="193dp"
         tools:targetApi="jelly_bean_mr2" />
@@ -117,8 +117,8 @@
         android:id="@+id/twentyeuro"
         android:layout_width="156dp"
         android:layout_height="81dp"
-        android:src="@drawable/twentyEuro"
-        app:srcCompat="@drawable/twentyEuro"
+        android:src="@drawable/twenty_euro"
+        app:srcCompat="@drawable/twenty_euro"
         tools:layout_editor_absoluteX="203dp"
         tools:layout_editor_absoluteY="90dp" />
 
@@ -126,8 +126,8 @@
         android:id="@+id/fiftyeuro"
         android:layout_width="156dp"
         android:layout_height="81dp"
-        android:src="@drawable/fiftyEuro"
-        app:srcCompat="@drawable/fiftyEuro"
+        android:src="@drawable/fifty_euro"
+        app:srcCompat="@drawable/fifty_euro"
         tools:layout_editor_absoluteX="203dp"
         tools:layout_editor_absoluteY="193dp" />
 
@@ -135,8 +135,8 @@
         android:id="@+id/fiveeuro"
         android:layout_width="156dp"
         android:layout_height="81dp"
-        android:src="@drawable/fiveEuro"
-        app:srcCompat="@drawable/fiveEuro"
+        android:src="@drawable/five_euro"
+        app:srcCompat="@drawable/five_euro"
         tools:layout_editor_absoluteX="26dp"
         tools:layout_editor_absoluteY="90dp" />
 

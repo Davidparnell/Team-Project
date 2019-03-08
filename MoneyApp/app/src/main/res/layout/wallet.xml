@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flexboxLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:alignContent="center"
-    app:alignItems="center"
-    app:flexWrap="wrap"
-    app:justifyContent="center">
+    android:gravity ="center"
+    >
 
 
     <ImageButton
@@ -37,7 +36,7 @@
         android:layout_height="212dp"
         android:layout_marginTop="33dp"
         android:background="@drawable/open_wallet2"
-        android:contentDescription="@string/OpenWaller"
+        android:contentDescription="@string/OpenWallet"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +51,7 @@
         android:layout_marginTop="68dp"
         android:layout_marginEnd="75dp"
         android:layout_marginRight="75dp"
-        android:background="@drawable/fiftyEuro"
+        android:background="@drawable/fifty_euro"
         android:contentDescription="@string/Note50"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/euro20"
@@ -67,8 +66,8 @@
         android:layout_marginTop="68dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:background="@drawable/twenty_euro"
         android:contentDescription="@string/Note20"
-        android:src="@drawable/twentyEuro"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -81,8 +80,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:layout_marginBottom="33dp"
-        android:background="@drawable/tenEuro"
-        android:contentDescription="@strings/Note10"
+        android:background="@drawable/ten_euro"
+        android:contentDescription="@string/Note10"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/wallet"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +96,7 @@
         android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/fiveEuro"
+        android:background="@drawable/five_euro"
         android:contentDescription="@string/Note5"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

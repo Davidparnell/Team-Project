@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Money App</string>
+    <string name="wallet">Wallet</string>
+    <string name="camera">Camera, Take Photo</string>
+    <string name="balance">Current Balance</string>
+    <string name="T2SWallet">Text to Speech for Wallet</string>
+    <string name="T2SCamera">Text to Speech for Wallet</string>
+    <string name="TS2Balance">Text to Speech for Balance</string>
+    <string name="edit">edit</string>
+    <string name="confirm">confirm</string>
+    <string name="T2SEdit">T2SEdit</string>
+    <string name="add">add</string>
+    <string name="placeholderCamera">*Imagine Camera API here*</string>
+    <string name="Note5">Five Euro</string>
+    <string name="Note10">Ten Euro</string>
+    <string name="Note20">Twenty Euro</string>
+    <string name="Note50">Fifty Euro</string>
+</resources>

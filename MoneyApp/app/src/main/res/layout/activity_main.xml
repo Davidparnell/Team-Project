@@ -26,40 +26,35 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/WalletText"
         app:layout_constraintEnd_toStartOf="@+id/Camera"
-        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:layout_constraintVertical_bias="0.458" />
+        app:layout_constraintVertical_bias="0.788" />
 
     <ImageButton
         android:id="@+id/Camera"
         android:layout_width="151dp"
         android:layout_height="150dp"
         android:layout_centerInParent="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:adjustViewBounds="true"
         android:background="#FFFFFF"
         android:contentDescription="@string/camera"
         android:scaleType="fitCenter"
         android:src="@drawable/camerabutton"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/cameraText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintTop_toBottomOf="@+id/Balance" />
 
     <TextView
         android:id="@+id/Balance"
         android:layout_width="230dp"
         android:layout_height="100"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="292dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginBottom="444dp"
         android:contentDescription="Balance"
         android:text="TextView"
         android:textColor="#828282"
@@ -67,8 +62,6 @@
         android:visibility="visible"
         app:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/BalanceT2S"
-        app:layout_constraintHorizontal_bias="0.921"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="€ XX.XX" />
 
@@ -76,23 +69,25 @@
         android:id="@+id/BalanceT2S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:contentDescription="@string/TS2Balance"
         android:src="@drawable/text2speech"
-        app:layout_constraintBottom_toTopOf="@+id/Camera"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbalanceText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Balance"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/text2speech" />
 
     <ImageView
         android:id="@+id/WalletT2S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginLeft="68dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/T2SWallet"
         android:src="@drawable/text2speech"
@@ -104,18 +99,15 @@
         android:id="@+id/CameraT2S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
         android:background="#FFFFFF"
         android:contentDescription="Text to Speech for Camera"
         android:src="@drawable/text2speech"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
-        app:layout_constraintStart_toEndOf="@+id/WalletT2S"
-        app:srcCompat="@drawable/text2speech"
-        tools:layout_editor_absoluteY="449dp" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraText"
+        app:srcCompat="@drawable/text2speech" />
 
     <TextView
         android:id="@+id/WalletText"
@@ -125,26 +117,27 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Wallet"
         android:textColor="#cc0000"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/WalletT2S"
         app:layout_constraintEnd_toStartOf="@+id/cameraText"
-        app:layout_constraintHorizontal_bias="0.356"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/cameraText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginRight="43dp"
         android:text="Camera"
         android:textColor="#cc0000"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/CameraT2S"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Camera" />
 
     <TextView
         android:id="@+id/cbalanceText"
@@ -162,6 +155,7 @@
         app:layout_constraintBottom_toTopOf="@+id/Balance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.426" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

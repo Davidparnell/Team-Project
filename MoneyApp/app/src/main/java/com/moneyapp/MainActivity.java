@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageButton BtnWallet,BtnCamera;
     ImageView BtnCamT2S, BtnWallT2S, BtnBalT2S;
+    TextView WalletText, Balance, CameraText, CurrentBal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         BtnBalT2S = findViewById(R.id.BalanceT2S);
         BtnBalT2S.setOnClickListener(this);
+
+        WalletText = findViewById(R.id.WalletText);
+        Balance = findViewById(R.id.Balance);
+        CameraText = findViewById(R.id.cameraText);
+        CurrentBal = findViewById(R.id.cbalanceText);
     }
 
     @Override
@@ -66,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         else if(v == (View) BtnCamT2S)
         {
-            //Text to speech for camera, Toast for now 
+            //Text to speech for camera, Toast for now
             Toast.makeText(getApplicationContext(),"--- Camera ---",
                     Toast.LENGTH_SHORT).show();
         }

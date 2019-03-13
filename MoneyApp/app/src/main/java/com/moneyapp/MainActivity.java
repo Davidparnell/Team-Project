@@ -11,6 +11,8 @@ import android.util.Log;
 import com.moneyapp.db.WalletDAO;
 import com.moneyapp.db.Wallet;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -23,5 +25,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 		WalletDAO walletDAO = database.getWalletDAO();
+
     }
 }

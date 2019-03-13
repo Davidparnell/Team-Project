@@ -12,7 +12,7 @@ public class Wallet {//--------attributes---------
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "date")
-    private Date date;
+    private String date;
 
 	@NonNull
     @ColumnInfo(name = "balance")
@@ -44,15 +44,19 @@ public class Wallet {//--------attributes---------
 
     //-------functions----------
     @NonNull
-    public Date getDate() {return date;}
+    public String getDate() {return date;}
 
-    public void setDate(@NonNull Date date){this.date = date;}
+    public void setDate(@NonNull String date){this.date = date;}
 
     public float getBalance() {return balance;}
 
     public void setBalance(float balance) {this.balance = balance;}
-	
-	public int getNote50() {return note50;}
+
+    public int getRegister() {return register;}
+
+    public void setRegister(int register) {this.register = register;}
+
+    public int getNote50() {return note50;}
 
     public void setNote50(int note50) {this.note50 = note50;}
 

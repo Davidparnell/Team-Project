@@ -1,7 +1,5 @@
 package com.moneyapp.db;
 
-import java.lang.reflect.Array;
-import java.util.Date;
 import java.util.List;
 
 import androidx.room.Dao;
@@ -12,11 +10,11 @@ import androidx.room.Update;
 
 @Dao
 public interface WalletDAO {
-    @Query("SELECT date, balance, note50, note20, note10, note5, location, receipt FROM wallet")
-    List<String> getWallet();
+    @Query("SELECT * FROM wallet Order BY date ASC")
+    List<Wallet> getWalletHistory();
 
-    @Query("SELECT * FROM wallet WHERE date = :date")
-    Wallet getTextByName(Date date);
+    @Query("SELECT * FROM wallet ORDER BY date ASC LIMIT 1")
+    Wallet getRecentWallet();
 
     @Insert
     void insert(Wallet wallet);

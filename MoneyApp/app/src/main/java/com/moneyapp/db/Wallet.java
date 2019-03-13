@@ -79,6 +79,9 @@ public class Wallet {//--------attributes---------
 	public String getReceipt() {return receipt;}
 
     public void setReceipt(String receipt) {this.receipt = receipt;}
+
+    public void setWallet(String date, float balance, int register, int Note50, int Note20, int Note10, int Note5, String location, String receipt)
+    {this.date = date; this.balance = balance; this.register = register; this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5; this.location = location; this.receipt =  receipt;};
 	
-    public String toString(){return date+" "+balance+" "+location+" "+register+" "+receipt+" "+note5;}
+    public String toString(){return date+" "+balance+" "+location+" "+register+" "+receipt+" "+note5+"\n";}
 }

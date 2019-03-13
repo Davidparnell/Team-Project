@@ -17,10 +17,13 @@ public interface WalletDAO {
     Wallet getRecentWallet();
 
     @Insert
-    void insert(Wallet wallet);
+    void insert(Wallet... wallet);
 
     @Delete
     void delete(Wallet wallet);
+
+    @Delete
+    void deleteAll(Wallet... wallet);
 
     @Update
     void update(Wallet wallet);

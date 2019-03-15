@@ -10,20 +10,20 @@ import androidx.room.Update;
 
 @Dao
 public interface WalletDAO {
-    @Query("SELECT * FROM wallet Order BY date ASC")
+    @Query("SELECT * FROM wallet Order BY date DESC")
     List<Wallet> getWalletHistory();
 
-    @Query("SELECT * FROM wallet ORDER BY date ASC LIMIT 1")
+    @Query("SELECT * FROM wallet ORDER BY date DESC LIMIT 1")
     Wallet getRecentWallet();
+
+    @Query("DELETE FROM wallet")
+    void deleteAll();
 
     @Insert
     void insert(Wallet... wallet);
 
     @Delete
     void delete(Wallet wallet);
-
-    @Delete
-    void deleteAll(Wallet... wallet);
 
     @Update
     void update(Wallet wallet);

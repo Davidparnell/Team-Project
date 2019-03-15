@@ -32,6 +32,24 @@ public class Wallet {//--------attributes---------
 	
 	@ColumnInfo(name = "note5")
     private int note5;
+
+    @ColumnInfo(name = "coin2e")
+    private int coin2e;
+
+    @ColumnInfo(name = "coin1e")
+    private int coin1e;
+
+    @ColumnInfo(name = "coin50c")
+    private int coin50c;
+
+    @ColumnInfo(name = "coin20c")
+    private int coin20c;
+
+    @ColumnInfo(name = "coin10c")
+    private int coin10c;
+
+    @ColumnInfo(name = "coin5c")
+    private int coin5c;
 	
 	@ColumnInfo(name = "location")
     private String location;
@@ -70,7 +88,15 @@ public class Wallet {//--------attributes---------
 
     public int getNote5() {return note5;}
 
-    public void setNote5(int note5) {this.note50 = note5;}
+    public void setNote5(int note5) {this.note5 = note5;}
+
+    public int getCoin2e() {return coin2e;}
+
+    public void setCoin2e(int coin2e) {this.coin2e = coin2e;}
+
+    public int getCoin1e() {return coin1e;}
+
+    public void setCoin1e(int coin1e) {this.coin1e = coin1e;}
 
 	public String getLocation() {return location;}
 
@@ -80,8 +106,14 @@ public class Wallet {//--------attributes---------
 
     public void setReceipt(String receipt) {this.receipt = receipt;}
 
-    public void setWallet(String date, float balance, int register, int Note50, int Note20, int Note10, int Note5, String location, String receipt)
-    {this.date = date; this.balance = balance; this.register = register; this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5; this.location = location; this.receipt =  receipt;};
-	
+    public void setWalletOptions(String date, float balance, int register, String location, String receipt)
+    {this.date = date; this.balance = balance; this.register = register;  this.location = location; this.receipt =  receipt; };
+
+    public void setNotes(int Note50, int Note20, int Note10, int Note5)
+    {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
+
+    public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
+    {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
+
     public String toString(){return date+" "+balance+" "+location+" "+register+" "+receipt+" "+note5+"\n";}
 }

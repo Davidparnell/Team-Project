@@ -33,10 +33,14 @@ public class MainActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
+        //walletDAO.deleteAll();
 		Wallet wallet = new Wallet();
-		wallet.setWallet(strDate, (float) 10.00, 10, 1, 0, 0, 1, "location1", "receipt1");
+		wallet.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
+        wallet.setNotes(0, 0, 1, 0);
+        wallet.setCoins(0,0,0,0,0,0);
 		walletDAO.insert(wallet);
-		
-		Log.d("WAL", walletDAO.getWalletHistory().toString());
+
+		Log.d("WAL", walletDAO.getRecentWallet().toString());
+        Log.d("WAL", walletDAO.getWalletHistory().toString());
     }
 }

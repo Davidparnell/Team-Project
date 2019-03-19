@@ -23,4 +23,6 @@
     <string name="Coin20">Twenty Cent</string>
     <string name="Coin10">Ten Cent</string>
     <string name="Coin5">Five Cent</string>
+    <string name="Change2Coin">Change to Coins</string>
+    <string name="Change2Note">Change to Notes</string>
 </resources>

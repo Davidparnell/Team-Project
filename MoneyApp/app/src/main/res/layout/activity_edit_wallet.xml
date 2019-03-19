@@ -145,7 +145,7 @@
         android:layout_width="112dp"
         android:layout_height="67dp"
         app:srcCompat="@drawable/backbutton"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="447dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

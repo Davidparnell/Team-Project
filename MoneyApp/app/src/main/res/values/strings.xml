@@ -17,4 +17,10 @@
     <string name="Note50">Fifty Euro</string>
     <string name="Note">Note</string>
     <string name="Coin">Coin</string>
+    <string name="Coin1">One Euro</string>
+    <string name="Coin2">Two Euro</string>
+    <string name="Coin50">Fifty Cent</string>
+    <string name="Coin20">Twenty Cent</string>
+    <string name="Coin10">Ten Cent</string>
+    <string name="Coin5">Five Cent</string>
 </resources>

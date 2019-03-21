@@ -1,9 +1,7 @@
 package com.moneyapp;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -17,8 +15,11 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -29,6 +30,9 @@ public class Camera extends AppCompatActivity {
     SurfaceView cameraSurface;
     TextView cameraText;
     CameraSource cameraSource;
+    public int detNum;
+    public HashMap<String, Integer> regList = new HashMap<String, Integer>();
+    public String register = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class Camera extends AppCompatActivity {
     private void cameraSource() {
         textRecognizer = new TextRecognizer.Builder(this).build();
         if (!textRecognizer.isOperational()) {
-            Log.d("CAM", "Dependencies are downloading....try after few moment");
+            //Log.d("CAM", "Dependencies are downloading....try after few moment");
             return;
         }
 
@@ -56,23 +60,8 @@ public class Camera extends AppCompatActivity {
                 .build();
 
         cameraSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
+            //@RequiresApi(api = Build.VERSION_CODES.M)
             public void surfaceCreated(SurfaceHolder holder) {
-                /*if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    Activity#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for Activity#requestPermissions for more details.
-                    return;
-                }
-                try {
-                    cameraSource.start(cameraSurface.getHolder());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
                 try {
 
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(),
@@ -83,7 +72,6 @@ public class Camera extends AppCompatActivity {
                                 requestPermissionID);
                         return;
                     }
-                    //pass source to surfaceview
                     cameraSource.start(cameraSurface.getHolder());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -104,25 +92,56 @@ public class Camera extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<TextBlock> detections) {
                 SparseArray<TextBlock> items = detections.getDetectedItems();
 
-                if (items.size() <= 0) {
-                    return;
+                if (items.size() > 0) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (int i=0; i<items.size(); i++) {
+                        TextBlock item = items.valueAt(i);
+                        stringBuilder.append(item.getValue());
+                        stringBuilder.append("\n");
+                    }
+                    String block = stringBuilder.toString();
+
+                    Pattern pattern = Pattern.compile("(\\d{1,3}\\.\\d{2}|\\d{1,3}\\,\\d{2})");
+                    Matcher matcher = pattern.matcher(block);
+
+                    if(matcher.find()){
+                        String group = matcher.group(1).replace(",", ".");
+
+                        if(detNum < 10){
+                            if(regList.get(group) == null) {
+                                regList.put(group, 1);
+                            }
+                            else{
+                                regList.put(group, regList.get(group)+1);
+                            }
+                            detNum++;
+                        }
+                        else{//exit
+                            detNum = 0;
+                            int i = 0;
+                            //find most frequent
+                            for(Map.Entry<String, Integer> entry : regList.entrySet() ){
+                                if(entry.getValue() >= i){
+                                    i = entry.getValue();
+                                    register = entry.getKey();
+                                }
+                            }
+                            regList.clear();
+
+                            if(i < 3){
+                                return;
+                            }
+                            else{
+                                finish();
+                            }
+                        }
+
+                        Log.d("REG", regList.toString());
+                        Log.d("REG", register);
+                    }
                 }
-
-
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i=0; i<items.size(); i++) {
-                    TextBlock item = items.valueAt(i);
-                    stringBuilder.append(item.getValue());
-                    stringBuilder.append("\n");
-                }
-                cameraText.setText(stringBuilder.toString());
-                Log.i("CAMERA", stringBuilder.toString());
-
-                if(stringBuilder.toString() == "88"){
-                    finish();
-                }
-
             }
         });
     }
 }
+

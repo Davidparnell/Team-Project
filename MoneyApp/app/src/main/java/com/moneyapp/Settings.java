@@ -42,7 +42,7 @@ public class Settings extends AppCompatActivity implements View.OnClickListener 
         else if(v == (View) DDSwitch)
         {
             DDSwitch.setChecked(true);
-            //Drag Drop mode 
+            //Drag Drop mode
         }
     }
 }

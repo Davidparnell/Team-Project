@@ -15,8 +15,8 @@
     <string name="Note10">Ten Euro</string>
     <string name="Note20">Twenty Euro</string>
     <string name="Note50">Fifty Euro</string>
-    <string name="Note">Note</string>
-    <string name="Coin">Coin</string>
+    <string name="Note">Notes Screen</string>
+    <string name="Coin">Coins Screen</string>
     <string name="Coin1">One Euro</string>
     <string name="Coin2">Two Euro</string>
     <string name="Coin50">Fifty Cent</string>
@@ -29,4 +29,7 @@
     <string name="ColourBlindSwtch">Off</string>
     <string name="DragDropTxt">Toggle Drag and Drop</string>
     <string name="DragDropSwtch">Off</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

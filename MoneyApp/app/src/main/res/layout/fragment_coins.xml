@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flexboxLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity ="center"
+    >
+
+
+    <ImageButton
+        android:id="@+id/Confirm"
+        android:layout_width="191dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="41dp"
+        android:alpha=".2"
+        android:background="@drawable/check"
+        android:contentDescription="@string/confirm"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wallet"
+        app:layout_constraintVertical_bias="0.541" />
+
+
+    <ImageButton
+        android:id="@+id/two_euro"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="84dp"
+        android:contentDescription="@string/Coin2"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/two_euro" />
+
+    <ImageButton
+        android:id="@+id/one_euro"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="36dp"
+        android:contentDescription="@string/Coin1"
+        app:layout_constraintEnd_toStartOf="@+id/fifty_cent"
+        app:layout_constraintStart_toEndOf="@+id/two_euro"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/one_euro" />
+
+    <ImageButton
+        android:id="@+id/fifty_cent"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/Coin50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fifty_cent" />
+
+    <ImageButton
+        android:id="@+id/twenty_cent"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/Coin20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/two_euro"
+        app:srcCompat="@drawable/twenty_cent" />
+
+    <ImageButton
+        android:id="@+id/ten_cent"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:contentDescription="@string/Coin10"
+        app:layout_constraintEnd_toStartOf="@+id/five_cent"
+        app:layout_constraintStart_toEndOf="@+id/twenty_cent"
+        app:layout_constraintTop_toBottomOf="@+id/one_euro"
+        app:srcCompat="@drawable/ten_cent" />
+
+    <ImageButton
+        android:id="@+id/five_cent"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:contentDescription="@string/Coin5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fifty_cent"
+        app:srcCompat="@drawable/five_cent" />
+
+    <ImageButton
+        android:id="@+id/NoteBtn"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="150dp"
+        android:contentDescription="@string/Change2Note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ten_cent"
+        app:srcCompat="@drawable/notebtn" />
+
+    <ImageButton
+        android:id="@+id/wallet"
+        android:layout_width="wrap_content"
+        android:layout_height="166dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/open_wallet2"
+        android:contentDescription="@string/wallet"
+        android:src="@drawable/open_wallet2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NoteBtn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

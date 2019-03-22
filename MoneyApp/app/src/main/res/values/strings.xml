@@ -25,4 +25,8 @@
     <string name="Coin5">Five Cent</string>
     <string name="Change2Coin">Change to Coins</string>
     <string name="Change2Note">Change to Notes</string>
+    <string name="ColourBlindSet">Colour-blind Mode</string>
+    <string name="ColourBlindSwtch">Off</string>
+    <string name="DragDropTxt">Toggle Drag and Drop</string>
+    <string name="DragDropSwtch">Off</string>
 </resources>

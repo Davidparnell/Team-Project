@@ -2,6 +2,7 @@ package com.moneyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeechService;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Text to speech for wallet, Toast for now
             Toast.makeText(getApplicationContext(),"--- Wallet ---",
                     Toast.LENGTH_SHORT).show();
+            getApplicationContext().startService(new Intent(getApplicationContext(),
+                    SpeechService.class));
         }
 
         else if(v == (View) BtnBalT2S)

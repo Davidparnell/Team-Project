@@ -44,7 +44,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     @Override
     //Functions after a button is pressed
     public void onClick(View v) {
-        //Money Buttons
+        //money Buttons
         if (v == (View) five) {
             //Add 5 to wallet, for now toast
             Toast.makeText(getApplicationContext(), "--- 5 added ---",

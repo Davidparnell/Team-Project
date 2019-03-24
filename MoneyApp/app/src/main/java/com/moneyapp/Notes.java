@@ -13,33 +13,32 @@ import android.widget.ImageButton;
 
 public class Notes extends Fragment implements View.OnClickListener{
 
-    ImageButton five, ten, twenty, fifty, confirm, wallet;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notes, container, false);
+        View view =  inflater.inflate(R.layout.fragment_notes, container, false);
 
-        five = findViewById(R.id.euro5);
+        ImageButton five = view.findViewById(R.id.euro5);
         five.setOnClickListener(this);
 
-        ten = findViewById(R.id.euro10);
+        ImageButton ten = view.findViewById(R.id.euro10);
         ten.setOnClickListener(this);
 
-        twenty = findViewById(R.id.euro20);
+        ImageButton twenty = view.findViewById(R.id.euro20);
         twenty.setOnClickListener(this);
 
-        fifty = findViewById(R.id.euro50);
+        ImageButton fifty = view.findViewById(R.id.euro50);
         fifty.setOnClickListener(this);
 
-        confirm = findViewById(R.id.Confirm);
+        ImageButton confirm = view.findViewById(R.id.Confirm);
         confirm.setOnClickListener(this);
 
-        wallet = findViewById(R.id.wallet);
+        ImageButton wallet = view.findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
 
+        return view;
     }
 
     @Override

@@ -44,5 +44,28 @@ public class Notes extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
+        switch (v.getId())
+        {
+            //€50 pressed
+            case R.id.euro50:
+                break;
+
+            //€20 pressed
+            case R.id.euro20:
+                break;
+
+            //€10 pressed
+            case R.id.euro10:
+                break;
+
+            //€5 pressed
+            case R.id.euro5:
+                break;
+
+            //Wallet pressed
+            case R.id.wallet:
+                break;
+        }
+
     }
 }

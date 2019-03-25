@@ -34,6 +34,9 @@ public class Coins extends Fragment implements View.OnClickListener {
         ImageButton ten = view.findViewById(R.id.ten_cent);
         ten.setOnClickListener(this);
 
+        ImageButton five = view.findViewById(R.id.five_cent);
+        five.setOnClickListener(this);
+
         ImageButton confirm = view.findViewById(R.id.Confirm);
         confirm.setOnClickListener(this);
 
@@ -45,6 +48,36 @@ public class Coins extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        
+
+        switch (v.getId())
+        {
+            //€2 Pressed
+            case R.id.two_euro:
+                break;
+
+            //€1 pressed
+            case R.id.one_euro:
+                break;
+
+            //50c pressed
+            case R.id.fifty_cent:
+                break;
+
+            //20c pressed
+            case R.id.twenty_cent:
+                break;
+
+            //10c pressed
+            case R.id.ten_cent:
+                break;
+
+            //5c  pressed
+            case R.id.five_cent:
+                break;
+
+            //Wallet pressed
+            case R.id.wallet:
+                break;
+        }
     }
 }

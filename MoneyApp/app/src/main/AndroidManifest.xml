@@ -20,7 +20,7 @@
         <activity android:name=".EditWallet" />
         <activity android:name=".history" />
         <activity android:name=".camera" />
-        <activity android:name=".PreviousTransactions"></activity>
+        <activity android:name=".PreviousTransactions" />
     </application>
 
 </manifest>

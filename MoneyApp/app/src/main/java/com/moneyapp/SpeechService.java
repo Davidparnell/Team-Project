@@ -11,8 +11,15 @@ import java.util.Locale;
 
 public class SpeechService extends Service implements TextToSpeech.OnInitListener
 {
-    private String textData;
     private TextToSpeech textToSpeech;
+    String textData;
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId)
+    {
+        textData = intent.getStringExtra("textData");
+        return super.onStartCommand(intent, flags, startId);
+    }
 
     public void onCreate()
     {

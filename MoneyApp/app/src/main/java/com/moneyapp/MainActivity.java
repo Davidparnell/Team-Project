@@ -58,13 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
 
-        else if(v == (View) BtnWallT2S)
+        else if(v == BtnWallT2S)
         {
+            String walletText = "Wallet";
             //Text to speech for wallet, Toast for now
             Toast.makeText(getApplicationContext(),"--- Wallet ---",
                     Toast.LENGTH_SHORT).show();
-            getApplicationContext().startService(new Intent(getApplicationContext(),
-                    SpeechService.class));
+            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+            speechIntent.putExtra("textData", walletText);
+            getApplicationContext().startService(speechIntent);
         }
 
         else if(v == (View) BtnBalT2S)

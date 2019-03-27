@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton five, ten, twenty, fifty, confirm, wallet, NoteCoin;
+    ImageButton five, ten, twenty, fifty, confirm, wallet, Notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
 
-        NoteCoin = findViewById(R.id.CoinBtn);
+        Notes = findViewById(R.id.CoinBtn);
 
 
     }
@@ -70,23 +70,11 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
-        else if (v == (View) NoteCoin)
+        else if (v == (View) Notes)
         {
-            SwitchDenominations(v);
+            Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
+            startActivity(intent);
         }
     }
-
-    public void SwitchDenominations(View v)
-    {
-
-    }
-
-    public void MoneyButtons(View v)
-    {
-
-    }
-
-
-
 
 }

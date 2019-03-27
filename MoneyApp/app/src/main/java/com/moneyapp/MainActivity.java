@@ -11,14 +11,17 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    ImageButton BtnWallet,BtnCamera;
+    ImageButton BtnHist, BtnWallet,BtnCamera;
     ImageView BtnCamT2S, BtnWallT2S, BtnBalT2S;
-    TextView WalletText, Balance, CameraText, CurrentBal;
+    TextView Balance, CurrentBal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        BtnHist = findViewById(R.id.History);
+        BtnHist.setOnClickListener(this);
 
         BtnWallet = findViewById(R.id.Wallet);
         BtnWallet.setOnClickListener(this);
@@ -35,9 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BtnBalT2S = findViewById(R.id.BalanceT2S);
         BtnBalT2S.setOnClickListener(this);
 
-        WalletText = findViewById(R.id.WalletText);
         Balance = findViewById(R.id.Balance);
-        CameraText = findViewById(R.id.cameraText);
         CurrentBal = findViewById(R.id.cbalanceText);
     }
 
@@ -45,7 +46,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Functions after a button is pressed
     public void onClick(View v)
     {
-        if (v == (View) BtnWallet)
+
+        if(v == (View) BtnHist)
+        {
+            Intent intent = new Intent(getApplicationContext(), history.class);
+            startActivity(intent);
+        }
+
+        else if (v == (View) BtnWallet)
         {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             startActivity(intent);

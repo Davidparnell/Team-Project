@@ -6,6 +6,7 @@
     <string name="T2SWallet">Text to Speech for Wallet</string>
     <string name="T2SCamera">Text to Speech for Wallet</string>
     <string name="TS2Balance">Text to Speech for Balance</string>
+    <string name="History">Previous Transactions</string>
     <string name="edit">edit</string>
     <string name="confirm">confirm</string>
     <string name="T2SEdit">T2SEdit</string>
@@ -27,6 +28,7 @@
     <string name="Change2Note">Change to Notes</string>
     <string name="ColourBlindSet">Colour-blind Mode</string>
     <string name="ColourBlindSwtch">Off</string>
-    <string name="DragDropTxt">Toggle Drag and Drop</string>
-    <string name="DragDropSwtch">Off</string>
+    <string name="Balance">Balance </string>
+    <string name="ConfWallet">Confirm Wallet Contents</string>
+    <string name="CancelWallet">Cancel Wallet Contents</string>
 </resources>

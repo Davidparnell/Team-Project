@@ -1,14 +1,13 @@
 package com.moneyapp.db;
 
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "wallet")
-public class Wallet {//--------attributes---------
+public class Wallet {
+    //--------Attributes---------
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "date")
@@ -57,10 +56,17 @@ public class Wallet {//--------attributes---------
 	@ColumnInfo(name = "receipt")
     private String receipt;
 
-    public Wallet() {
-    }
+	//General Setters
+    public void setWalletOptions(String date, float balance, int register, String location, String receipt)
+    {this.date = date; this.balance = balance; this.register = register;  this.location = location; this.receipt =  receipt; };
 
-    //-------functions----------
+    public void setNotes(int Note50, int Note20, int Note10, int Note5)
+    {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
+
+    public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
+    {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
+
+    //-------Getters and Setters----------
     @NonNull
     public String getDate() {return date;}
 
@@ -98,6 +104,22 @@ public class Wallet {//--------attributes---------
 
     public void setCoin1e(int coin1e) {this.coin1e = coin1e;}
 
+    public int getCoin50c() {return coin50c;}
+
+    public void setCoin50c(int coin50c) {this.coin50c = coin50c;}
+
+    public int getCoin20c() {return coin20c;}
+
+    public void setCoin20c(int coin20c) {this.coin20c = coin20c;}
+
+    public int getCoin10c() {return coin10c;}
+
+    public void setCoin10c(int coin10c) {this.coin10c = coin10c;}
+
+    public int getCoin5c() {return coin5c;}
+
+    public void setCoin5c(int coin5c) {this.coin5c = coin5c;}
+
 	public String getLocation() {return location;}
 
     public void setLocation(String location) {this.location = location;}
@@ -105,15 +127,6 @@ public class Wallet {//--------attributes---------
 	public String getReceipt() {return receipt;}
 
     public void setReceipt(String receipt) {this.receipt = receipt;}
-
-    public void setWalletOptions(String date, float balance, int register, String location, String receipt)
-    {this.date = date; this.balance = balance; this.register = register;  this.location = location; this.receipt =  receipt; };
-
-    public void setNotes(int Note50, int Note20, int Note10, int Note5)
-    {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
-
-    public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
-    {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
 
     public String toString(){return date+" "+balance+" "+location+" "+register+" "+receipt+" "+note5+"\n";}
 }

@@ -20,7 +20,7 @@ public interface WalletDAO {
     void deleteAll();
 
     @Insert
-    void insert(Wallet... wallet);
+    void insert(Wallet wallet);
 
     @Delete
     void delete(Wallet wallet);

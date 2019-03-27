@@ -10,9 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class Coins extends Fragment implements View.OnClickListener {
+
+    public static final String TAG = "Coins";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,30 +57,37 @@ public class Coins extends Fragment implements View.OnClickListener {
         {
             //€2 Pressed
             case R.id.two_euro:
+                Toast.makeText(getActivity().getApplicationContext(),"€2 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //€1 pressed
             case R.id.one_euro:
+                Toast.makeText(getActivity().getApplicationContext(),"€1 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //50c pressed
             case R.id.fifty_cent:
+                Toast.makeText(getActivity().getApplicationContext(),"50 cent Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //20c pressed
             case R.id.twenty_cent:
+                Toast.makeText(getActivity().getApplicationContext(),"20 cent Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //10c pressed
             case R.id.ten_cent:
+                Toast.makeText(getActivity().getApplicationContext(),"10 cent Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //5c  pressed
             case R.id.five_cent:
+                Toast.makeText(getActivity().getApplicationContext(),"5 cent Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //Wallet pressed
             case R.id.wallet:
+                Toast.makeText(getActivity().getApplicationContext(),"Wallet pressed",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

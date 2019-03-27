@@ -1,8 +1,9 @@
 package com.moneyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,10 +11,15 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton Coins, Notes;
+
+    private FragmentStatePagerAdapter pagerAdapter;
+    private ViewPager page;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +32,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         Coins = findViewById(R.id.CoinButton);
         Coins.setOnClickListener(this);
 
+        page = findViewById(R.id.MoneyMenu);
     }
 
     @Override

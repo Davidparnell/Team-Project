@@ -32,9 +32,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/coinbtn" />
 
-    <fragment
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/MoneyMenu"
-        android:name="com.moneyapp.Notes"
         android:layout_width="378dp"
         android:layout_height="500dp"
         android:layout_marginStart="16dp"

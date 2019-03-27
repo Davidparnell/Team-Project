@@ -10,9 +10,12 @@ import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+import android.app.Activity;
 
 public class Notes extends Fragment implements View.OnClickListener{
 
+    public static final String TAG = "Notes";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,24 +49,30 @@ public class Notes extends Fragment implements View.OnClickListener{
 
         switch (v.getId())
         {
+
             //€50 pressed
             case R.id.euro50:
+                Toast.makeText(getActivity().getApplicationContext(),"€50 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //€20 pressed
             case R.id.euro20:
+                Toast.makeText(getActivity().getApplicationContext(),"€20 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //€10 pressed
             case R.id.euro10:
+                Toast.makeText(getActivity().getApplicationContext(),"€10 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //€5 pressed
             case R.id.euro5:
+                Toast.makeText(getActivity().getApplicationContext(),"€5 Added",Toast.LENGTH_SHORT).show();
                 break;
 
             //Wallet pressed
             case R.id.wallet:
+                Toast.makeText(getActivity().getApplicationContext(),"Open Wallet",Toast.LENGTH_SHORT).show();
                 break;
         }
 

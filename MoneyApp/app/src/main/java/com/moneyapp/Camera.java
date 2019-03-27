@@ -2,6 +2,7 @@ package com.moneyapp;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -20,17 +21,16 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 public class Camera extends AppCompatActivity {
-
     private TextRecognizer textRecognizer;
-    private static final int requestPermissionID = 101;
+    private static final int requestID = 1;
     SurfaceView cameraSurface;
-    TextView cameraText;
     CameraSource cameraSource;
-    public int detNum;
+    public int maxDetections;
     public HashMap<String, Integer> regList = new HashMap<String, Integer>();
     public String register = "";
 
@@ -40,7 +40,6 @@ public class Camera extends AppCompatActivity {
         setContentView(R.layout.camera);
 
         cameraSurface = findViewById(R.id.cameraSurface);
-        cameraText = findViewById(R.id.cameraText);
 
         cameraSource();
     }
@@ -48,10 +47,10 @@ public class Camera extends AppCompatActivity {
     private void cameraSource() {
         textRecognizer = new TextRecognizer.Builder(this).build();
         if (!textRecognizer.isOperational()) {
-            //Log.d("CAM", "Dependencies are downloading....try after few moment");
             return;
         }
 
+        //Setting up camera
         cameraSource = new CameraSource.Builder(this, textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
                 .setRequestedPreviewSize(1280, 1024)
@@ -59,17 +58,18 @@ public class Camera extends AppCompatActivity {
                 .setRequestedFps(2.0f)
                 .build();
 
+        //Camera permissions
         cameraSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
-            //@RequiresApi(api = Build.VERSION_CODES.M)
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 
+                        //If no permission found
                         ActivityCompat.requestPermissions(Camera.this,
                                 new String[]{Manifest.permission.CAMERA},
-                                requestPermissionID);
+                                requestID);
                         return;
                     }
                     cameraSource.start(cameraSurface.getHolder());
@@ -86,6 +86,7 @@ public class Camera extends AppCompatActivity {
             };
         });
 
+        //Text processing
         textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
             public void release(){}
 
@@ -101,23 +102,26 @@ public class Camera extends AppCompatActivity {
                     }
                     String block = stringBuilder.toString();
 
-                    Pattern pattern = Pattern.compile("(\\d{1,3}\\.\\d{2}|\\d{1,3}\\,\\d{2})");
-                    Matcher matcher = pattern.matcher(block);
+                    //Looking for a number in pattern 000.00 or 000-00
+                    Pattern pattern = Pattern.compile("(\\d{1,3}\\.\\d{2}|\\d{1,3}\\-\\d{2})");
+                    Matcher matcher = pattern.matcher(stringBuilder);
 
                     if(matcher.find()){
-                        String group = matcher.group(1).replace(",", ".");
+                        String group = matcher.group(1).replace("-", ".");
 
-                        if(detNum < 10){
+                        //Add numbers to frequency map
+                        if(maxDetections < 5){
                             if(regList.get(group) == null) {
                                 regList.put(group, 1);
                             }
                             else{
                                 regList.put(group, regList.get(group)+1);
                             }
-                            detNum++;
+                            maxDetections++;
                         }
-                        else{//exit
-                            detNum = 0;
+                        else{
+                            //check when enough scans have been made
+                            maxDetections = 0;
                             int i = 0;
                             //find most frequent
                             for(Map.Entry<String, Integer> entry : regList.entrySet() ){
@@ -127,12 +131,12 @@ public class Camera extends AppCompatActivity {
                                 }
                             }
                             regList.clear();
-
+                            //minimal frequency allowed
                             if(i < 3){
                                 return;
                             }
                             else{
-                                finish();
+                                cameraSource.stop();
                             }
                         }
 

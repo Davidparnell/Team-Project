@@ -1,6 +1,8 @@
 package com.moneyapp;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,7 +10,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -22,17 +24,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
-public class Camera extends AppCompatActivity {
+public class Camera extends AppCompatActivity implements regConfirm.OnConfirmListener{
     private TextRecognizer textRecognizer;
     private static final int requestID = 1;
     SurfaceView cameraSurface;
     CameraSource cameraSource;
-    public int maxDetections;
+    public int scanCounter;
     public HashMap<String, Integer> regList = new HashMap<String, Integer>();
     public String register = "";
+    DialogFragment confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +52,7 @@ public class Camera extends AppCompatActivity {
 
     private void cameraSource() {
         textRecognizer = new TextRecognizer.Builder(this).build();
-        if (!textRecognizer.isOperational()) {
-            return;
-        }
+        if(!textRecognizer.isOperational()) { return; }
 
         //Setting up camera
         cameraSource = new CameraSource.Builder(this, textRecognizer)
@@ -58,8 +62,8 @@ public class Camera extends AppCompatActivity {
                 .setRequestedFps(2.0f)
                 .build();
 
-        //Camera permissions
         cameraSurface.getHolder().addCallback(new SurfaceHolder.Callback() {
+            //Camera permissions
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
@@ -110,36 +114,42 @@ public class Camera extends AppCompatActivity {
                         String group = matcher.group(1).replace("-", ".");
 
                         //Add numbers to frequency map
-                        if(maxDetections < 5){
+                        if(scanCounter < 5){
                             if(regList.get(group) == null) {
                                 regList.put(group, 1);
                             }
                             else{
                                 regList.put(group, regList.get(group)+1);
                             }
-                            maxDetections++;
+                            scanCounter++;
                         }
                         else{
                             //check when enough scans have been made
-                            maxDetections = 0;
-                            int i = 0;
+                            scanCounter = 0;
+                            int highestFreq = 0;
                             //find most frequent
                             for(Map.Entry<String, Integer> entry : regList.entrySet() ){
-                                if(entry.getValue() >= i){
-                                    i = entry.getValue();
+                                if(entry.getValue() >= highestFreq){
+                                    highestFreq = entry.getValue();
                                     register = entry.getKey();
                                 }
                             }
                             regList.clear();
+                            
                             //minimal frequency allowed
-                            if(i < 3){
+                            if(highestFreq < 3){
                                 return;
                             }
                             else{
-                                cameraSource.stop();
+
+                                confirm = new regConfirm();
+                                Bundle data = new Bundle();
+                                data.putString("reg", register);
+                                confirm.setArguments(data);
+                                confirm.show(getSupportFragmentManager(), "confirm");
+
                             }
                         }
-
                         Log.d("REG", regList.toString());
                         Log.d("REG", register);
                     }
@@ -147,5 +157,22 @@ public class Camera extends AppCompatActivity {
             }
         });
     }
+
+    //Options from popup dialog
+    @Override
+    public void confirmOption(int del) {
+        if(del == 1){
+            Camera.this.finish();
+        }
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        if (fragment instanceof regConfirm) {
+            regConfirm confirmFragment = (regConfirm) fragment;
+            confirmFragment.setOnConfirmListener(this);
+        }
+    }
+
 }
 

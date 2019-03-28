@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Balance = findViewById(R.id.Balance);
         CameraText = findViewById(R.id.cameraText);
         CurrentBal = findViewById(R.id.cbalanceText);
+
+        //Testing
+        Balance.setText("30");
     }
 
     @Override
@@ -64,9 +67,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Text to speech for wallet, Toast for now
             Toast.makeText(getApplicationContext(),"--- Wallet ---",
                     Toast.LENGTH_SHORT).show();
+            //Intent for text to speech.
             Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+            //Pass data to be spoken to the SpeechService class.
             speechIntent.putExtra("textData", walletText);
+            //Start Text to speech.
             getApplicationContext().startService(speechIntent);
+
         }
 
         else if(v == (View) BtnBalT2S)
@@ -74,6 +81,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Text to speech for Balance, Toast for now
             Toast.makeText(getApplicationContext(),"--- €XX.XX ---",
                     Toast.LENGTH_SHORT).show();
+            //Intent for text to speech.
+            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+            //Pass data to be spoken to the SpeechService class.
+            speechIntent.putExtra("textData", Balance.getText());
+            //Start Text to speech.
+            getApplicationContext().startService(speechIntent);
         }
 
         else if(v == (View) BtnCamT2S)

@@ -13,11 +13,23 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
 {
     private TextToSpeech textToSpeech;
     String textData;
+    private Handler handler;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        //Get data from the class calling text to speech.
         textData = intent.getStringExtra("textData");
+
+        //Using handler to stop the service.
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                stopSelf();
+            }
+        }, 5000);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -25,7 +37,7 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
     {
         super.onCreate();
         textToSpeech = new TextToSpeech(getApplicationContext(), this);
-
+        handler = new Handler();
     }
 
     @Override

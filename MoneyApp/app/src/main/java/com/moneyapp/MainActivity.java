@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         else if(v == (View) BtnCamera)
         {
-            Intent intent = new Intent(getApplicationContext(), camera.class);
+            Intent intent = new Intent(getApplicationContext(), Camera.class);
             startActivity(intent);
         }
 

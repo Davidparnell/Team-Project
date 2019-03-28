@@ -20,7 +20,14 @@
         <activity android:name=".EditWallet" />
         <activity android:name=".history" />
         <activity android:name=".camera" />
-        <activity android:name=".PreviousTransactions"></activity>
+        <activity android:name=".PreviousTransactions"/>
+        <activity android:name=".Camera"/>
     </application>
+  
+  <uses-permission android:name="android.permission.CAMERA" />
+  
+  <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="ocr" />
 
 </manifest>

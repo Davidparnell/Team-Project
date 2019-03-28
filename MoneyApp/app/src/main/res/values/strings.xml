@@ -1,3 +1,34 @@
 <resources>
     <string name="app_name">Money App</string>
+    <string name="wallet">Wallet</string>
+    <string name="camera">Camera, Take Photo</string>
+    <string name="balance">Current Balance</string>
+    <string name="T2SWallet">Text to Speech for Wallet</string>
+    <string name="T2SCamera">Text to Speech for Wallet</string>
+    <string name="TS2Balance">Text to Speech for Balance</string>
+    <string name="History">Previous Transactions</string>
+    <string name="edit">edit</string>
+    <string name="confirm">confirm</string>
+    <string name="T2SEdit">T2SEdit</string>
+    <string name="add">add</string>
+    <string name="placeholderCamera">*Imagine Camera API here*</string>
+    <string name="Note5">Five Euro</string>
+    <string name="Note10">Ten Euro</string>
+    <string name="Note20">Twenty Euro</string>
+    <string name="Note50">Fifty Euro</string>
+    <string name="Note">Note</string>
+    <string name="Coin">Coin</string>
+    <string name="Coin1">One Euro</string>
+    <string name="Coin2">Two Euro</string>
+    <string name="Coin50">Fifty Cent</string>
+    <string name="Coin20">Twenty Cent</string>
+    <string name="Coin10">Ten Cent</string>
+    <string name="Coin5">Five Cent</string>
+    <string name="Change2Coin">Change to Coins</string>
+    <string name="Change2Note">Change to Notes</string>
+    <string name="ColourBlindSet">Colour-blind Mode</string>
+    <string name="ColourBlindSwtch">Off</string>
+    <string name="Balance">Balance </string>
+    <string name="ConfWallet">Confirm Wallet Contents</string>
+    <string name="CancelWallet">Cancel Wallet Contents</string>
 </resources>

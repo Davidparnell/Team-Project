@@ -16,12 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Wallet" />
+        <activity android:name=".EditWallet" />
+        <activity android:name=".history" />
+        <activity android:name=".camera" />
+        <activity android:name=".PreviousTransactions"/>
         <activity android:name=".Camera"/>
     </application>
-
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <meta-data
+  
+  <uses-permission android:name="android.permission.CAMERA" />
+  
+  <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
         android:value="ocr" />
 

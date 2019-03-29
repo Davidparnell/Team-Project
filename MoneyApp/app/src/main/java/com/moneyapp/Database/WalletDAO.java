@@ -1,4 +1,4 @@
-package com.moneyapp.db;
+package com.moneyapp.Database;
 
 import java.util.List;
 
@@ -11,20 +11,20 @@ import androidx.room.Update;
 @Dao
 public interface WalletDAO {
     @Query("SELECT * FROM wallet Order BY date DESC")
-    List<Wallet> getWalletHistory();
+    List<WalletData> getWalletHistory();
 
     @Query("SELECT * FROM wallet ORDER BY date DESC LIMIT 1")
-    Wallet getRecentWallet();
+    WalletData getRecentWallet();
 
     @Query("DELETE FROM wallet")
     void deleteAll();
 
     @Insert
-    void insert(Wallet wallet);
+    void insert(WalletData walletData);
 
     @Delete
-    void delete(Wallet wallet);
+    void delete(WalletData walletData);
 
     @Update
-    void update(Wallet wallet);
+    void update(WalletData walletData);
 }

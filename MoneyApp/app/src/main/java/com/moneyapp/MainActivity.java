@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.os.Bundle;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
-import com.moneyapp.db.WalletDAO;
-import com.moneyapp.db.Wallet;
+import com.moneyapp.Database.WalletDAO;
+import com.moneyapp.Database.WalletData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -24,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Database object
-		com.moneyapp.db.AppDatabase database = Room.databaseBuilder(this, com.moneyapp.db.AppDatabase.class, "wallet")
+		com.moneyapp.Database.AppDatabase database = Room.databaseBuilder(this, com.moneyapp.Database.AppDatabase.class, "wallet")
                 .allowMainThreadQueries()
                 .build();
 
@@ -36,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Testing
         //walletDAO.deleteAll();
-		Wallet wallet = new Wallet();
-		wallet.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
-		wallet.setNotes(0, 0, 1, 0);
-		wallet.setCoins(1,0,0,0,0,0);
-		walletDAO.insert(wallet);
+		WalletData walletData = new WalletData();
+		walletData.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
+		walletData.setNotes(0, 0, 1, 0);
+		walletData.setCoins(1,0,0,0,0,0);
+		walletDAO.insert(walletData);
 
 		Log.d("WAL", walletDAO.getRecentWallet().toString());
         Log.d("WAL", walletDAO.getWalletHistory().toString());

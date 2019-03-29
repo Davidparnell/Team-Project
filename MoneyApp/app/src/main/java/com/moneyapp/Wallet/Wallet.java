@@ -67,12 +67,13 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             startActivity(intent);
         } else if (v == (View) confirm) {
-            //Upon Confirmation Return to hom
+            //Upon Confirmation Return to home
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
         else if (v == (View) coins)
         {
+            //Change to coins
             Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
             startActivity(intent);
         }

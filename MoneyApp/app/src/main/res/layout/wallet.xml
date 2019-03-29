@@ -24,22 +24,23 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wallet"
+        app:layout_constraintVertical_bias="0.066"
         tools:src="@drawable/check" />
 
 
     <ImageButton
         android:id="@+id/wallet"
         android:layout_width="wrap_content"
-        android:layout_height="179dp"
-        android:layout_marginTop="128dp"
+        android:layout_height="127dp"
+        android:layout_marginTop="116dp"
         android:background="@drawable/open_wallet2"
         android:contentDescription="@string/wallet"
         android:src="@drawable/open_wallet2"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/euro10" />
 
@@ -48,7 +49,7 @@
         android:layout_width="160dp"
         android:layout_height="118dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/fifty_euro"
         android:contentDescription="@string/Note50"
         android:visibility="visible"
@@ -59,7 +60,7 @@
         android:id="@+id/euro20"
         android:layout_width="160dp"
         android:layout_height="118dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/twenty_euro"
         android:contentDescription="@string/Note20"
@@ -97,12 +98,14 @@
         android:id="@+id/CoinBtn"
         android:layout_width="99dp"
         android:layout_height="88dp"
+        android:layout_marginStart="156dp"
         android:layout_marginTop="23dp"
         android:layout_marginEnd="156dp"
         android:layout_marginBottom="17dp"
         android:contentDescription="@string/Change2Coin"
         app:layout_constraintBottom_toTopOf="@+id/wallet"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/euro10"
         app:srcCompat="@drawable/coinbtn" />
 

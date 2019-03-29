@@ -1,6 +1,7 @@
 package com.moneyapp.Transaction;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
     public HashMap<String, Integer> regList = new HashMap<String, Integer>();
     public String register = "";
     DialogFragment confirm;
+	private final int maxScans = 5; //number of scans to check accuracy
+	private final int minFreq = 3;  //minimum frequency to accept result is a ratio of maxScans eg.5:3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +114,7 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
                         String group = matcher.group(1).replace("-", ".");
 
                         //Add numbers to frequency map
-                        if(scanCounter < 5){
+                        if(scanCounter < maxScans){
                             if(regList.get(group) == null) {
                                 regList.put(group, 1);
                             }
@@ -134,7 +137,7 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
                             regList.clear();
                             
                             //minimal frequency allowed
-                            if(highestFreq < 3){
+                            if(highestFreq < minFreq){
                                 return;
                             }
                             else{
@@ -159,7 +162,10 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
     @Override
     public void confirmOption(int del) {
         if(del == 1){
-            Camera.this.finish();
+			Intent intent = new Intent(Camera.this, PaySuggestion.class);
+			intent.putExtra("register", register);
+			startActivity(intent);
+            //Camera.this.finish();
         }
     }
 

@@ -60,11 +60,13 @@ public class WalletData {
     public void setWalletOptions(String date, float balance, int register, String location, String receipt)
     {this.date = date; this.balance = balance; this.register = register;  this.location = location; this.receipt =  receipt; };
 
-    public void setNotes(int Note50, int Note20, int Note10, int Note5)
+    public void setNotes(int note50, int note20, int note10, int note5)
     {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
 
     public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
     {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
+
+    //public String[] getNotes(){ return notes[note50, note20]; }
 
     //-------Getters and Setters----------
     @NonNull

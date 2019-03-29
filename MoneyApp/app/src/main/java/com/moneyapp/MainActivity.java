@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
-import com.moneyapp.Transaction.PaySuggestion;
 import com.moneyapp.Wallet.Wallet;
 import android.util.Log;
 
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageButton BtnHist, BtnWallet,BtnCamera;
     ImageView BtnCamT2S, BtnWallT2S, BtnBalT2S;
-    TextView Balance, CurrentBal;
+    TextView Balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

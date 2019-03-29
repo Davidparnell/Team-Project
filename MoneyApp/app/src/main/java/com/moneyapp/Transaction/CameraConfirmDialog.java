@@ -1,14 +1,16 @@
-package com.moneyapp;
+package com.moneyapp.Transaction;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.moneyapp.Transaction.Camera;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-public class regConfirm extends DialogFragment {
+public class CameraConfirmDialog extends DialogFragment {
     OnConfirmListener callback;
 
     public void setOnConfirmListener(Camera activity) {

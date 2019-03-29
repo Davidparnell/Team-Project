@@ -1,8 +1,6 @@
-package com.moneyapp;
+package com.moneyapp.Transaction;
 
 import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,12 +8,12 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.widget.EditText;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.moneyapp.R;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,13 +22,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class Camera extends AppCompatActivity implements regConfirm.OnConfirmListener{
+public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnConfirmListener {
     private TextRecognizer textRecognizer;
     private static final int requestID = 1;
     SurfaceView cameraSurface;
@@ -43,7 +40,7 @@ public class Camera extends AppCompatActivity implements regConfirm.OnConfirmLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camera);
+        setContentView(R.layout.activity_camera);
 
         cameraSurface = findViewById(R.id.cameraSurface);
 
@@ -142,7 +139,7 @@ public class Camera extends AppCompatActivity implements regConfirm.OnConfirmLis
                             }
                             else{
 
-                                confirm = new regConfirm();
+                                confirm = new CameraConfirmDialog();
                                 Bundle data = new Bundle();
                                 data.putString("reg", register);
                                 confirm.setArguments(data);
@@ -168,8 +165,8 @@ public class Camera extends AppCompatActivity implements regConfirm.OnConfirmLis
 
     @Override
     public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof regConfirm) {
-            regConfirm confirmFragment = (regConfirm) fragment;
+        if (fragment instanceof CameraConfirmDialog) {
+            CameraConfirmDialog confirmFragment = (CameraConfirmDialog) fragment;
             confirmFragment.setOnConfirmListener(this);
         }
     }

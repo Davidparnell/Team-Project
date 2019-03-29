@@ -9,7 +9,6 @@
     android:gravity ="center"
     >
 
-
     <ImageButton
         android:id="@+id/Confirm"
         android:layout_width="191dp"

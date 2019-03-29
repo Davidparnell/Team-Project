@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.moneyapp.Transaction.Camera;
+import com.moneyapp.Wallet.Wallet;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     ImageButton BtnHist, BtnWallet,BtnCamera;
@@ -46,10 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Functions after a button is pressed
     public void onClick(View v)
     {
-
         if(v == (View) BtnHist)
         {
-            Intent intent = new Intent(getApplicationContext(), history.class);
+            Intent intent = new Intent(getApplicationContext(), History.class);
             startActivity(intent);
         }
 

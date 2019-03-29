@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class WalletCoins extends AppCompatActivity implements View.OnClickListener {
 
 
-    ImageButton two_euro, one_euro, fifty_cent, twenty_cent, ten_cent, five_cent, confirm, wallet, Coins;
+    ImageButton two_euro, one_euro, fifty_cent, twenty_cent, ten_cent, five_cent, confirm, wallet, Notes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,8 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
 
-        Coins = findViewById(R.id.NoteBtn);
-        Coins.setOnClickListener(this);
+        Notes = findViewById(R.id.NoteBtn);
+        Notes.setOnClickListener(this);
     }
 
     @Override
@@ -88,9 +88,9 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
-        else if (v == (View) Coins)
+        else if (v == (View) Notes)
         {
-            Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
+            Intent intent = new Intent(getApplicationContext(), Wallet.class);
             startActivity(intent);
         }
     }

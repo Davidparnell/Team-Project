@@ -1,17 +1,14 @@
 package com.moneyapp.Transaction;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Database.WalletDAO;
 import com.moneyapp.Database.WalletData;
 import com.moneyapp.R;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -30,15 +27,27 @@ public class PaySuggestion extends AppCompatActivity {
                 .build();
 
         WalletDAO walletDAO = database.getWalletDAO();
-        //Date formatting
-        Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
 
-        //Testing
-        //walletDAO.deleteAll();
         WalletData walletData = walletDAO.getRecentWallet();
-        //walletData
+        Intent intent = getIntent();
+        float register = Float.parseFloat(intent.getStringExtra("register"));
+        int notes[] = generateSuggestion(register, walletData.getNotes());
+    }
 
+    public int[] generateSuggestion(float register, int[] notes){
+        int rReg = (int)5*(Math.round(register/5));
+        //ideal path
+
+
+        while(rReg != 0){
+            if(rReg >= 50){
+                if(notes[0] > 0){
+
+                }
+            }
+        }
+
+        Log.d("REG", String.valueOf(rReg));
+        return notes;
     }
 }

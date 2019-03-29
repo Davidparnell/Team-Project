@@ -20,7 +20,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet);
 
-        /*five = findViewById(R.id.euro5);
+        five = findViewById(R.id.euro5);
         five.setOnClickListener(this);
 
         ten = findViewById(R.id.euro10);
@@ -39,7 +39,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         wallet.setOnClickListener(this);
 
         coins = findViewById(R.id.CoinBtn);
-        coins.setOnClickListener(this);*/
+        coins.setOnClickListener(this);
     }
 
     @Override

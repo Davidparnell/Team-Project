@@ -66,7 +66,9 @@ public class WalletData {
     public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
     {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
 
-    //public String[] getNotes(){ return notes[note50, note20]; }
+    public int[] getNotes(){ return new int[]{note50, note20, note10, note5}; }
+
+    public int[] getCoins(){ return new int[]{coin2e, coin1e, coin50c, coin20c, coin10c, coin5c}; }
 
     //-------Getters and Setters----------
     @NonNull

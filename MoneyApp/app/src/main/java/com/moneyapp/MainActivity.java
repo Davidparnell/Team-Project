@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
+import com.moneyapp.Transaction.PaySuggestion;
 import com.moneyapp.Wallet.Wallet;
 import android.util.Log;
 
@@ -70,14 +71,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Testing
         //walletDAO.deleteAll();
-		WalletData walletData = new WalletData();
+		/*WalletData walletData = new WalletData();
 		walletData.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
 		walletData.setNotes(0, 0, 1, 0);
 		walletData.setCoins(1,0,0,0,0,0);
 		walletDAO.insert(walletData);
 
 		Log.d("WAL", walletDAO.getRecentWallet().toString());
-        Log.d("WAL", walletDAO.getWalletHistory().toString());
+        Log.d("WAL", walletDAO.getWalletHistory().toString());*/
     }
 
     @Override
@@ -98,7 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         else if(v == (View) BtnCamera)
         {
+            //Intent intent = new Intent(getApplicationContext(), Camera.class);
+            //startActivity(intent);
             Intent intent = new Intent(getApplicationContext(), Camera.class);
+            //intent.putExtra("register", "53.50");
             startActivity(intent);
         }
 

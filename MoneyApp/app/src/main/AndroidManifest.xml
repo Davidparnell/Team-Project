@@ -19,9 +19,9 @@
         <activity android:name=".Wallet.Wallet" />
         <activity android:name=".Wallet.EditWallet" />
         <activity android:name=".History" />
-        <activity android:name=".camera" />
         <activity android:name=".PreviousTransactions"/>
         <activity android:name=".Transaction.Camera"/>
+        <activity android:name=".Transaction.PaySuggestion" />
     </application>
   
   <uses-permission android:name="android.permission.CAMERA" />

@@ -1,6 +1,8 @@
 package com.moneyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+
 import android.os.Bundle;
 
 import android.view.View;
@@ -10,12 +12,18 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
 import com.moneyapp.Wallet.Wallet;
 import android.util.Log;
 
 import com.moneyapp.Database.WalletDAO;
 import com.moneyapp.Database.WalletData;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Database object
+        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "wallet")
+                .allowMainThreadQueries()
+                .build();
 
         BtnHist = findViewById(R.id.History);
         BtnHist.setOnClickListener(this);
@@ -48,11 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Balance = findViewById(R.id.Balance);
         CurrentBal = findViewById(R.id.cbalanceText);
-		
-		//Database object
-		com.moneyapp.Database.AppDatabase database = Room.databaseBuilder(this, com.moneyapp.Database.AppDatabase.class, "wallet")
-                .allowMainThreadQueries()
-                .build();
 
 		WalletDAO walletDAO = database.getWalletDAO();
         //Date formatting

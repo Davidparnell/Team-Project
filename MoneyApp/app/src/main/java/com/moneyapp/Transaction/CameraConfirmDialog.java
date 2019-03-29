@@ -3,7 +3,9 @@ package com.moneyapp.Transaction;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.moneyapp.Transaction.Camera;
 
@@ -37,5 +39,15 @@ public class CameraConfirmDialog extends DialogFragment {
                     }
                 });
         return builder.create();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.RED);
+        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(25);
+        ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE).setTextSize(25);
+
     }
 }

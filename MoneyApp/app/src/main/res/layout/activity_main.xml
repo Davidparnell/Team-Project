@@ -100,21 +100,6 @@
         app:layout_constraintTop_toBottomOf="@+id/Camera"
         app:srcCompat="@drawable/text2speech" />
 
-    <TextView
-        android:id="@+id/cbalanceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/balance"
-        android:textColor="#cc0000"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.474"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/History"
         android:layout_width="86dp"

@@ -36,7 +36,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         ten_cent = findViewById(R.id.ten_cent);
         ten_cent.setOnClickListener(this);
 
-        five_cent =  findViewById(R.id.fifty_cent);
+        five_cent =  findViewById(R.id.five_cent);
         five_cent.setOnClickListener(this);
 
         confirm = findViewById(R.id.Confirm);

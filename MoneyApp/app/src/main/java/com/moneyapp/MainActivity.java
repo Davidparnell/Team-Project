@@ -61,27 +61,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BtnBalT2S.setOnClickListener(this);
 
         Balance = findViewById(R.id.Balance);
-        CurrentBal = findViewById(R.id.cbalanceText);
 
-		WalletDAO walletDAO = database.getWalletDAO();
+        WalletDAO walletDAO = database.getWalletDAO();
         //Date formatting
         Date date = Calendar.getInstance().getTime();;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
-        //Testing t2s
+        WalletData walletData = new WalletData();
+        walletData.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
+        walletData.setNotes(0, 0, 1, 0);
+        walletData.setCoins(1,0,0,0,0,0);
+        walletDAO.insert(walletData);
+        WalletData wallet = walletDAO.getRecentWallet();
+        Balance.setText(String.valueOf(wallet.getBalance()));
+        Balance.setTextSize(80);
 
-
-        //Testing
-        //walletDAO.deleteAll();
-		/*WalletData walletData = new WalletData();
-		walletData.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
-		walletData.setNotes(0, 0, 1, 0);
-		walletData.setCoins(1,0,0,0,0,0);
-		walletDAO.insert(walletData);
-
-		Log.d("WAL", walletDAO.getRecentWallet().toString());
-        Log.d("WAL", walletDAO.getWalletHistory().toString());*/
+        Log.d("WAL", walletDAO.getRecentWallet().toString());
+        Log.d("WAL", walletDAO.getWalletHistory().toString());
     }
 
     @Override

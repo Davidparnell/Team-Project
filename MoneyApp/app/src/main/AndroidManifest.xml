@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.moneyapp">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="ocr" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".SpeechService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,17 +29,11 @@
         </activity>
         <activity android:name=".Wallet.Wallet" />
         <activity android:name=".Wallet.EditWallet" />
-        <activity android:name=".Wallet.WalletCoins"/>
+        <activity android:name=".Wallet.WalletCoins" />
         <activity android:name=".History" />
-        <activity android:name=".PreviousTransactions"/>
-        <activity android:name=".Transaction.Camera"/>
+        <activity android:name=".PreviousTransactions" />
+        <activity android:name=".Transaction.Camera" />
         <activity android:name=".Transaction.PaySuggestion" />
     </application>
-  
-  <uses-permission android:name="android.permission.CAMERA" />
-  
-  <meta-data
-        android:name="com.google.android.gms.vision.DEPENDENCIES"
-        android:value="ocr" />
 
 </manifest>

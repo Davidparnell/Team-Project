@@ -5,30 +5,22 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.Locale;
 
 public class SpeechService extends Service implements TextToSpeech.OnInitListener
 {
     private TextToSpeech textToSpeech;
     String textData;
-    private Handler handler;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         //Get data from the class calling text to speech.
         textData = intent.getStringExtra("textData");
-
-        //Using handler to stop the service.
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run()
-            {
-                stopSelf();
-            }
-        }, 3000);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -37,7 +29,8 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
     {
         super.onCreate();
         textToSpeech = new TextToSpeech(getApplicationContext(), this);
-        handler = new Handler();
+        //OnUtteranceProgressListener to track speech progress.
+        textToSpeech.setOnUtteranceProgressListener(speechProgressListener);
     }
 
     @Override
@@ -58,7 +51,12 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
             }
             else
             {
-                textToSpeech.speak(textData, TextToSpeech.QUEUE_FLUSH, null);
+                //HashMap to store utterance id
+                HashMap<String, String> map = new HashMap<String, String>();
+                //Add Utterance id value.
+                map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "messageID");
+                //Start Speech
+                textToSpeech.speak(textData, TextToSpeech.QUEUE_FLUSH, map);
             }
         }
     }
@@ -74,8 +72,23 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
         super.onDestroy();
     }
 
-    public void onUtteranceCompleted(String uttID)
+    private UtteranceProgressListener speechProgressListener = new UtteranceProgressListener()
     {
-        stopSelf();
-    }
+        @Override
+        public void onStart(String utteranceId) {
+
+        }
+
+        @Override
+        public void onDone(String utteranceId)
+        {
+            stopSelf();
+        }
+
+        @Override
+        public void onError(String utteranceId) {
+
+        }
+    };
+
 }

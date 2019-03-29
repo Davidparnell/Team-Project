@@ -162,10 +162,10 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
     @Override
     public void confirmOption(int del) {
         if(del == 1){
-			Intent intent = new Intent(Camera.this, PaySuggestion.class);
+			/*Intent intent = new Intent(Camera.this, PaySuggestion.class);
 			intent.putExtra("register", register);
-			startActivity(intent);
-            //Camera.this.finish();
+			startActivity(intent);*/
+            Camera.this.finish();
         }
     }
 

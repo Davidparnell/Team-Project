@@ -25,10 +25,9 @@ import java.util.regex.Pattern;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
-public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnConfirmListener {
+
+public class Camera extends AppCompatActivity {
     private TextRecognizer textRecognizer;
     private static final int requestID = 1;
     SurfaceView cameraSurface;
@@ -36,7 +35,6 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
     public int scanCounter;
     public HashMap<String, Integer> regList = new HashMap<String, Integer>();
     public String register = "";
-    DialogFragment confirm;
 	private final int maxScans = 5; //number of scans to check accuracy
 	private final int minFreq = 3;  //minimum frequency to accept result is a ratio of maxScans eg.5:3
 
@@ -141,13 +139,9 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
                                 return;
                             }
                             else{
-
-                                confirm = new CameraConfirmDialog();
-                                Bundle data = new Bundle();
-                                data.putString("reg", register);
-                                confirm.setArguments(data);
-                                confirm.show(getSupportFragmentManager(), "confirm");
-
+                                Intent intent = new Intent(Camera.this, PaySuggestion.class);
+                                intent.putExtra("register", register);
+                                startActivity(intent);
                             }
                         }
                         Log.d("REG", regList.toString());
@@ -157,25 +151,5 @@ public class Camera extends AppCompatActivity implements CameraConfirmDialog.OnC
             }
         });
     }
-
-    //Options from popup dialog
-    @Override
-    public void confirmOption(int del) {
-        if(del == 1){
-			/*Intent intent = new Intent(Camera.this, PaySuggestion.class);
-			intent.putExtra("register", register);
-			startActivity(intent);*/
-            Camera.this.finish();
-        }
-    }
-
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        if (fragment instanceof CameraConfirmDialog) {
-            CameraConfirmDialog confirmFragment = (CameraConfirmDialog) fragment;
-            confirmFragment.setOnConfirmListener(this);
-        }
-    }
-
 }
 

@@ -31,7 +31,6 @@
         <activity android:name=".Wallet.EditWallet" />
         <activity android:name=".Wallet.WalletCoins" />
         <activity android:name=".History" />
-        <activity android:name=".PreviousTransactions" />
         <activity android:name=".Transaction.Camera" />
         <activity android:name=".Transaction.PaySuggestion" />
     </application>

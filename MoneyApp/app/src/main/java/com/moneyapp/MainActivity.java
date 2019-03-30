@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String strDate = dateFormat.format(date);
 
         WalletData walletData = new WalletData();
-        walletData.setWalletOptions(strDate, (float) 10.00, 10,"location1", "receipt1");
+        walletData.setWalletOptions(strDate, (float) 10.00, 10);
         walletData.setNotes(0, 0, 1, 0);
         walletData.setCoins(1,0,0,0,0,0);
         walletDAO.insert(walletData);

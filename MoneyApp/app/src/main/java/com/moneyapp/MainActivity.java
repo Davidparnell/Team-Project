@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //Database object
-        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "wallet")
+        AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
                 .allowMainThreadQueries()
                 .build();
 
@@ -60,24 +60,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BtnBalT2S.setOnClickListener(this);
 
         Balance = findViewById(R.id.Balance);
-
+        //Display balance
         WalletDAO walletDAO = database.getWalletDAO();
-        //Date formatting
-        Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-        String strDate = dateFormat.format(date);
-
-        WalletData walletData = new WalletData();
-        walletData.setWalletOptions(strDate, (float) 10.00, 10);
-        walletData.setNotes(0, 0, 1, 0);
-        walletData.setCoins(1,0,0,0,0,0);
-        walletDAO.insert(walletData);
         WalletData wallet = walletDAO.getRecentWallet();
-        Balance.setText(String.valueOf(wallet.getBalance()));
+        Balance.setText(String.format("%.02f", wallet.getBalance()));
         Balance.setTextSize(80);
 
-        Log.d("WAL", walletDAO.getRecentWallet().toString());
-        Log.d("WAL", walletDAO.getWalletHistory().toString());
+        //walletDAO.deleteAll();
+        //Date formatting
+        //Date date = Calendar.getInstance().getTime();;
+        //DateFormat dateFormat = new SimpleDateFormat("YYYY-MMMM-DD hh:mm:ss");
+        //String strDate = dateFormat.format(date);
+        //Log.d("HIS", String.valueOf(strDate));
+        //WalletData walletData = new WalletData();
+        //walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
+        //walletData.setNotes(0, 0, 1, 0);
+        //walletData.setCoins(1,0,0,0,0,0);
+        //walletDAO.insert(walletData);
     }
 
     @Override

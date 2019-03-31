@@ -18,7 +18,7 @@ public class WalletData {
     private float balance;
 	
 	@ColumnInfo(name = "register")
-    private int register;
+    private float register;
 	
 	@ColumnInfo(name = "note50")
     private int note50;
@@ -51,7 +51,7 @@ public class WalletData {
     private int coin5c;
 
     //General Setters
-    public void setWalletOptions(String date, float balance, int register)
+    public void setWalletOptions(String date, float balance, float register)
     {this.date = date; this.balance = balance; this.register = register;
     };
 
@@ -75,9 +75,9 @@ public class WalletData {
 
     public void setBalance(float balance) {this.balance = balance;}
 
-    public int getRegister() {return register;}
+    public float getRegister() {return register;}
 
-    public void setRegister(int register) {this.register = register;}
+    public void setRegister(float register) {this.register = register;}
 
     public int getNote50() {return note50;}
 

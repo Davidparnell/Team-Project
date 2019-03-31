@@ -22,9 +22,7 @@ public class PaySuggestion extends AppCompatActivity {
         setContentView(R.layout.activity_suggestion);
 
         //notes = findViewById(R.id.notes);
-        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "wallet")
-                .allowMainThreadQueries()
-                .build();
+        AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
         WalletDAO walletDAO = database.getWalletDAO();
 

@@ -42,12 +42,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .allowMainThreadQueries()
                 .build();
 
+        //Button for History
         BtnHist = findViewById(R.id.History);
         BtnHist.setOnClickListener(this);
 
+        //Button for Wallet
         BtnWallet = findViewById(R.id.Wallet);
         BtnWallet.setOnClickListener(this);
 
+        //Button for Camera so bill can be read in
         BtnCamera = findViewById(R.id.Camera);
         BtnCamera.setOnClickListener(this);
 
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         BtnCamT2S = findViewById(R.id.CameraT2S);
         BtnCamT2S.setOnClickListener(this);
 
+        //Text to Speech button  for Current Balance
         BtnBalT2S = findViewById(R.id.BalanceT2S);
         BtnBalT2S.setOnClickListener(this);
 
@@ -86,18 +90,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Functions after a button is pressed
     public void onClick(View v)
     {
+        //History Button pressed
         if(v == (View) BtnHist)
         {
             Intent intent = new Intent(getApplicationContext(), History.class);
             startActivity(intent);
         }
 
+        //Wallet button pressed
         else if (v == (View) BtnWallet)
         {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             startActivity(intent);
         }
 
+        //Camera Button Pressed
         else if(v == (View) BtnCamera)
         {
             //Intent intent = new Intent(getApplicationContext(), Camera.class);
@@ -106,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //intent.putExtra("register", "53.50");
             startActivity(intent);
         }
+
 
         else if(v == (View) BtnWallT2S)
         {
@@ -121,9 +129,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getApplicationContext().startService(speechIntent);
         }
 
+        //Balance Text to Speech pressed
         else if(v == (View) BtnBalT2S)
         {
-            //Text to speech for Balance, Toast for now
+            //Text to speech for Balance
             Toast.makeText(getApplicationContext(),"--- €XX.XX ---",
                     Toast.LENGTH_SHORT).show();
             //Intent for text to speech.

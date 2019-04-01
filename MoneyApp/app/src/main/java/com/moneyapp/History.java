@@ -18,8 +18,11 @@ public class History extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        //DB object
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
+        //DAO Object
         WalletDAO walletDAO = database.getWalletDAO();
+        //List to store wallet data
         List<WalletData> walletHistory = walletDAO.getWalletHistory();
 
         //test output to log, can be deleted and formatted later

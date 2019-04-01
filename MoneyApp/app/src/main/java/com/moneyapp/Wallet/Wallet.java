@@ -14,6 +14,7 @@ import com.moneyapp.Database.WalletData;
 import com.moneyapp.MainActivity;
 import com.moneyapp.R;
 
+
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton five, ten, twenty, fifty, confirm, wallet, coins;
@@ -53,6 +54,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             //Add 5 to wallet, for now toast
             Toast.makeText(getApplicationContext(), "--- 5 added ---",
                     Toast.LENGTH_SHORT).show();
+
         } else if (v == (View) ten) {
             //Add 10 to wallet, for now toast
             Toast.makeText(getApplicationContext(), "--- 10 added ---",

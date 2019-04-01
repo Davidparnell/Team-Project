@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Database object
         AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
 

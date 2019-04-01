@@ -3,6 +3,7 @@ package com.moneyapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import android.view.View;
@@ -26,7 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener
+{
 
     ImageButton BtnHist, BtnWallet,BtnCamera;
     ImageView BtnCamT2S, BtnWallT2S, BtnBalT2S;
@@ -39,33 +41,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Database object
         AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
-                .fallbackToDestructiveMigration()
+                //.fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
 
         //Button for History
         BtnHist = findViewById(R.id.History);
         BtnHist.setOnClickListener(this);
+        BtnHist.setOnLongClickListener(this);
 
         //Button for Wallet
         BtnWallet = findViewById(R.id.Wallet);
         BtnWallet.setOnClickListener(this);
+        BtnWallet.setOnLongClickListener(this);
 
         //Button for Camera so bill can be read in
         BtnCamera = findViewById(R.id.Camera);
         BtnCamera.setOnClickListener(this);
-
-        BtnWallT2S = findViewById(R.id.WalletT2S);
-        BtnWallT2S.setOnClickListener(this);
-
-        BtnCamT2S = findViewById(R.id.CameraT2S);
-        BtnCamT2S.setOnClickListener(this);
-
-        //Text to Speech button  for Current Balance
-        BtnBalT2S = findViewById(R.id.BalanceT2S);
-        BtnBalT2S.setOnClickListener(this);
+        BtnCamera.setOnLongClickListener(this);
 
         Balance = findViewById(R.id.Balance);
+        Balance.setOnLongClickListener(this);
         //Display balance
         WalletDAO walletDAO = database.getWalletDAO();
 
@@ -150,5 +146,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(getApplicationContext(),"--- Camera ---",
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.Balance:
+            {
+                //Intent for text to speech.
+                Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+                //Pass data to be spoken to the SpeechService class.
+                speechIntent.putExtra("textData", Balance.getText());
+                //Start Text to speech.
+                getApplicationContext().startService(speechIntent);
+                break;
+            }
+            case R.id.Wallet:
+            {
+                String buttoninfo = "wallet";
+                //Intent for text to speech.
+                Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+                //Pass data to be spoken to the SpeechService class.
+                speechIntent.putExtra("textData", buttoninfo);
+                //Start Text to speech.
+                getApplicationContext().startService(speechIntent);
+                break;
+            }
+            case R.id.Camera:
+            {
+                String buttoninfo = "camera";
+                //Intent for text to speech.
+                Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+                //Pass data to be spoken to the SpeechService class.
+                speechIntent.putExtra("textData", buttoninfo);
+                //Start Text to speech.
+                getApplicationContext().startService(speechIntent);
+                break;
+            }
+            case R.id.History:
+            {
+                String buttoninfo = "history";
+                //Intent for text to speech.
+                Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+                //Pass data to be spoken to the SpeechService class.
+                speechIntent.putExtra("textData", buttoninfo);
+                //Start Text to speech.
+                getApplicationContext().startService(speechIntent);
+                break;
+            }
+        }
+
+        return true;
     }
 }

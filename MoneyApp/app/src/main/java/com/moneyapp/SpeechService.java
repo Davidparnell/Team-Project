@@ -22,6 +22,17 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
         //Get data from the class calling text to speech.
         textData = intent.getStringExtra("textData");
 
+        //Formatting the text String for natural speech.
+        if(textData.contains(".00"))
+        {
+            textData = textData.replace(".00", " euro");
+        }
+        if(textData.contains("."))
+        {
+            textData = textData.replace(".", " euro");
+            textData = textData + " cent";
+        }
+
         return super.onStartCommand(intent, flags, startId);
     }
 

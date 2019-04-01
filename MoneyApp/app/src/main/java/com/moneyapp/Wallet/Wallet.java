@@ -38,9 +38,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         fifty = findViewById(R.id.euro50);
         fifty.setOnClickListener(this);
 
-        confirm = findViewById(R.id.Confirm);
-        confirm.setOnClickListener(this);
-
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
 
@@ -72,10 +69,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             //Open EditWallet Activity
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             //intent.putExtra("reg", );
-            startActivity(intent);
-        } else if (v == (View) confirm) {
-            //Upon Confirmation Return to home
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
         else if (v == (View) coins)

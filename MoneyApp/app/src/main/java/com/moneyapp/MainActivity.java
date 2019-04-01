@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -62,21 +63,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Balance = findViewById(R.id.Balance);
         //Display balance
         WalletDAO walletDAO = database.getWalletDAO();
-        WalletData wallet = walletDAO.getRecentWallet();
-        Balance.setText(String.format("%.02f", wallet.getBalance()));
-        Balance.setTextSize(80);
 
         //walletDAO.deleteAll();
         //Date formatting
-        //Date date = Calendar.getInstance().getTime();;
-        //DateFormat dateFormat = new SimpleDateFormat("YYYY-MMMM-DD hh:mm:ss");
-        //String strDate = dateFormat.format(date);
+        Date date = Calendar.getInstance().getTime();;
+        DateFormat dateFormat = new SimpleDateFormat("YYYY-MMMM-DD hh:mm:ss", Locale.UK);
+        String strDate = dateFormat.format(date);
         //Log.d("HIS", String.valueOf(strDate));
-        //WalletData walletData = new WalletData();
-        //walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
-        //walletData.setNotes(0, 0, 1, 0);
-        //walletData.setCoins(1,0,0,0,0,0);
-        //walletDAO.insert(walletData);
+        //dummy data
+        WalletData walletData = new WalletData();
+        walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
+        walletData.setNotes(0, 0, 1, 0);
+        walletData.setCoins(1,0,0,0,0,0);
+        walletDAO.insert(walletData);
+        //main balance
+        WalletData wallet = walletDAO.getRecentWallet();
+        Balance.setText(String.format(Locale.UK, "%.02f", wallet.getBalance()));
+        Balance.setTextSize(80);
     }
 
     @Override

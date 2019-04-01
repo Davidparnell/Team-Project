@@ -8,12 +8,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.moneyapp.Database.AppDatabase;
+import com.moneyapp.Database.WalletDAO;
+import com.moneyapp.Database.WalletData;
 import com.moneyapp.MainActivity;
 import com.moneyapp.R;
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton five, ten, twenty, fifty, confirm, wallet, coins;
+    AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
+    WalletDAO walletDAO = database.getWalletDAO();
+    WalletData walletData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         } else if (v == (View) wallet) {
             //Open EditWallet Activity
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
+            //intent.putExtra("reg", );
             startActivity(intent);
         } else if (v == (View) confirm) {
             //Upon Confirmation Return to home

@@ -18,7 +18,7 @@ public class WalletData {
     private float balance;
 	
 	@ColumnInfo(name = "register")
-    private int register;
+    private float register;
 	
 	@ColumnInfo(name = "note50")
     private int note50;
@@ -49,16 +49,11 @@ public class WalletData {
 
     @ColumnInfo(name = "coin5c")
     private int coin5c;
-	
-	@ColumnInfo(name = "location")
-    private String location;
-	
-	@ColumnInfo(name = "receipt")
-    private String receipt;
 
-	//General Setters
-    public void setWalletOptions(String date, float balance, int register, String location, String receipt)
-    {this.date = date; this.balance = balance; this.register = register;  this.location = location; this.receipt =  receipt; };
+    //General Setters
+    public void setWalletOptions(String date, float balance, float register)
+    {this.date = date; this.balance = balance; this.register = register;
+    };
 
     public void setNotes(int note50, int note20, int note10, int note5)
     {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
@@ -80,9 +75,9 @@ public class WalletData {
 
     public void setBalance(float balance) {this.balance = balance;}
 
-    public int getRegister() {return register;}
+    public float getRegister() {return register;}
 
-    public void setRegister(int register) {this.register = register;}
+    public void setRegister(float register) {this.register = register;}
 
     public int getNote50() {return note50;}
 
@@ -124,13 +119,5 @@ public class WalletData {
 
     public void setCoin5c(int coin5c) {this.coin5c = coin5c;}
 
-	public String getLocation() {return location;}
-
-    public void setLocation(String location) {this.location = location;}
-	
-	public String getReceipt() {return receipt;}
-
-    public void setReceipt(String receipt) {this.receipt = receipt;}
-
-    public String toString(){return date+" "+balance+" "+location+" "+register+" "+receipt+" "+note5+"\n";}
+    public String toString(){return date+" "+balance+" "+register+"\n";}
 }

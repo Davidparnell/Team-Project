@@ -22,9 +22,7 @@ public class PaySuggestion extends AppCompatActivity {
         setContentView(R.layout.activity_suggestion);
 
         //notes = findViewById(R.id.notes);
-        AppDatabase database = Room.databaseBuilder(this, AppDatabase.class, "wallet")
-                .allowMainThreadQueries()
-                .build();
+        AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
         WalletDAO walletDAO = database.getWalletDAO();
 
@@ -35,19 +33,19 @@ public class PaySuggestion extends AppCompatActivity {
     }
 
     public int[] generateSuggestion(float register, int[] notes){
-        int rReg = (int)5*(Math.round(register/5));
+        int roundReg = (int)5*(Math.round(register/5));
         //ideal path
 
 
-        while(rReg != 0){
-            if(rReg >= 50){
+        while(roundReg != 0){
+            if(roundReg >= 50){
                 if(notes[0] > 0){
 
                 }
             }
         }
 
-        Log.d("REG", String.valueOf(rReg));
+        Log.d("REG", String.valueOf(roundReg));
         return notes;
     }
 }

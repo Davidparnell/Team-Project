@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.moneyapp.MainActivity;
 import com.moneyapp.R;
 
+import java.util.Arrays;
+
 public class EditWallet extends AppCompatActivity  implements View.OnClickListener{
 
-    ImageButton Confirm, Cancel;
+    ImageButton confirm, cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +23,18 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         setContentView(R.layout.edit_wallet);
 
         //Wallet selection is ok
-        Confirm = findViewById(R.id.ConfirmWallet);
-        Confirm.setOnClickListener(this);
+        confirm = findViewById(R.id.ConfirmWallet);
+        confirm.setOnClickListener(this);
 
         //Wallet selection is incorrect, stuff needs to be added
-        Cancel = findViewById(R.id.CancelWallet);
-        Cancel.setOnClickListener(this);
+        cancel = findViewById(R.id.CancelWallet);
+        cancel.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        int numNotes[] = intent.getIntArrayExtra("notes");
+        int numCoins[] = intent.getIntArrayExtra("coins");
+        Log.d("WALLET", Arrays.toString(numNotes));
+        Log.d("WALLET", Arrays.toString(numCoins));
     }
 
     @Override
@@ -33,7 +42,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     public void onClick(View v)
     {
         //If confirm button pressed
-        if(v == (View) Confirm)
+        if(v == (View) confirm)
         {
             //Return to main
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -41,7 +50,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         }
 
         //if cancel button pressed
-        else if(v == (View) Cancel)
+        else if(v == (View) cancel)
         {
             //Return to wallet
             Intent intent = new Intent(getApplicationContext(), Wallet.class);

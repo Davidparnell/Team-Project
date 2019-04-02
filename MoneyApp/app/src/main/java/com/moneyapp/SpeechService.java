@@ -27,7 +27,7 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
         {
             textData = textData.replace(".00", " euro");
         }
-        if(textData.contains("."))
+        else if(textData.contains("."))
         {
             textData = textData.replace(".", " euro");
             textData = textData + " cent";

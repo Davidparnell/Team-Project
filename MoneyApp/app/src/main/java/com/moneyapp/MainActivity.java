@@ -3,7 +3,6 @@ package com.moneyapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
 import com.moneyapp.Wallet.Wallet;
-import android.util.Log;
 
 import com.moneyapp.Database.WalletDAO;
 import com.moneyapp.Database.WalletData;
@@ -30,9 +28,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener
 {
 
-    ImageButton BtnHist, BtnWallet,BtnCamera;
-    ImageView BtnCamT2S, BtnWallT2S, BtnBalT2S;
-    TextView Balance;
+    ImageButton btnHist, btnWallet, btnCamera;
+    ImageView btnCamT2S, btnWallT2S, btnBalT2S;
+    TextView balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,22 +44,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .build();
 
         //Button for History
-        BtnHist = findViewById(R.id.History);
-        BtnHist.setOnClickListener(this);
-        BtnHist.setOnLongClickListener(this);
+        btnHist = findViewById(R.id.History);
+        btnHist.setOnClickListener(this);
+        btnHist.setOnLongClickListener(this);
 
         //Button for Wallet
-        BtnWallet = findViewById(R.id.Wallet);
-        BtnWallet.setOnClickListener(this);
-        BtnWallet.setOnLongClickListener(this);
+        btnWallet = findViewById(R.id.Wallet);
+        btnWallet.setOnClickListener(this);
+        btnWallet.setOnLongClickListener(this);
 
         //Button for Camera so bill can be read in
-        BtnCamera = findViewById(R.id.Camera);
-        BtnCamera.setOnClickListener(this);
-        BtnCamera.setOnLongClickListener(this);
+        btnCamera = findViewById(R.id.Camera);
+        btnCamera.setOnClickListener(this);
+        btnCamera.setOnLongClickListener(this);
 
-        Balance = findViewById(R.id.Balance);
-        Balance.setOnLongClickListener(this);
+        balance = findViewById(R.id.Balance);
+        balance.setOnLongClickListener(this);
         //Display balance
         WalletDAO walletDAO = database.getWalletDAO();
 
@@ -79,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         walletDAO.insert(walletData);
         //main balance
         WalletData wallet = walletDAO.getRecentWallet();
-        Balance.setText(String.format(Locale.UK, "%.02f", wallet.getBalance()));
-        Balance.setTextSize(80);
+        balance.setText(String.format(Locale.UK, "%.02f", wallet.getBalance()));
+        balance.setTextSize(80);
     }
 
     @Override
@@ -88,21 +86,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v)
     {
         //History Button pressed
-        if(v == (View) BtnHist)
+        if(v == (View) btnHist)
         {
             Intent intent = new Intent(getApplicationContext(), History.class);
             startActivity(intent);
         }
 
         //Wallet button pressed
-        else if (v == (View) BtnWallet)
+        else if (v == (View) btnWallet)
         {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             startActivity(intent);
         }
 
         //Camera Button Pressed
-        else if(v == (View) BtnCamera)
+        else if(v == (View) btnCamera)
         {
             //Intent intent = new Intent(getApplicationContext(), Camera.class);
             //startActivity(intent);
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-        else if(v == (View) BtnWallT2S)
+        else if(v == (View) btnWallT2S)
         {
             String walletinfo = "wallet";
             //Text to speech for wallet, Toast for now
@@ -126,21 +124,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getApplicationContext().startService(speechIntent);
         }
 
-        //Balance Text to Speech pressed
-        else if(v == (View) BtnBalT2S)
+        //balance Text to Speech pressed
+        else if(v == (View) btnBalT2S)
         {
-            //Text to speech for Balance
+            //Text to speech for balance
             Toast.makeText(getApplicationContext(),"--- €XX.XX ---",
                     Toast.LENGTH_SHORT).show();
             //Intent for text to speech.
             Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
             //Pass data to be spoken to the SpeechService class.
-            speechIntent.putExtra("textData", Balance.getText());
+            speechIntent.putExtra("textData", balance.getText());
             //Start Text to speech.
             getApplicationContext().startService(speechIntent);
         }
 
-        else if(v == (View) BtnCamT2S)
+        else if(v == (View) btnCamT2S)
         {
             //Text to speech for camera, Toast for now
             Toast.makeText(getApplicationContext(),"--- Camera ---",
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", Balance.getText());
+                speechIntent.putExtra("textData", balance.getText());
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;

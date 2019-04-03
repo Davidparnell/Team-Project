@@ -33,7 +33,7 @@ public class History extends AppCompatActivity
         //List to store wallet data
         List<WalletData> walletHistory = walletDAO.getWalletHistory();
 
-        //test output to log, can be deleted and formatted later
+        //Adding items into the History ListView
         for(int i = 0; i < walletHistory.size(); i++)
         {
             HistoryData item = new HistoryData();
@@ -55,9 +55,11 @@ public class History extends AppCompatActivity
 
             historyList.add(item);
 
+            //test output to log, can be deleted and formatted later
             Log.d("HIS", walletHistory.get(i).getDate()+" "+String.format("%.02f", walletHistory.get(i).getBalance())+" "+String.format("%.02f", walletHistory.get(i).getRegister())+" "+type);
         }
 
+        //Adapter to display data from ArrayList
         HistoryAdapter adapter = new HistoryAdapter(historyList, getApplicationContext());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

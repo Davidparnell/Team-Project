@@ -29,7 +29,7 @@ public class HistoryAdapter extends ArrayAdapter<HistoryData>
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
         LayoutInflater inflater = LayoutInflater.from(context);
-
+        //Custom view
         View listViewItem = inflater.inflate(R.layout.list_items, null, true);
 
         //Text view components

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ImageButton btnHist, btnWallet, btnCamera;
     ImageView btnCamT2S, btnWallT2S, btnBalT2S;
     TextView balance;
+    String readBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WalletData wallet = walletDAO.getRecentWallet();
         balance.setText(String.format(Locale.UK, "%.02f", wallet.getBalance()));
         balance.setTextSize(80);
+        readBalance = String.format(Locale.UK, "%.02f", wallet.getBalance());
     }
 
     @Override
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", balance.getText());
+                speechIntent.putExtra("textData", readBalance);
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;

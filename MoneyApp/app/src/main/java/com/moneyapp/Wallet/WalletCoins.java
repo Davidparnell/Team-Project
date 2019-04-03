@@ -15,38 +15,49 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class WalletCoins extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton two_euro, one_euro, fifty_cent, twenty_cent, ten_cent, five_cent, confirm, wallet, notes;
+    //Initialize Layout Buttons
+    ImageButton two_euro, one_euro, fifty_cent, twenty_cent,
+            ten_cent, five_cent, wallet, notes;
 
-    AppDatabase database;
-    WalletDAO walletDAO;
-    WalletData walletData;
+    //Initialize DB objects
+    AppDatabase database;//init database
+    WalletDAO walletDAO;//init DAO
+    WalletData walletData;//init table
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet_coins);
 
+        //€2 button
         two_euro = findViewById(R.id.two_euro);
         two_euro.setOnClickListener(this);
 
+        //€1 button
         one_euro = findViewById(R.id.one_euro);
         one_euro.setOnClickListener(this);
 
+        //50c button
         fifty_cent = findViewById(R.id.fifty_cent);
         fifty_cent.setOnClickListener(this);
 
+        //20c button
         twenty_cent = findViewById(R.id.twenty_cent);
         twenty_cent.setOnClickListener(this);
 
+        //10c button
         ten_cent = findViewById(R.id.ten_cent);
         ten_cent.setOnClickListener(this);
 
+        //5c button
         five_cent =  findViewById(R.id.five_cent);
         five_cent.setOnClickListener(this);
 
+        //wallet button
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
 
+        //Button to change to notes
         notes = findViewById(R.id.NoteBtn);
         notes.setOnClickListener(this);
 
@@ -60,22 +71,22 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
 
         //Money Buttons
         if (v == (View) two_euro) {
-            //Add €1 to wallet, for now toast
+            //Add €1 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- €2 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin2e(walletData.getCoin2e()+1);
         } else if (v == (View) one_euro) {
-            //Add €2 to wallet, for now toast
+            //Add €2 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- €1 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin2e(walletData.getCoin1e()+1);
         } else if (v == (View) fifty_cent) {
-            //Add 50c to wallet, for now toast
+            //Add 50c to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 50c added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin50c(walletData.getCoin50c()+1);
         } else if (v == (View) twenty_cent) {
-            //Add 20c to wallet, for now toast
+            //Add 20c to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 20c added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin20c(walletData.getCoin20c()+1);

@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //walletDAO.deleteAll();
         //Date formatting
         Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("YYYY-MMMM-DD hh:mm:ss", Locale.UK);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMMM-DD hh:mm:ss", Locale.UK);
         String strDate = dateFormat.format(date);
         //Log.d("HIS", String.valueOf(strDate));
         //dummy data

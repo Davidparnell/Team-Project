@@ -108,42 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //intent.putExtra("register", "53.50");
             startActivity(intent);
         }
-
-
-        else if(v == (View) btnWallT2S)
-        {
-            String walletinfo = "wallet";
-            //Text to speech for wallet, Toast for now
-            Toast.makeText(getApplicationContext(),"--- Wallet ---",
-                    Toast.LENGTH_SHORT).show();
-            //Intent for text to speech.
-            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
-            //Pass data to be spoken to the SpeechService class.
-            speechIntent.putExtra("textData", walletinfo);
-            //Start Text to speech.
-            getApplicationContext().startService(speechIntent);
-        }
-
-        //balance Text to Speech pressed
-        else if(v == (View) btnBalT2S)
-        {
-            //Text to speech for balance
-            Toast.makeText(getApplicationContext(),"--- €XX.XX ---",
-                    Toast.LENGTH_SHORT).show();
-            //Intent for text to speech.
-            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
-            //Pass data to be spoken to the SpeechService class.
-            speechIntent.putExtra("textData", balance.getText());
-            //Start Text to speech.
-            getApplicationContext().startService(speechIntent);
-        }
-
-        else if(v == (View) btnCamT2S)
-        {
-            //Text to speech for camera, Toast for now
-            Toast.makeText(getApplicationContext(),"--- Camera ---",
-                    Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

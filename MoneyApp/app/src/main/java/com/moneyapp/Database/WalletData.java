@@ -52,8 +52,7 @@ public class WalletData {
 
     //General Setters
     public void setWalletOptions(String date, float balance, float register)
-    {this.date = date; this.balance = balance; this.register = register;
-    };
+    {this.date = date; this.balance = balance; this.register = register;};
 
     public void setNotes(int note50, int note20, int note10, int note5)
     {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}

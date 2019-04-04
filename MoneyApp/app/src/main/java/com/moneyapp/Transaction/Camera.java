@@ -15,6 +15,7 @@ import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.moneyapp.R;
+import com.moneyapp.SpeechService;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -133,15 +134,24 @@ public class Camera extends AppCompatActivity {
                                 }
                             }
                             regList.clear();
+
+                            //Intent for text to speech.
+                            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+                            //Pass data to be spoken to the SpeechService class.
+                            speechIntent.putExtra("textData", register);
+                            //Start Text to speech.
+                            getApplicationContext().startService(speechIntent);
                             
                             //minimal frequency allowed
                             if(highestFreq < minFreq){
                                 return;
                             }
                             else{
-                                Intent intent = new Intent(Camera.this, PaySuggestion.class);
-                                intent.putExtra("register", register);
-                                startActivity(intent);
+
+                                //Intent intent = new Intent(Camera.this, PaySuggestion.class);
+                                //intent.putExtra("register", register);
+                                //startActivity(intent);
+                                finish();
                             }
                         }
                         Log.d("REG", regList.toString());

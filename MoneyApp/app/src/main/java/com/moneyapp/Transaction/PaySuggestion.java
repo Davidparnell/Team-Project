@@ -87,14 +87,25 @@ public class PaySuggestion extends AppCompatActivity {
 
             for(i = 0; i < change.length; i++){
                 total += change[i];
-                total += change2[i];
+                total2 += change2[i];
             }
 
-            if(total > total2){ return change2; }
+            if(total >= total2){ return change2; }
             else{ return change; }
         }
 
         return change;
+    }
+
+    public float roundToFive(float register){
+        float temp = register;
+        register = 5 *(Math.round(register/5));
+        if(temp >= register){
+            register += 5;
+        }
+
+        Log.d("REG", String.valueOf(register));
+        return register;
     }
 
     public int[] generateSuggestion(float register){
@@ -102,8 +113,7 @@ public class PaySuggestion extends AppCompatActivity {
         float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
         float balanceNotes = notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]; //total with notes only
         float balanceAll = coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5] + balanceNotes;//full total
-        //int roundReg = 5 *(Math.round(register/5));//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
-        float regTemp = register;
+        float regTemp = roundToFive(register);//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
         int notes[] = getNotes();//notes currently in wallet
         int coins[] = getCoins();//coins currently in wallet
         int changeNotes[] = {0,0,0,0};
@@ -114,9 +124,10 @@ public class PaySuggestion extends AppCompatActivity {
         int x = 0;
 
         Log.d("REG", String.valueOf(balanceNotes));
-        if(5 > register){//coins only below 5 euro
+        if(5 > register){
 
-        }else if(balanceNotes >= register) {
+        }
+        else if(balanceNotes >= register) {
             //ideal path
             while (regTemp > 0) {
                 if (regTemp >= nValues[i] && notes[i] != 0) {

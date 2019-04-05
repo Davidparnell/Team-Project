@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v == (View) btnCamera)
         {
             Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
-            intent.putExtra("register", "44.99");
+            intent.putExtra("register", "13.01");
             startActivity(intent);
         }
     }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
+import com.moneyapp.Transaction.PaySuggestion;
 import com.moneyapp.Wallet.Wallet;
 
 import com.moneyapp.Database.WalletDAO;
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //dummy data
         WalletData walletData = new WalletData();
         walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
-        walletData.setNotes(0, 1, 1, 0);
+        walletData.setNotes(1, 2, 1, 1);
         walletData.setCoins(1,0,0,0,0,0);
         walletDAO.insert(walletData);
         //main balanceView
@@ -102,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Camera Button Pressed
         else if(v == (View) btnCamera)
         {
-            Intent intent = new Intent(getApplicationContext(), Camera.class);
-            //intent.putExtra("register", "53.50");
+            Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
+            intent.putExtra("register", "44.99");
             startActivity(intent);
         }
     }

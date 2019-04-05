@@ -10,10 +10,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Transaction.Camera;
+import com.moneyapp.Transaction.PaySuggestion;
 import com.moneyapp.Wallet.Wallet;
 
 import com.moneyapp.Database.WalletDAO;
@@ -25,13 +25,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener
-{
-
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     ImageButton btnHist, btnWallet, btnCamera;
-    ImageView btnCamT2S, btnWallT2S, btnBalT2S;
-    TextView balance;
-    String readBalance;
+    ImageView btnBalT2S;
+    TextView balanceView;
+    String balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,28 +57,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCamera.setOnClickListener(this);
         btnCamera.setOnLongClickListener(this);
 
-        balance = findViewById(R.id.Balance);
-        balance.setOnLongClickListener(this);
-        //Display balance
+        balanceView = findViewById(R.id.Balance);
+        balanceView.setOnLongClickListener(this);
+        //Display balanceView
         WalletDAO walletDAO = database.getWalletDAO();
 
         //walletDAO.deleteAll();
         //Date formatting
         Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMMM-DD hh:mm:ss", Locale.UK);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMMM-dd HH:mm:ss", Locale.UK);
         String strDate = dateFormat.format(date);
         //Log.d("HIS", String.valueOf(strDate));
         //dummy data
         WalletData walletData = new WalletData();
         walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
-        walletData.setNotes(0, 0, 1, 0);
+        walletData.setNotes(1, 2, 1, 1);
         walletData.setCoins(1,0,0,0,0,0);
         walletDAO.insert(walletData);
-        //main balance
+        //main balanceView
         WalletData wallet = walletDAO.getRecentWallet();
-        balance.setText(String.format(Locale.UK, "%.02f", wallet.getBalance()));
-        balance.setTextSize(80);
-        readBalance = String.format(Locale.UK, "%.02f", wallet.getBalance());
+        balance = String.format(Locale.UK, "%.02f", wallet.getBalance());
+        balanceView.setText("\u20ac "+balance);
+        balanceView.setTextSize(80);
+
     }
 
     @Override
@@ -104,10 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Camera Button Pressed
         else if(v == (View) btnCamera)
         {
-            //Intent intent = new Intent(getApplicationContext(), Camera.class);
-            //startActivity(intent);
-            Intent intent = new Intent(getApplicationContext(), Camera.class);
-            //intent.putExtra("register", "53.50");
+            Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
+            intent.putExtra("register", "44.99");
             startActivity(intent);
         }
     }
@@ -122,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", readBalance);
+                speechIntent.putExtra("textData", balance);
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;

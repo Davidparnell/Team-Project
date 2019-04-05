@@ -38,7 +38,7 @@ public class History extends AppCompatActivity
         {
             HistoryData item = new HistoryData();
             item.setDate(walletHistory.get(i).getDate());
-            item.setBalance(String.format("%.02f", walletHistory.get(i).getBalance()));
+            item.setBalance("Balance: " + String.format("%.02f", walletHistory.get(i).getBalance()));
             item.setRegister(String.format("%.02f", walletHistory.get(i).getRegister()));
 
             String type;

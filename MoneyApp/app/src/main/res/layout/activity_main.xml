@@ -21,7 +21,7 @@
         android:background="#FAFAFA"
         android:contentDescription="@string/wallet"
         android:scaleType="fitCenter"
-        android:src="@drawable/moneybutton"
+        android:src="@drawable/wallet"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/Camera"
         app:layout_constraintHorizontal_bias="0.291"
@@ -39,7 +39,7 @@
         android:background="#FAFAFA"
         android:contentDescription="@string/camera"
         android:scaleType="fitCenter"
-        android:src="@drawable/camerabutton"
+        android:src="@drawable/camera"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Balance" />

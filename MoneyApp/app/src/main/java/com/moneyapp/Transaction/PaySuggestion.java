@@ -11,6 +11,7 @@ import com.moneyapp.Database.WalletData;
 import com.moneyapp.R;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,50 +38,46 @@ public class PaySuggestion extends AppCompatActivity {
         notes = walletData.getNotes();
         coins = walletData.getCoins();
 
-        int changeNotes[] = generateSuggestion(register);
+        int change[] = generateSuggestion(register);
+        for(int i = 0; i< change.length; i++) {
+            Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(change[i]));
+        }
 
-        Log.d("REG", String.valueOf(changeNotes[0]));
-        Log.d("REG", String.valueOf(changeNotes[1]));
-        Log.d("REG", String.valueOf(changeNotes[2]));
-        Log.d("REG", String.valueOf(changeNotes[3]));
-        Log.d("REG", String.valueOf(changeNotes[4]));
-        Log.d("REG", String.valueOf(changeNotes[5]));
     }
 
-    public int[] generateSuggestion(float register){
+    public int[] generateSuggestion(float registerFloat){
         float nValues[] = {50f, 20f, 10f, 5f};
         float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
-        float balanceNotes = notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]; //total with notes only
-        float balanceAll = coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5] + balanceNotes;//full total
+        BigDecimal balanceNotes = BigDecimal.valueOf(notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]);
+        BigDecimal balanceCoins = BigDecimal.valueOf(coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5]);
         int changeNotes[] = {0,0,0,0};
         int changeNotes2[] = {0,0,0,0};
         int changeCoins[] = {0,0,0,0,0,0};
         int changeCoins2[] = {0,0,0,0,0,0};
-
-        Log.d("REG", String.valueOf(balanceNotes));
-        if(5 > register){
-            return changeCoins = algorithm(getCoins(), cValues, register, changeCoins, changeCoins2);
+        BigDecimal register = new BigDecimal(registerFloat);
+        //not enough coins
+        if(5 > register.floatValue() && balanceCoins.floatValue() >= register.floatValue()){
+            Log.d("REG", "These coins");
+            return changeCoins = algorithm(getCoins(), cValues, register.floatValue(), changeCoins, changeCoins2);
         }
-        else if(balanceNotes >= register) {
+        else if(balanceNotes.floatValue() >= register.floatValue()) {
             //ideal path
-            return changeNotes = algorithm(getNotes(), nValues, register, changeNotes, changeNotes2);
+            Log.d("REG", "These notes");
+            return changeNotes = algorithm(getNotes(), nValues, roundToFive(register.floatValue()), changeNotes, changeNotes2);
 
-        }else if(balanceAll >= register){
-            Log.d("REG", "coins path");
-            float register2 = register - balanceNotes;
-            Log.d("REG",String.valueOf(register2));
-            changeCoins = algorithm(getCoins(), cValues, register2, changeCoins, changeCoins2);
-            return changeCoins;
+        }else if(balanceNotes.add(balanceCoins).floatValue() >= register.floatValue()){
+            Log.d("REG", "All notes + these coins");
+            float register2 = round(register.subtract(balanceNotes).floatValue(), 2);
+            return changeCoins = algorithm(getCoins(), cValues, register2, changeCoins, changeCoins2);
         }
         else{
             Log.d("REG", "Not enough money");
-
             return changeNotes;
         }
     }
 
     public int[] algorithm(int[] wallet, float[] values, float register, int[] change1, int[] change2){
-        float regTemp = roundToFive(register);//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
+        float regTemp = register;//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
         int i = 0;
         int j = 0;
         int x = 0;
@@ -90,6 +87,7 @@ public class PaySuggestion extends AppCompatActivity {
                 regTemp -= values[i];
                 wallet[i]--;
                 change1[i]++;
+                Log.d("REG", String.valueOf(regTemp));
             }
             else{
                 i++;
@@ -98,13 +96,17 @@ public class PaySuggestion extends AppCompatActivity {
             if(i==wallet.length){//non ideal eg. has 50 note only but needs 25
                 regTemp = register;
                 Arrays.fill(change1, 0);
-                wallet = getNotes();
+                if(wallet.length == 4) {
+                    wallet = getNotes();
+                }else {
+                    wallet = getCoins();
+                }
                 i = 0;
 
                 while (regTemp > 0){
-                    if ( notes[i] != 0) {
+                    if ( wallet[i] != 0) {
                         regTemp -= values[i];
-                        notes[i]--;
+                        wallet[i]--;
                         change1[i]++;
                     }
                     else{
@@ -173,11 +175,11 @@ public class PaySuggestion extends AppCompatActivity {
         changeTotal2 = change2[0] * values[0] + change2[1] * values[1] + change2[2] * values[2] + change2[3] * values[3];
 
         //check cleanup happened correctly, so enough change is given
-        if(changeTotal2 < register){
+        if(changeTotal2 < register){ Log.d("REG", "branch 1");
             return change;
-        } else if(overflow > overflow2) {
+        } else if(overflow > overflow2) { Log.d("REG", "branch 2");
             return change2;
-        } else if(overflow < overflow2) {
+        } else if(overflow < overflow2) { Log.d("REG", "branch 1");
             return change;
         } else if(overflow == overflow2) {
             int total = 0;
@@ -188,8 +190,8 @@ public class PaySuggestion extends AppCompatActivity {
                 total2 += change2[i];
             }
 
-            if(total >= total2){ return change2; }
-            else{ return change; }
+            if(total >= total2){ Log.d("REG", "branch 2"); return change2; }
+            else{ Log.d("REG", "branch 1"); return change; }
         }
 
         return change;
@@ -204,6 +206,12 @@ public class PaySuggestion extends AppCompatActivity {
 
         Log.d("REG", String.valueOf(register));
         return register;
+    }
+
+    public static float round(float d, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
     public int[] getNotes(){return new int[] {notes[0], notes[1], notes[2], notes[3]};}

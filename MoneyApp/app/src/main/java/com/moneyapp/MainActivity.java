@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //dummy data
         WalletData walletData = new WalletData();
         walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
-        walletData.setNotes(1, 2, 1, 1);
-        walletData.setCoins(1,0,0,0,0,0);
+        walletData.setNotes(1, 0, 0, 1);
+        walletData.setCoins(1,1,1,0,0,1);
         walletDAO.insert(walletData);
         //main balanceView
         WalletData wallet = walletDAO.getRecentWallet();
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v == (View) btnCamera)
         {
             Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
-            intent.putExtra("register", "13.01");
+            intent.putExtra("register", "53.51");
             startActivity(intent);
         }
     }

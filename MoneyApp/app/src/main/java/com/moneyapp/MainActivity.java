@@ -58,10 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCamera.setOnLongClickListener(this);
 
         balanceView = findViewById(R.id.Balance);
-        balanceView.setOnLongClickListener(this);
+        btnBalT2S = findViewById(R.id.BalanceT2S);
+        btnBalT2S.setOnClickListener(this);
+        //balanceView.setOnLongClickListener(this);
+
         //Display balanceView
         WalletDAO walletDAO = database.getWalletDAO();
-
         //walletDAO.deleteAll();
         //Date formatting
         Date date = Calendar.getInstance().getTime();;
@@ -106,6 +108,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
             intent.putExtra("register", "71.50");
             startActivity(intent);
+        }
+        else if(v ==(View) btnBalT2S)
+        {
+            //Intent for text to speech.
+            Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
+            //Pass data to be spoken to the SpeechService class.
+            speechIntent.putExtra("textData", balance);
+            //Start Text to speech.
+            getApplicationContext().startService(speechIntent);
         }
     }
 

@@ -9,6 +9,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -38,12 +41,14 @@ public class Camera extends AppCompatActivity {
     public String register = "";
 	private final int maxScans = 5; //number of scans to check accuracy
 	private final int minFreq = 3;  //minimum frequency to accept result is a ratio of maxScans eg.5:3
+    private FrameLayout progressBarHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        progressBarHolder = findViewById(R.id.progressbarHolder);
         cameraSurface = findViewById(R.id.cameraSurface);
 
         cameraSource();
@@ -151,6 +156,7 @@ public class Camera extends AppCompatActivity {
                                 //Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 //intent.putExtra("register", register);
                                 //startActivity(intent);
+                                progressBarHolder.setVisibility(View.GONE);
                                 finish();
                             }
                         }

@@ -1,8 +1,4 @@
 package com.moneyapp;
-
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-
 /*
     Class used to contain data for the History listview.
  */
@@ -11,7 +7,7 @@ public class HistoryData
     private String date;
     private String balance;
     private String register;
-    private Drawable type;
+    private String type;
 
     public String getDate() {
         return date;
@@ -37,11 +33,11 @@ public class HistoryData
         this.register = register;
     }
 
-    public Drawable getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Drawable type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

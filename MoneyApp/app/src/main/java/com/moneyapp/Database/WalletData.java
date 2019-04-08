@@ -54,11 +54,11 @@ public class WalletData {
     public void setWalletOptions(String date, float balance, float register)
     {this.date = date; this.balance = balance; this.register = register;};
 
-    public void setNotes(int[] notes)
-    {this.note50 = notes[0]; this.note20 = notes[1]; this.note10 = notes[2]; this.note5 = notes[3];}
+    public void setNotes(int note50, int note20, int note10, int note5)
+    {this.note50 = note50; this.note20 = note20; this.note10 = note10; this.note5 = note5;}
 
-    public void setCoins(int[] coins)
-    {this.coin2e = coins[0]; this.coin1e = coins[1]; this.coin50c = coins[2]; this.coin20c = coins[3]; this.coin10c = coins[4]; this.coin5c = coins[5];}
+    public void setCoins(int coin2e, int coin1e, int coin50c, int coin20c, int coin10c, int coin5c)
+    {this.coin2e = coin2e; this.coin1e = coin1e; this.coin50c = coin50c; this.coin20c = coin20c; this.coin10c = coin10c; this.coin5c = coin5c;}
 
     public int[] getNotes(){ return new int[]{note50, note20, note10, note5}; }
 

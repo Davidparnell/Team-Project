@@ -2,8 +2,10 @@ package com.moneyapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.moneyapp.Database.AppDatabase;
@@ -39,24 +41,24 @@ public class History extends AppCompatActivity
             HistoryData item = new HistoryData();
             item.setDate(walletHistory.get(i).getDate());
             item.setBalance("Balance: " + String.format("%.02f", walletHistory.get(i).getBalance()));
-            item.setRegister(String.format("%.02f", walletHistory.get(i).getRegister()));
+            item.setRegister("Bill: " + String.format("%.02f", walletHistory.get(i).getRegister()));
 
-            String type;
+            //Setting transaction type, with transaction type image chosen.
             if(walletHistory.get(i).getRegister() == 0)
             {
-                type = "wallet change";
-                item.setType(type);
+                Drawable drawable = getResources().getDrawable(R.drawable.moneybutton);
+                item.setType(drawable);
             }
             else
             {
-                type = "transaction";
-                item.setType(type);
+                Drawable drawable = getResources().getDrawable(R.drawable.camerabutton);
+                item.setType(drawable);
             }
 
             historyList.add(item);
 
             //test output to log, can be deleted and formatted later
-            Log.d("HIS", walletHistory.get(i).getDate()+" "+String.format("%.02f", walletHistory.get(i).getBalance())+" "+String.format("%.02f", walletHistory.get(i).getRegister())+" "+type);
+            Log.d("HIS", walletHistory.get(i).getDate()+" "+String.format("%.02f", walletHistory.get(i).getBalance())+" "+String.format("%.02f", walletHistory.get(i).getRegister())+" ");
         }
 
         //Adapter to display data from ArrayList

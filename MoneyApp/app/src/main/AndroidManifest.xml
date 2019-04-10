@@ -20,7 +20,9 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,16 +31,22 @@
         </activity>
         <activity android:name=".Wallet.Wallet"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".Wallet.EditWallet"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".Wallet.WalletCoins"
             android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
             />
-        <activity android:name=".History" />
-        <activity android:name=".Transaction.Camera" />
-        <activity android:name=".Transaction.PaySuggestion" />
+        <activity android:name=".History"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Transaction.Camera"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Transaction.PaySuggestion"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -59,6 +59,13 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         walletData = walletDAO.getRecentWallet();
     }
 
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+    }
+
     @Override
     //Functions after a button is pressed
     public void onClick(View v) {

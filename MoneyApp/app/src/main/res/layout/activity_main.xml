@@ -12,7 +12,7 @@
 
     <ImageButton
         android:id="@+id/Wallet"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="176dp"
@@ -30,11 +30,12 @@
 
     <ImageButton
         android:id="@+id/Camera"
-        android:layout_width="151dp"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:layout_centerInParent="true"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="176dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         android:adjustViewBounds="true"
         android:background="#FAFAFA"
         android:contentDescription="@string/camera"
@@ -42,14 +43,17 @@
         android:src="@drawable/camera"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Wallet"
         app:layout_constraintTop_toBottomOf="@+id/Balance" />
 
     <TextView
         android:id="@+id/Balance"
-        android:layout_width="326dp"
-        android:layout_height="100dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginBottom="404dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="460dp"
         android:contentDescription="@string/balance"
         android:gravity="center_horizontal"
         android:textColor="#828282"
@@ -57,21 +61,24 @@
         android:visibility="visible"
         app:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/History"
         tools:text="€ XX.XX" />
 
     <ImageView
         android:id="@+id/BalanceT2S"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="65dp"
         android:layout_marginEnd="170dp"
         android:contentDescription="@string/TS2Balance"
         android:src="@drawable/text2speech"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/Balance"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Balance"
         app:srcCompat="@drawable/text2speech" />
 
         <ImageButton

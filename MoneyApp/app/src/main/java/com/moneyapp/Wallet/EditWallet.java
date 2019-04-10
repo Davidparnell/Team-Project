@@ -37,6 +37,13 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         Log.d("WALLET", Arrays.toString(numCoins));
     }
 
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+    }
+
     @Override
     //Functions after a button is pressed
     public void onClick(View v)

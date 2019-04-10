@@ -20,16 +20,23 @@
             android:enabled="true"
             android:exported="true"></service>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Wallet.Wallet" />
-        <activity android:name=".Wallet.EditWallet" />
-        <activity android:name=".Wallet.WalletCoins" />
+        <activity android:name=".Wallet.Wallet"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".Wallet.EditWallet"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".Wallet.WalletCoins"
+            android:launchMode="singleInstance"
+            />
         <activity android:name=".History" />
         <activity android:name=".Transaction.Camera" />
         <activity android:name=".Transaction.PaySuggestion" />

@@ -66,6 +66,14 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         walletData = walletDAO.getRecentWallet();
     }
 
+
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+    }
+
     @Override
     public void onClick(View v) {
 

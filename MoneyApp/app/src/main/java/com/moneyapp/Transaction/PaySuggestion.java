@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.moneyapp.Database.AppDatabase;
 import com.moneyapp.Database.WalletDAO;
@@ -17,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +28,9 @@ public class PaySuggestion extends AppCompatActivity {
     int notes[];
     int coins[];
     int path = 0;
+
+    private ListView listView;
+    private List<SuggestionData> suggestionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

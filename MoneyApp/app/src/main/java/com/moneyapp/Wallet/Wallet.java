@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -61,14 +63,25 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     //Functions after a button is pressed
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         //Money Buttons
-        if (v == (View) five) {
+        if (v == (View) five)
+        {
             //Add 5 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 5 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setNote5(walletData.getNote5()+1);
-        } else if (v == (View) ten) {
+            Animation animation;
+            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move_down);
+            five.startAnimation(animation);
+            if (animation.hasEnded())
+            {
+                five.clearAnimation();
+            }
+
+        }
+        else if (v == (View) ten) {
             //Add 10 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 10 added ---",
                     Toast.LENGTH_SHORT).show();

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,6 +40,8 @@ public class Camera extends AppCompatActivity {
     public String register = "";
 	private final int maxScans = 5; //number of scans to check accuracy
 	private final int minFreq = 3;  //minimum frequency to accept result is a ratio of maxScans eg.5:3
+    private ProgressBar progressBar;
+    public ScanProgress progressTask = new ScanProgress();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,33 @@ public class Camera extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         cameraSurface = findViewById(R.id.cameraSurface);
+        /*progressBar = findViewById(R.id.progressbar);-----------------
 
+        progressTask.setProgressBar(progressBar);
+        progressTask.execute();*/
         cameraSource();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //if statement for if the camera permission is not as expected.
+        if (requestCode != requestID) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+        //progressTask.onPostExecute(null);-----------------------------
+
+        //if camera permission is granted, start the cameraSource
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            try {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                cameraSource.start(cameraSurface.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void cameraSource() {
@@ -98,12 +127,12 @@ public class Camera extends AppCompatActivity {
 
                 if (items.size() > 0) {
                     StringBuilder stringBuilder = new StringBuilder();
+                    //progressBar.setVisibility(View.VISIBLE);
                     for (int i=0; i<items.size(); i++) {
                         TextBlock item = items.valueAt(i);
                         stringBuilder.append(item.getValue());
                         stringBuilder.append("\n");
                     }
-                    String block = stringBuilder.toString();
 
                     //Looking for a number in pattern 000.00 or 000-00
                     Pattern pattern = Pattern.compile("(\\d{1,3}\\.\\d{2}|\\d{1,3}\\-\\d{2})");
@@ -114,6 +143,7 @@ public class Camera extends AppCompatActivity {
 
                         //Add numbers to frequency map
                         if(scanCounter < maxScans){
+
                             if(regList.get(group) == null) {
                                 regList.put(group, 1);
                             }
@@ -123,6 +153,7 @@ public class Camera extends AppCompatActivity {
                             scanCounter++;
                         }
                         else{
+                            //progressBar.setVisibility(View.INVISIBLE);---------------
                             //check when enough scans have been made
                             scanCounter = 0;
                             int highestFreq = 0;
@@ -147,9 +178,9 @@ public class Camera extends AppCompatActivity {
                                 return;
                             }
                             else{
-
                                 Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 intent.putExtra("register", register);
+                                Log.d("REG", String.valueOf(register));
                                 startActivity(intent);
                                 //finish();
                             }

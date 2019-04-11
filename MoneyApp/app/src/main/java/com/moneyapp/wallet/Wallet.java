@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -11,7 +12,10 @@ import android.widget.Toast;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
+import com.moneyapp.MainActivity;
 import com.moneyapp.R;
+
+import java.util.Arrays;
 
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
@@ -58,11 +62,37 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         walletData = walletDAO.getRecentWallet();
     }
 
-    protected void onNewIntent(Intent intent)
-    {
+    @Override
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+    }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        Intent intent = getIntent();
+        if(null != intent.getIntArrayExtra("coins")) { //Stop from getting nulls first time entering
+            walletData.setNotes(intent.getIntArrayExtra("notes"));
+            walletData.setCoins(intent.getIntArrayExtra("coins"));
+        }
+        Log.d("WALLET", "Notes");
+        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
+        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = getIntent();
+        intent.putExtra("notes", walletData.getNotes());
+        intent.putExtra("coins", walletData.getCoins());
+
+        Log.d("WALLET", "Notes");
+        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
+        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
+        //startActivity(intent);
     }
 
     @Override
@@ -100,11 +130,8 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             //Change to coins activity
             Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
             intent.putExtra("notes", walletData.getNotes());
+            intent.putExtra("coins", walletData.getCoins());
             startActivity(intent);
         }
-    }
-
-    WalletData getWalletData(){
-        return walletData;
     }
 }

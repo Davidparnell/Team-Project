@@ -2,6 +2,7 @@ package com.moneyapp.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -10,6 +11,8 @@ import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
+
+import java.util.Arrays;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,9 +23,9 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             ten_cent, five_cent, wallet, notes;
 
     //Initialize DB objects
-    AppDatabase database;//init database
-    WalletDAO walletDAO;//init DAO
-    WalletData walletData;//init table
+    AppDatabase database;//Initialize AppDatabase
+    WalletDAO walletDAO;//Initialize DAO
+    WalletData walletData;//Initialize Wallet
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,11 +69,34 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         walletData = walletDAO.getRecentWallet();
     }
 
-    protected void onNewIntent(Intent intent)
-    {
+    protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        walletData.setNotes(intent.getIntArrayExtra("notes"));
+        walletData.setCoins(intent.getIntArrayExtra("coins"));
+
+        Log.d("WALLET", "Coins");
+        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
+        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
+    }
+
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent();
+        intent.putExtra("notes", walletData.getNotes());
+        intent.putExtra("coins", walletData.getCoins());
+
+        Log.d("WALLET", "Notes");
+        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
+        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
+        //startActivity(intent);
     }
 
     @Override
@@ -86,7 +112,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             //Add €2 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- €1 added ---",
                     Toast.LENGTH_SHORT).show();
-            walletData.setCoin2e(walletData.getCoin1e()+1);
+            walletData.setCoin1e(walletData.getCoin1e()+1);
         } else if (v == (View) fifty_cent) {
             //Add 50c to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 50c added ---",
@@ -116,6 +142,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         } else if (v == (View) notes) {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
+            intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
             startActivity(intent);
         }

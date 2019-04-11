@@ -5,6 +5,7 @@ import androidx.room.Room;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,16 +32,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView balanceView;
     String balance;
 
+    AppDatabase database;
+    WalletDAO walletDAO;
+    WalletData walletData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Database object
-        AppDatabase database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
+        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
                 //.fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
+
+        walletDAO = database.getWalletDAO();
 
         //Button for History
         btnHist = findViewById(R.id.History);
@@ -62,28 +69,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBalT2S.setOnClickListener(this);
         //balanceView.setOnLongClickListener(this);
 
-        //Display balanceView
-        WalletDAO walletDAO = database.getWalletDAO();
-        walletDAO.deleteAll();
         //Date formatting
-        Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
-        String strDate = dateFormat.format(date);
+        Date date = Calendar.getInstance().getTime();
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
 
         //dummy data
-        WalletData walletData = new WalletData();
         //dateFormat.parse("2019-10-02 15:15:14" for testing date with hard coding
+        walletData = walletDAO.getRecentWallet();
         walletData.setWalletOptions(date, (float) 73.50, (float)10.00);
-        walletData.setNotes(new int[] {1, 1, 0, 0});
-        walletData.setCoins(new int[] {1,1,1,0,0,0});
-        walletDAO.insert(walletData);
+        walletData.setNotes(new int[] {0, 0, 0, 0});
+        walletData.setCoins(new int[] {0,0,0,0,0,0});
+        //walletDAO.insert(walletData);
+    }
 
-        //List<WalletData> walletHist = walletDAO.getWalletHistory();
-        //Log.d("DATE", walletHist.toString());
-        //main balanceView
-        WalletData wallet = walletDAO.getRecentWallet();
-        balance = String.format(Locale.UK, "%.02f", wallet.getBalance());
-        balanceView.setText("\u20ac "+balance);     //text view with balance and euro sign
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        walletData = walletDAO.getRecentWallet();
+        balance = "\u20ac" + String.format(Locale.UK, "%.02f", walletData.getBalance());
+        balanceView.setText(balance);
         balanceView.setTextSize(80);
     }
 

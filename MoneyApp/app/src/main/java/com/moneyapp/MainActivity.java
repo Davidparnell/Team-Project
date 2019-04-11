@@ -11,13 +11,13 @@ import android.widget.ImageView;
 import android.content.Intent;
 import android.widget.TextView;
 
-import com.moneyapp.Database.AppDatabase;
-import com.moneyapp.Transaction.Camera;
-import com.moneyapp.Transaction.PaySuggestion;
-import com.moneyapp.Wallet.Wallet;
+import com.moneyapp.database.AppDatabase;
+import com.moneyapp.history.History;
+import com.moneyapp.transaction.Camera;
+import com.moneyapp.wallet.Wallet;
 
-import com.moneyapp.Database.WalletDAO;
-import com.moneyapp.Database.WalletData;
+import com.moneyapp.database.WalletDAO;
+import com.moneyapp.database.WalletData;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -64,24 +64,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Display balanceView
         WalletDAO walletDAO = database.getWalletDAO();
-        //walletDAO.deleteAll();
+        walletDAO.deleteAll();
         //Date formatting
         Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMMM-dd HH:mm:ss", Locale.UK);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
         String strDate = dateFormat.format(date);
-        //Log.d("HIS", String.valueOf(strDate));
+
         //dummy data
         WalletData walletData = new WalletData();
-        walletData.setWalletOptions(strDate, (float) 30.00, (float)10.00);
+        //dateFormat.parse("2019-10-02 15:15:14" for testing date with hard coding
+        walletData.setWalletOptions(date, (float) 73.50, (float)10.00);
         walletData.setNotes(new int[] {1, 1, 0, 0});
         walletData.setCoins(new int[] {1,1,1,0,0,0});
         walletDAO.insert(walletData);
+
+        //List<WalletData> walletHist = walletDAO.getWalletHistory();
+        //Log.d("DATE", walletHist.toString());
         //main balanceView
         WalletData wallet = walletDAO.getRecentWallet();
         balance = String.format(Locale.UK, "%.02f", wallet.getBalance());
-        balanceView.setText("\u20ac "+balance);
+        balanceView.setText("\u20ac "+balance);     //text view with balance and euro sign
         balanceView.setTextSize(80);
-
     }
 
     @Override
@@ -105,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Camera Button Pressed
         else if(v == (View) btnCamera)
         {
-            Intent intent = new Intent(getApplicationContext(), PaySuggestion.class);
-            intent.putExtra("register", "71.50");
+            Intent intent = new Intent(getApplicationContext(), Camera.class);
             startActivity(intent);
         }
         else if(v ==(View) btnBalT2S)

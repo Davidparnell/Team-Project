@@ -1,4 +1,4 @@
-package com.moneyapp.Database;
+package com.moneyapp.database;
 
 import java.util.List;
 

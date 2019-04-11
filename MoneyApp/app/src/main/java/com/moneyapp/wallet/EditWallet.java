@@ -1,4 +1,4 @@
-package com.moneyapp.Wallet;
+package com.moneyapp.wallet;
 
 import androidx.appcompat.app.AppCompatActivity;
 

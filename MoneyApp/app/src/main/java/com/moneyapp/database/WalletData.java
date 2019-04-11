@@ -1,4 +1,6 @@
-package com.moneyapp.Database;
+package com.moneyapp.database;
+
+import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -11,7 +13,7 @@ public class WalletData {
     @NonNull
     @PrimaryKey
     @ColumnInfo(name = "date")
-    private String date;
+    private Date date;
 
 	@NonNull
     @ColumnInfo(name = "balance")
@@ -51,7 +53,7 @@ public class WalletData {
     private int coin5c;
 
     //General Setters
-    public void setWalletOptions(String date, float balance, float register)
+    public void setWalletOptions(Date date, float balance, float register)
     {this.date = date; this.balance = balance; this.register = register;};
 
     public void setNotes(int[] notes)
@@ -66,9 +68,9 @@ public class WalletData {
 
     //-------Getters and Setters----------
     @NonNull
-    public String getDate() {return date;}
+    public Date getDate() {return date;}
 
-    public void setDate(@NonNull String date){this.date = date;}
+    public void setDate(@NonNull Date date){this.date = date;}
 
     public float getBalance() {return balance;}
 

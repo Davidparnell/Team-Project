@@ -1,26 +1,28 @@
-package com.moneyapp.Transaction;
+package com.moneyapp.transaction;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.moneyapp.Database.AppDatabase;
-import com.moneyapp.Database.WalletDAO;
-import com.moneyapp.Database.WalletData;
+import com.moneyapp.database.AppDatabase;
+import com.moneyapp.database.WalletDAO;
+import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
+
+/*
+    Generates a suggestion of notes and coins to be given based on register value read by the camera.
+    There are 2 algorithms that generate 2 arrays of notes/coins out of which the best is chosen.
+    What is passed to the algorithm depends on 4 paths;
+        below 5 = coins, above 5 = notes, amount needed > then notes total but less the full total = all notes and remainder coins, and not enough money had.
+    It then adds changes to database, if change given, database entry is updated in next activity.
+*/
 
 public class PaySuggestion extends AppCompatActivity {
     int notes[];
@@ -32,8 +34,7 @@ public class PaySuggestion extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
-
-        //notes = findViewById(R.id.notes);
+        
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
         WalletDAO walletDAO = database.getWalletDAO();
@@ -44,60 +45,62 @@ public class PaySuggestion extends AppCompatActivity {
         notes = walletData.getNotes();
         coins = walletData.getCoins();
 
-        int change[] = generateSuggestion(register);
-        for(int i = 0; i< change.length; i++) {
-            Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(change[i]));
+        int pay[] = generateSuggestion(register);
+        for(int i = 0; i< pay.length; i++) {
+            Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
         }
 
-        walletData = updateWallet(register, change, walletData);
+        walletData = updateWallet(register, pay, walletData);
         Log.d("REG", walletData.toString());
     }
 
+    //Path for what needs to be generated using algorithm
     public int[] generateSuggestion(float registerFloat){
         float nValues[] = {50f, 20f, 10f, 5f};
         float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
         BigDecimal balanceNotes = BigDecimal.valueOf(notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]);
         BigDecimal balanceCoins = BigDecimal.valueOf(coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5]);
-        int changeNotes[] = {0,0,0,0};
-        int changeNotes2[] = {0,0,0,0};
-        int changeCoins[] = {0,0,0,0,0,0};
-        int changeCoins2[] = {0,0,0,0,0,0};
+        int payNotes[] = {0,0,0,0};
+        int payNotes2[] = {0,0,0,0};
+        int payCoins[] = {0,0,0,0,0,0};
+        int payCoins2[] = {0,0,0,0,0,0};
         BigDecimal register = new BigDecimal(registerFloat);
 
         if(5 > register.floatValue() && balanceCoins.floatValue() >= register.floatValue()){       //Small amounts below 5 if enough coins in wallet
             Log.d("REG", "These coins");
             setPath(1);
-            return changeCoins = algorithm(getCoins(), cValues, register.floatValue(), changeCoins, changeCoins2);
+            return payCoins = algorithm(getCoins(), cValues, register.floatValue(), payCoins, payCoins2);
         }
         else if(balanceNotes.floatValue() >= register.floatValue()) {                              //amounts bigger then 5 euro or less then 5 if not enough coins
             Log.d("REG", "These notes");
             setPath(2);
-            return changeNotes = algorithm(getNotes(), nValues, roundToFive(register.floatValue()), changeNotes, changeNotes2);
+            return payNotes = algorithm(getNotes(), nValues, roundToFive(register.floatValue()), payNotes, payNotes2);
         }
         else if(balanceNotes.add(balanceCoins).floatValue() >= register.floatValue()){             //amounts bigger then total in notes but less
             Log.d("REG", "All notes + these coins");                                     //then total in wallet - all notes and coins algorithm for remainder
             setPath(3);
             float register2 = register.subtract(balanceNotes).floatValue();
-            return changeCoins = algorithm(getCoins(), cValues, register2, changeCoins, changeCoins2);
+            return payCoins = algorithm(getCoins(), cValues, register2, payCoins, payCoins2);
         }
         else{
             Log.d("REG", "Not enough money");                                            //Not enough money
             setPath(4);
-            return changeNotes;
+            return payNotes;
         }
     }
 
-    public int[] algorithm(int[] wallet, float[] values, float register, int[] change1, int[] change2){
+    //Generates 2 arrays with 2 different solutions
+    public int[] algorithm(int[] wallet, float[] values, float register, int[] pay1, int[] pay2){
         float regTemp = register;//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
         int i = 0;
         int j = 0;
         int x = 0;
-        //first algorithm iteration - generates fisrt change array
+        //first algorithm iteration - generates first money array
         while (regTemp > 0) {
             if (regTemp >= values[i] && wallet[i] != 0) {
                 regTemp -= values[i];
                 wallet[i]--;
-                change1[i]++;
+                pay1[i]++;
             }
             else{
                 i++;
@@ -105,7 +108,7 @@ public class PaySuggestion extends AppCompatActivity {
 
             if(i==wallet.length){//non ideal eg. has 50 note only but needs 25
                 regTemp = register;  //reset variables
-                Arrays.fill(change1, 0);
+                Arrays.fill(pay1, 0);
                 if(wallet.length == 4) {
                     wallet = getNotes();
                 }else {
@@ -117,7 +120,7 @@ public class PaySuggestion extends AppCompatActivity {
                     if ( wallet[i] != 0) {
                         regTemp -= values[i];
                         wallet[i]--;
-                        change1[i]++;
+                        pay1[i]++;
                     }
                     else{
 
@@ -130,7 +133,7 @@ public class PaySuggestion extends AppCompatActivity {
             }
         }
 
-        //Second change algorithm variation - generates 2nd change array
+        //Second change algorithm variation - generates 2nd money array
         regTemp = register;
         wallet = getNotes();
         while(regTemp > 0){
@@ -151,57 +154,56 @@ public class PaySuggestion extends AppCompatActivity {
 
             regTemp -= values[j];
             wallet[j]--;
-            change2[j]++;
+            pay2[j]++;
         }
         //compare which is better after cleaning up the second which sometimes ends with redundant notes/coins
-        return change1 = compareChange(register, change1, change2, values);
+        return comparePayment(register, pay1, pay2, values);
     }
 
-    //takes 2 change arrays to compare + cleans up 2nd after 2nd algorithm. register for coin compare needs to specific to coins
-    public int[] compareChange(float register, int change[], int change2[], float values[]) {
-        float changeTotal = 0;
-        float changeTotal2 = 0;
+    //takes 2 pay arrays to compare + cleans up 2nd after 2nd algorithm. register for coin compare needs to specific to coins
+    public int[] comparePayment(float register, int pay[], int pay2[], float values[]) {
+        float payTotal = 0;
+        float payTotal2 = 0;
 
         for(int i = 0; i < values.length; i++){
-            changeTotal += change[i] * values[i];
-            changeTotal2 += change2[i] * values[i];
+            payTotal += pay[i] * values[i];
+            payTotal2 += pay2[i] * values[i];
         }
 
-        float overflow = changeTotal - register;  //Which is closer to amount needed
-        float overflow2 = changeTotal2 - register;
+        float overflow = payTotal - register;  //Which is closer to amount needed
+        float overflow2 = payTotal2 - register;
         int i = 0;
 
-        //Clean up 2nd change array, algorithm for 2nd sometimes is better but has extra unneeded notes
-        while(i < change2.length) {
-            if (values[i] < overflow2 && change2[i] > 0) {
+        //Clean up 2nd pay array, algorithm for 2nd sometimes is better but has extra unneeded notes
+        while(i < pay2.length) {
+            if (values[i] < overflow2 && pay2[i] > 0) {
                 overflow2 -= values[i];
-                change2[i]--;
+                pay2[i]--;
             } else{
                 i++;
             }
         }
-        changeTotal2 = change2[0] * values[0] + change2[1] * values[1] + change2[2] * values[2] + change2[3] * values[3];
+        payTotal2 = pay2[0] * values[0] + pay2[1] * values[1] + pay2[2] * values[2] + pay2[3] * values[3];
 
-        //check cleanup happened correctly, so enough change is given
-        if(changeTotal2 < register){ Log.d("REG", "branch 1");
-            return change;
-        } else if(overflow > overflow2) { Log.d("REG", "branch 2");   //change more accurate
-            return change2;
-        } else if(overflow < overflow2) { Log.d("REG", "branch 1");   //change2 more accurate
-            return change;
+        //check cleanup happened correctly, so enough pay is given
+        if(payTotal2 < register){ Log.d("REG", "branch 1");
+            return pay;
+        } else if(overflow > overflow2) { Log.d("REG", "branch 2");   //pay more accurate
+            return pay2;
+        } else if(overflow < overflow2) { Log.d("REG", "branch 1");   //pay2 more accurate
+            return pay;
         } else if(overflow == overflow2) {                                      //equal but one uses more notes/coins to get same amount
             int total = 0;
             int total2 = 0;
 
-            for(i = 0; i < change.length; i++){
-                total += change[i];
-                total2 += change2[i];
+            for(i = 0; i < pay.length; i++){
+                total += pay[i];
+                total2 += pay2[i];
             }
 
-            if(total >= total2){ Log.d("REG", "branch 2"); return change2; }  //change2 used less notes/coins
-            else{ Log.d("REG", "branch 1"); return change; }                  //change used less notes/coins
+            if(total >= total2){ Log.d("REG", "branch 2"); return pay2; }  //pay2 used less notes/coins
+            else{ Log.d("REG", "branch 1"); return pay; }                  //pay used less notes/coins
         }
-
         return null;
     }
 
@@ -212,31 +214,30 @@ public class PaySuggestion extends AppCompatActivity {
         if(temp >= register){
             register += 5;
         }
-
-        Log.d("REG", String.valueOf(register));
         return register;
     }
 
-    public WalletData updateWallet(float register, int[] change, WalletData walletData){
-        Date date = Calendar.getInstance().getTime();;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MMMM-dd HH:mm:ss", Locale.UK);
-        String strDate = dateFormat.format(date);
+    //Makes an object after suggested notes are assumed to be given, and adds it to database
+    public WalletData updateWallet(float register, int[] pay, WalletData walletData){
+        Date date = Calendar.getInstance().getTime();
+        AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
+        WalletDAO walletDAO = database.getWalletDAO();
 
         int[] notes = walletData.getNotes();
         int[] coins = walletData.getCoins();
         if(path == 1){
             for(int i = 0; i< coins.length; i++){
-                coins[i] -= change[i];
+                coins[i] -= pay[i];
             }
         }
         else if(path == 2){
             for(int i = 0; i< notes.length; i++){
-                notes[i] -= change[i];
+                notes[i] -= pay[i];
             }
         }
         else if(path == 3){
             for(int i = 0; i< coins.length; i++){
-                coins[i] -= change[i];
+                coins[i] -= pay[i];
             }
             Arrays.fill(notes, 0);
         }
@@ -247,9 +248,10 @@ public class PaySuggestion extends AppCompatActivity {
         float total = notes[0] * 50f + notes[1] * 20f + notes[2] * 10f + notes[3] * 5f;
         total += coins[0] * 2.00f + coins[1] * 1.00f + coins[2] * 0.50f + coins[3] * 0.20f + coins[4] * 0.10f + coins[5] * 0.05f;
 
-        walletData.setWalletOptions(strDate, total, register);
+        walletData.setWalletOptions(date, total, register);
         walletData.setNotes(notes);
         walletData.setCoins(coins);
+        walletDAO.insert(walletData);
 
         return walletData;
     }
@@ -260,6 +262,4 @@ public class PaySuggestion extends AppCompatActivity {
     public int[] getCoins(){return new int[] {coins[0], coins[1], coins[2], coins[3], coins[4], coins[5]};}
 
     public void setPath(int path) { this.path = path; }
-
-    public int getPath() { return path; }
 }

@@ -1,4 +1,4 @@
-package com.moneyapp.Transaction;
+package com.moneyapp.transaction;
 
 import android.Manifest;
 import android.content.Intent;
@@ -148,10 +148,10 @@ public class Camera extends AppCompatActivity {
                             }
                             else{
 
-                                //Intent intent = new Intent(Camera.this, PaySuggestion.class);
-                                //intent.putExtra("register", register);
-                                //startActivity(intent);
-                                finish();
+                                Intent intent = new Intent(Camera.this, PaySuggestion.class);
+                                intent.putExtra("register", register);
+                                startActivity(intent);
+                                //finish();
                             }
                         }
                         Log.d("REG", regList.toString());

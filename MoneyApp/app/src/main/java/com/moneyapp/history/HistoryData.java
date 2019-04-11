@@ -1,4 +1,4 @@
-package com.moneyapp;
+package com.moneyapp.history;
 
 import android.graphics.drawable.Drawable;
 

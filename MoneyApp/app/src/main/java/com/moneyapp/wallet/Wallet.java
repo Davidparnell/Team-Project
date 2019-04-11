@@ -1,4 +1,4 @@
-package com.moneyapp.Wallet;
+package com.moneyapp.wallet;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.moneyapp.Database.AppDatabase;
-import com.moneyapp.Database.WalletDAO;
-import com.moneyapp.Database.WalletData;
-import com.moneyapp.MainActivity;
+import com.moneyapp.database.AppDatabase;
+import com.moneyapp.database.WalletDAO;
+import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
 

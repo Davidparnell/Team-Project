@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.moneyapp.database.AppDatabase;
-import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
@@ -23,8 +21,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             ten_cent, five_cent, wallet, notes;
 
     //Initialize DB objects
-    AppDatabase database;//Initialize AppDatabase
-    WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
 
     @Override
@@ -64,9 +60,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         notes = findViewById(R.id.NoteBtn);
         notes.setOnClickListener(this);
 
-        database = AppDatabase.getDatabase(getApplicationContext());
-        walletDAO = database.getWalletDAO();
-        walletData = walletDAO.getRecentWallet();
+        walletData = new WalletData();
     }
 
     protected void onNewIntent(Intent intent) {
@@ -86,18 +80,26 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
-
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent();
+        Intent intent = getIntent();
+
+        if(intent.getStringExtra("type").equals("wallet")) {
+            intent.setClass(getApplicationContext(), Wallet.class);
+        } else {
+            intent.setClass(getApplicationContext(), EditWallet.class);
+        }
+
         intent.putExtra("notes", walletData.getNotes());
         intent.putExtra("coins", walletData.getCoins());
+        intent.putExtra("type", "walletCoins");
 
         Log.d("WALLET", "Notes");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
-        //startActivity(intent);
-    }
+        startActivity(intent);
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -139,11 +141,13 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
+            intent.putExtra("type", "walletCoins");
             startActivity(intent);
         } else if (v == (View) notes) {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
+            intent.putExtra("type", "walletCoins");
             startActivity(intent);
         }
     }

@@ -57,22 +57,30 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
 
-        Log.d("WALLET", "Notes");
+        Log.d("WALLET", "Edit");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
-        super.onResume();
+        super.onBackPressed();
         Intent intent = getIntent();
+
+        if(intent.getStringExtra("type").equals("wallet")) {
+            intent.setClass(getApplicationContext(), Wallet.class);
+        } else {
+            intent.setClass(getApplicationContext(), WalletCoins.class);
+        }
+
         intent.putExtra("notes", walletData.getNotes());
         intent.putExtra("coins", walletData.getCoins());
-
+        intent.putExtra("type", "editWallet");
+        startActivity(intent);
         Log.d("WALLET", "Notes");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
-    }
+    }*/
 
     @Override
     //Functions after a button is pressed

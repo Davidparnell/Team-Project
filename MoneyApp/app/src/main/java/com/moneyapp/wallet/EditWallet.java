@@ -93,12 +93,14 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             //Return to main
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         //if cancel button pressed
         else if(v == (View) cancel)
         {
             //Return to wallet
+            onBackPressed();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

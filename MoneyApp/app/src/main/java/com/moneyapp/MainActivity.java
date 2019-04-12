@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         Intent intent = getIntent();
         walletData = walletDAO.getRecentWallet();
-        balance = "\u20ac" + String.format(Locale.UK, "%.02f", walletData.getBalance());
-        balanceView.setText(balance);
+        balance = String.format(Locale.UK, "%.02f", walletData.getBalance());
+        balanceView.setText("\u20ac" +balance);
         balanceView.setTextSize(80);
     }
 

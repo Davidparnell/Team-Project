@@ -13,8 +13,6 @@ import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,9 +21,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
     //Initialize Layout Buttons
     ImageButton two_euro, one_euro, fifty_cent, twenty_cent,
             ten_cent, five_cent, wallet, notes;
-
-    AppDatabase database;//Initialize AppDatabase
-    WalletDAO walletDAO;//Initialize DAO
 
     //Initialize DB objects
     WalletData walletData;//Initialize Wallet
@@ -67,9 +62,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         notes = findViewById(R.id.NoteBtn);
         notes.setOnClickListener(this);
 
-        database = AppDatabase.getDatabase(getApplicationContext());
-        walletDAO = database.getWalletDAO();
-
         walletData = new WalletData();
     }
 
@@ -110,6 +102,9 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
         startActivity(intent);
     }*/
+
+    @Override
+    public void onBackPressed() {}
 
     @Override
     public void onClick(View v) {
@@ -158,18 +153,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
             intent.putExtra("type", "walletCoins");
-            databaseInsert();
             startActivity(intent);
         }
-    }
-    public void databaseInsert(){
-        Date date = Calendar.getInstance().getTime();
-        int notes[] = walletData.getNotes();
-        int coins[] = walletData.getCoins();
-        float balance = notes[0] * 50f + notes[1] * 20f + notes[2] * 10f + notes[3] * 5f;
-        balance += coins[0] * 2.00f + coins[1] * 1.00f + coins[2] * 0.50f + coins[3] * 0.20f + coins[4] * 0.10f + coins[5] * 0.05f;
-
-        walletData.setWalletOptions(date, balance, 0);
-        walletDAO.insert(walletData);
     }
 }

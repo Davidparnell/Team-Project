@@ -21,12 +21,12 @@
         android:background="#FAFAFA"
         android:contentDescription="@string/wallet"
         android:scaleType="fitCenter"
-        android:src="@drawable/wallet"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/Camera"
         app:layout_constraintHorizontal_bias="0.291"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Balance" />
+        app:layout_constraintTop_toBottomOf="@+id/Balance"
+        app:srcCompat="@drawable/wallet_states"/>
 
     <ImageButton
         android:id="@+id/Camera"
@@ -40,11 +40,11 @@
         android:background="#FAFAFA"
         android:contentDescription="@string/camera"
         android:scaleType="fitCenter"
-        android:src="@drawable/camera_button"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Wallet"
-        app:layout_constraintTop_toBottomOf="@+id/Balance" />
+        app:layout_constraintTop_toBottomOf="@+id/Balance"
+        app:srcCompat="@drawable/camera_states"/>
 
     <TextView
         android:id="@+id/Balance"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Balance"
         app:srcCompat="@drawable/text2speech" />
 
-        <ImageButton
+    <ImageButton
         android:id="@+id/History"
         android:layout_width="86dp"
         android:layout_height="75dp"
@@ -89,8 +89,9 @@
         android:layout_marginEnd="16dp"
         android:background="#FAFAFA"
         android:contentDescription="@string/History"
+        android:src="@drawable/history_states"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/history" />
+        app:srcCompat="@drawable/history_states" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

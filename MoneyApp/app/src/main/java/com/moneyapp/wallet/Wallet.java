@@ -111,6 +111,9 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     }*/
 
     @Override
+    public void onBackPressed() {}
+
+    @Override
     //Functions after a button is pressed
     public void onClick(View v) {
         //Money Buttons
@@ -148,18 +151,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
             intent.putExtra("type", "wallet");
-            databaseInsert();
             startActivity(intent);
         }
-    }
-    public void databaseInsert(){
-        Date date = Calendar.getInstance().getTime();
-        int notes[] = walletData.getNotes();
-        int coins[] = walletData.getCoins();
-        float balance = notes[0] * 50f + notes[1] * 20f + notes[2] * 10f + notes[3] * 5f;
-        balance += coins[0] * 2.00f + coins[1] * 1.00f + coins[2] * 0.50f + coins[3] * 0.20f + coins[4] * 0.10f + coins[5] * 0.05f;
-
-        walletData.setWalletOptions(date, balance, 0);
-        walletDAO.insert(walletData);
     }
 }

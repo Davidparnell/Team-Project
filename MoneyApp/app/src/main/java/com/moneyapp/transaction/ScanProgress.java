@@ -1,14 +1,27 @@
 package com.moneyapp.transaction;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.moneyapp.R;
+
+import static com.google.android.gms.flags.FlagSource.G;
+
 class ScanProgress extends AsyncTask<Void, Integer, Void> {
-    private ProgressBar progressBar;
+    ProgressBar progressBar;
+    int i =0;
     @Override
     protected Void doInBackground(Void... args) {
-        publishProgress();
+        while(i < 6){
+            publishProgress(i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         // code where data is processing
         return null;
@@ -23,15 +36,20 @@ class ScanProgress extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
-        progressBar.setProgress(values[0]);
+        super.onProgressUpdate(values);
+        Log.d("REG", String.valueOf(values[0]));
+        progressBar.setProgress(values[0]*25);
     }
 
     public void setProgressBar(ProgressBar bar) {
         this.progressBar = bar;
+    }
+
+    public void setI(int i) {
+        this.i = i;
     }
 }

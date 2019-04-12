@@ -9,6 +9,7 @@ import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -49,9 +50,23 @@ public class PaySuggestion extends AppCompatActivity {
         for(int i = 0; i< pay.length; i++) {
             Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
         }
+        //from here -------------------------
+        int payNotes[] = {0,0,0,0};
+        int payCoins[] = {0,0,0,0,0,0};
+        if(path == 1) {
+            payCoins = pay;
+        }
+        else if(path == 2){
+            payNotes = pay;
+        }else if(path == 3){
+            payCoins = pay;
+            payNotes = notes;
+        }else if( path == 4){
+            //nothing not enough money
+        }//-----------------------------------
 
         walletData = updateWallet(register, pay, walletData);
-        Log.d("REG", walletData.toString());
+        //Log.d("REG", walletData.toString());
     }
 
     //Path for what needs to be generated using algorithm

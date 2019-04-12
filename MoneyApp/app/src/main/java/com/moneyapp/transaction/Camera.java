@@ -40,19 +40,19 @@ public class Camera extends AppCompatActivity {
     public String register = "";
 	private final int maxScans = 5; //number of scans to check accuracy
 	private final int minFreq = 3;  //minimum frequency to accept result is a ratio of maxScans eg.5:3
-    private ProgressBar progressBar;
+    ProgressBar progressBar;
     public ScanProgress progressTask = new ScanProgress();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        progressBar = findViewById(R.id.progressbar);
         cameraSurface = findViewById(R.id.cameraSurface);
-        /*progressBar = findViewById(R.id.progressbar);-----------------
 
         progressTask.setProgressBar(progressBar);
-        progressTask.execute();*/
+        progressTask.execute();
+
         cameraSource();
     }
 
@@ -139,6 +139,7 @@ public class Camera extends AppCompatActivity {
                     Matcher matcher = pattern.matcher(stringBuilder);
 
                     if(matcher.find()){
+                        progressTask.setI(scanCounter);
                         String group = matcher.group(1).replace("-", ".");
 
                         //Add numbers to frequency map
@@ -178,11 +179,12 @@ public class Camera extends AppCompatActivity {
                                 return;
                             }
                             else{
+                                progressTask.setI(6);
                                 Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 intent.putExtra("register", register);
                                 Log.d("REG", String.valueOf(register));
                                 startActivity(intent);
-                                //finish();
+                                finish();
                             }
                         }
                         Log.d("REG", regList.toString());

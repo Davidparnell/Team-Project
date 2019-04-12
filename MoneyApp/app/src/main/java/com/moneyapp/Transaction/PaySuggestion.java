@@ -1,6 +1,7 @@
 package com.moneyapp.Transaction;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,6 +39,8 @@ public class PaySuggestion extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
+        listView = findViewById(R.id.suggestionList);
+        suggestionList = new ArrayList<>();
 
         //notes = findViewById(R.id.notes);
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
@@ -50,12 +54,35 @@ public class PaySuggestion extends AppCompatActivity {
         coins = walletData.getCoins();
 
         int change[] = generateSuggestion(register);
-        for(int i = 0; i< change.length; i++) {
-            Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(change[i]));
+        for(int i = 0; i< change.length; i++)
+        {
+            Log.d("PayNOTES", "["+String.valueOf(i)+"] - "+String.valueOf(change[i]));
+            //SuggestionData item = new SuggestionData();
+
         }
+        int payNotes[] = {0,0,0,0};
+        int payCoins[] = {0,0,0,0,0,0};
+        if(path == 1) {
+            payCoins = change;
+        }
+        else if(path == 2){
+            payNotes = change;
+        }else if(path == 3){
+            payCoins = change;
+            payNotes = notes;
+        }else if(path == 4){
+            //nothing not enough money
+        }//-----------------------------------
+
+        List<String> cash;
+        
 
         walletData = updateWallet(register, change, walletData);
         Log.d("REG", walletData.toString());
+
+        SuggestionAdapter adapter = new SuggestionAdapter(suggestionList, getApplicationContext());
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     public int[] generateSuggestion(float registerFloat){

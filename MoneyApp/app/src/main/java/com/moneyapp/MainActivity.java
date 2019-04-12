@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     AppDatabase database;
     WalletDAO walletDAO;
-    WalletData walletData;
+    WalletData walletData = new WalletData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //dummy data
         //dateFormat.parse("2019-10-02 15:15:14" for testing date with hard coding
-        walletData = walletDAO.getRecentWallet();
-        walletData.setWalletOptions(date, (float) 73.50, (float)10.00);
+        //walletData = walletDAO.getRecentWallet();
+        walletData.setWalletOptions(date, (float) 3.50, (float)0.00);
         walletData.setNotes(new int[] {0, 0, 0, 0});
-        walletData.setCoins(new int[] {0,0,0,0,0,0});
-        //walletDAO.insert(walletData);
+        walletData.setCoins(new int[] {1,1,1,0,0,0});
+        walletDAO.insert(walletData);
     }
 
     @Override

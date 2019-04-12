@@ -1,8 +1,10 @@
 package com.moneyapp.transaction;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
@@ -11,9 +13,11 @@ import com.moneyapp.R;
 
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -30,11 +34,16 @@ public class PaySuggestion extends AppCompatActivity {
     int coins[];
     int path = 0;
 
+    private ListView listView;
+    private List<SuggestionData> suggestionList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
+        listView = findViewById(R.id.suggestionList);
+        suggestionList = new ArrayList<>();
         
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
@@ -65,8 +74,74 @@ public class PaySuggestion extends AppCompatActivity {
             //nothing not enough money
         }//-----------------------------------
 
+        ArrayList<String> cash = new ArrayList<String>();
+        float nValues[] = {50f, 20f, 10f, 5f};
+        float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
+
+        for(int i = 0; i < payNotes.length; i++){
+            for(int j = 0; j < payNotes[i]; j++){
+                cash.add(String.valueOf(nValues[i]));
+            }
+        }
+
+        for(int i = 0; i < payCoins.length; i++){
+            for(int j = 0; j < payCoins[i]; j++){
+                cash.add(String.valueOf(cValues[i]));
+            }
+        }
+
+        for (int i = 0; i < cash.size(); i++)
+        {
+            SuggestionData item = new SuggestionData();
+
+            if (cash.get(i).equals("50.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("20.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.twenty_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("10.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.ten_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("5.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.five_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("2.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.two_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("1.0"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.one_euro);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("0.5"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
+                item.setCash(drawable);
+            }
+            suggestionList.add(item);
+        }
+
+        Log.d("REG", cash.toString());
+
+        //suggestionList.add(new SuggestionData);
+
         walletData = updateWallet(register, pay, walletData);
         //Log.d("REG", walletData.toString());
+
+        SuggestionAdapter adapter = new SuggestionAdapter(suggestionList, getApplicationContext());
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     //Path for what needs to be generated using algorithm

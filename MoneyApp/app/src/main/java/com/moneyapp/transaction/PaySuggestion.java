@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
@@ -29,7 +32,8 @@ import androidx.appcompat.app.AppCompatActivity;
     It then adds changes to database, if change given, database entry is updated in next activity.
 */
 
-public class PaySuggestion extends AppCompatActivity {
+public class PaySuggestion extends AppCompatActivity implements View.OnClickListener
+{
     int notes[];
     int coins[];
     int path = 0;
@@ -38,12 +42,16 @@ public class PaySuggestion extends AppCompatActivity {
     private List<SuggestionData> suggestionList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
         listView = findViewById(R.id.suggestionList);
         suggestionList = new ArrayList<>();
+
+        FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
+        floating_btn.setOnClickListener(this);
         
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
@@ -367,4 +375,17 @@ public class PaySuggestion extends AppCompatActivity {
     public int[] getCoins(){return new int[] {coins[0], coins[1], coins[2], coins[3], coins[4], coins[5]};}
 
     public void setPath(int path) { this.path = path; }
+
+    @Override
+    public void onClick(View v)
+    {
+        switch (v.getId())
+        {
+            case R.id.floating_tick:
+            {
+                Toast.makeText(getApplicationContext(), "Go to change", Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+    }
 }

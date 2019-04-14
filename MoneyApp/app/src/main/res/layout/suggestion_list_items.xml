@@ -5,9 +5,9 @@
     android:layout_height="60dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_width="210dp"
+        android:layout_height="139dp"
         android:id="@+id/NoteView"/>
 
 </LinearLayout>

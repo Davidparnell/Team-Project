@@ -129,6 +129,21 @@ public class PaySuggestion extends AppCompatActivity {
                 Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
                 item.setCash(drawable);
             }
+            else if (cash.get(i).equals("0.2"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.twenty_cent);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("0.1"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.ten_cent);
+                item.setCash(drawable);
+            }
+            else if (cash.get(i).equals("0.05"))
+            {
+                Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
+                item.setCash(drawable);
+            }
             suggestionList.add(item);
         }
 

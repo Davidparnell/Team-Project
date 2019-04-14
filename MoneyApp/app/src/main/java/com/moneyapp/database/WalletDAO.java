@@ -19,6 +19,9 @@ public interface WalletDAO {
     @Query("DELETE FROM wallet")
     void deleteAll();
 
+    @Query("DELETE FROM wallet WHERE date <= date('now','-2 day')")
+    void deleteOlderThenMonth();
+
     @Insert
     void insert(WalletData walletData);
 

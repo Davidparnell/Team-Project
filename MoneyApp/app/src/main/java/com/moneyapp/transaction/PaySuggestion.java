@@ -50,9 +50,10 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         listView = findViewById(R.id.suggestionList);
         suggestionList = new ArrayList<>();
 
+        //Floating button used to go to next activity.
         FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
         floating_btn.setOnClickListener(this);
-        
+
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
 
         WalletDAO walletDAO = database.getWalletDAO();
@@ -88,16 +89,19 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
 
         for(int i = 0; i < payNotes.length; i++){
             for(int j = 0; j < payNotes[i]; j++){
+                //Add value as cash to the cash ArrayList
                 cash.add(String.valueOf(nValues[i]));
             }
         }
 
         for(int i = 0; i < payCoins.length; i++){
             for(int j = 0; j < payCoins[i]; j++){
+                //Add value as cash to the cash ArrayList
                 cash.add(String.valueOf(cValues[i]));
             }
         }
 
+        //Creating drawables from the cash ArrayList values.
         for (int i = 0; i < cash.size(); i++)
         {
             SuggestionData item = new SuggestionData();
@@ -152,6 +156,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
                 Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
                 item.setCash(drawable);
             }
+            //Insert calculated drawable into the suggestionList ArrayList.
             suggestionList.add(item);
         }
 
@@ -383,6 +388,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         {
             case R.id.floating_tick:
             {
+                //Insert code to proceed to next activity here.
                 Toast.makeText(getApplicationContext(), "Go to change", Toast.LENGTH_SHORT).show();
                 break;
             }

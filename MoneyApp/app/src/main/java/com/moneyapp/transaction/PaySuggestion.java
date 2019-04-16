@@ -279,7 +279,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     }
 
     //takes 2 pay arrays to compare + cleans up 2nd after 2nd algorithm. register for coin compare needs to specific to coins
-    public int[] comparePayment(float register, int pay[], int pay2[], float values[]) {
+    public int[] comparePayment(float register, int pay[], int pay2[], float values[]) { //values are note/coin numbers eg. 50,20,10,5,2,1,0.5 etc.
         float payTotal = 0;
         float payTotal2 = 0;
 
@@ -287,6 +287,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             payTotal += pay[i] * values[i];
             payTotal2 += pay2[i] * values[i];
         }
+        Log.d("REG", String.valueOf(payTotal)+" "+String.valueOf(payTotal2));
 
         float overflow = payTotal - register;  //Which is closer to amount needed
         float overflow2 = payTotal2 - register;

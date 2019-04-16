@@ -41,7 +41,7 @@ class ScanProgress extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        Log.d("REG", String.valueOf(values[0]));
+        //Log.d("REG", String.valueOf(values[0]));
         progressBar.setProgress(values[0]*25);
     }
 

@@ -21,6 +21,7 @@ import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,15 +72,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Date formatting
         Date date = Calendar.getInstance().getTime();
-        //DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
 
         //dummy data
-        //dateFormat.parse("2019-10-02 15:15:14" for testing date with hard coding
+        /*try {
+            date = dateFormat.parse("2019-4-14 14:15:14"); //for testing date with hard coding
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }*/
+
         //walletData = walletDAO.getRecentWallet();
         walletData.setWalletOptions(date, (float) 3.50, (float)0.00);
         walletData.setNotes(new int[] {0, 0, 0, 0});
         walletData.setCoins(new int[] {1,1,1,0,0,0});
-        walletDAO.insert(walletData);
+        //walletDAO.insert(walletData);
     }
 
     @Override
@@ -92,7 +98,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
-        walletData = walletDAO.getRecentWallet();
+        if(walletDAO.getRecentWallet() != null){
+            walletData = walletDAO.getRecentWallet();
+        }else{
+            walletData.setWalletOptions(Calendar.getInstance().getTime(), 0, 0);
+            walletData.setNotes(new int[] {0, 0, 0, 0});
+            walletData.setCoins(new int[] {0,0,0,0,0,0});
+            walletDAO.insert(walletData);
+        }
+
         balance = String.format(Locale.UK, "%.02f", walletData.getBalance());
         balanceView.setText("\u20ac" +balance);
         balanceView.setTextSize(80);
@@ -182,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             }
         }
-
         return true;
     }
 }

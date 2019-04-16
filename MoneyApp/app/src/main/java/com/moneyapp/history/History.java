@@ -39,7 +39,7 @@ public class History extends AppCompatActivity
 
         //delete anything older than a month
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MONTH, +3);
+        cal.add(Calendar.MONTH, -1);
         Date deleteFrom = cal.getTime();
         walletDAO.deleteOlderThenMonth(deleteFrom);
 

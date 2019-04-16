@@ -14,7 +14,6 @@ import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +36,8 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     int notes[];
     int coins[];
     int path = 0;
+    final float nValues[] = {50f, 20f, 10f, 5f};
+    final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
     private List<SuggestionData> suggestionList;
@@ -44,18 +45,15 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
         listView = findViewById(R.id.suggestionList);
-        suggestionList = new ArrayList<>();
 
         //Floating button used to go to next activity.
         FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
         floating_btn.setOnClickListener(this);
 
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
-
         WalletDAO walletDAO = database.getWalletDAO();
 
         WalletData walletData = walletDAO.getRecentWallet();
@@ -65,38 +63,44 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         coins = walletData.getCoins();
 
         int pay[] = generateSuggestion(register);
-        for(int i = 0; i< pay.length; i++) {
+        /*for(int i = 0; i< pay.length; i++) {
             Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
-        }
-        //from here -------------------------
+        }*/
+        suggestionList = createSuggestionList(pay);
+
+        walletData = updateWallet(register, pay, walletData);
+
+        SuggestionAdapter adapter = new SuggestionAdapter(suggestionList, getApplicationContext());
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    public List<SuggestionData> createSuggestionList(int[] pay){
         int payNotes[] = {0,0,0,0};
         int payCoins[] = {0,0,0,0,0,0};
+
         if(path == 1) {
             payCoins = pay;
-        }
-        else if(path == 2){
+        } else if(path == 2){
             payNotes = pay;
         }else if(path == 3){
             payCoins = pay;
             payNotes = notes;
-        }else if( path == 4){
-            //nothing not enough money
-        }//-----------------------------------
+        }
 
         ArrayList<String> cash = new ArrayList<String>();
-        float nValues[] = {50f, 20f, 10f, 5f};
-        float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
+        suggestionList = new ArrayList<>();
 
         for(int i = 0; i < payNotes.length; i++){
             for(int j = 0; j < payNotes[i]; j++){
-                //Add value as cash to the cash ArrayList
+                //Add note value as cash to the cash ArrayList
                 cash.add(String.valueOf(nValues[i]));
             }
         }
 
         for(int i = 0; i < payCoins.length; i++){
             for(int j = 0; j < payCoins[i]; j++){
-                //Add value as cash to the cash ArrayList
+                //Add coin value as cash to the cash ArrayList
                 cash.add(String.valueOf(cValues[i]));
             }
         }
@@ -106,76 +110,66 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         {
             SuggestionData item = new SuggestionData();
 
-            if (cash.get(i).equals("50.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("20.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.twenty_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("10.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.ten_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("5.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.five_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("2.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.two_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("1.0"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.one_euro);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("0.5"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("0.2"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.twenty_cent);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("0.1"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.ten_cent);
-                item.setCash(drawable);
-            }
-            else if (cash.get(i).equals("0.05"))
-            {
-                Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
-                item.setCash(drawable);
+            switch (cash.get(i)) {
+                case "50.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "20.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.twenty_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "10.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ten_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "5.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.five_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "2.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.two_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "1.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.one_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.5": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.2": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.twenty_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.1": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ten_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.05": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
+                    item.setCash(drawable);
+                    break;
+                }
             }
             //Insert calculated drawable into the suggestionList ArrayList.
             suggestionList.add(item);
         }
-
-        Log.d("REG", cash.toString());
-
-        //suggestionList.add(new SuggestionData);
-
-        walletData = updateWallet(register, pay, walletData);
-        //Log.d("REG", walletData.toString());
-
-        SuggestionAdapter adapter = new SuggestionAdapter(suggestionList, getApplicationContext());
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        return suggestionList;
     }
 
     //Path for what needs to be generated using algorithm
     public int[] generateSuggestion(float registerFloat){
-        float nValues[] = {50f, 20f, 10f, 5f};
-        float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
         BigDecimal balanceNotes = BigDecimal.valueOf(notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]);
         BigDecimal balanceCoins = BigDecimal.valueOf(coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5]);
         int payNotes[] = {0,0,0,0};
@@ -287,7 +281,6 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             payTotal += pay[i] * values[i];
             payTotal2 += pay2[i] * values[i];
         }
-        Log.d("REG", String.valueOf(payTotal)+" "+String.valueOf(payTotal2));
 
         float overflow = payTotal - register;  //Which is closer to amount needed
         float overflow2 = payTotal2 - register;
@@ -295,7 +288,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
 
         //Clean up 2nd pay array, algorithm for 2nd sometimes is better but has extra unneeded notes
         while(i < pay2.length) {
-            if (values[i] < overflow2 && pay2[i] > 0) {
+            if (values[i] <= overflow2 && pay2[i] > 0) {
                 overflow2 -= values[i];
                 pay2[i]--;
             } else{
@@ -330,7 +323,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     public float roundToFive(float register){
         float temp = register;
         register = 5 *(Math.round(register/5));
-        if(temp >= register){
+        if(temp > register){
             register += 5;
         }
         return register;
@@ -375,13 +368,6 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         return walletData;
     }
 
-
-    public int[] getNotes(){return new int[] {notes[0], notes[1], notes[2], notes[3]};}
-
-    public int[] getCoins(){return new int[] {coins[0], coins[1], coins[2], coins[3], coins[4], coins[5]};}
-
-    public void setPath(int path) { this.path = path; }
-
     @Override
     public void onClick(View v)
     {
@@ -395,4 +381,10 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
+    public int[] getNotes(){return new int[] {notes[0], notes[1], notes[2], notes[3]};}
+
+    public int[] getCoins(){return new int[] {coins[0], coins[1], coins[2], coins[3], coins[4], coins[5]};}
+
+    public void setPath(int path) { this.path = path; }
 }

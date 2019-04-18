@@ -1,5 +1,6 @@
 package com.moneyapp.database;
 
+import java.util.Date;
 import java.util.List;
 
 import androidx.room.Dao;
@@ -16,11 +17,8 @@ public interface WalletDAO {
     @Query("SELECT * FROM wallet ORDER BY date DESC LIMIT 1")
     WalletData getRecentWallet();
 
-    @Query("DELETE FROM wallet")
-    void deleteAll();
-
-    @Query("DELETE FROM wallet WHERE date <= date('now','-2 day')")
-    void deleteOlderThenMonth();
+    @Query("DELETE FROM wallet WHERE date <= :from")
+    void deleteOlderThenMonth(Date from);
 
     @Insert
     void insert(WalletData walletData);

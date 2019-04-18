@@ -181,7 +181,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             databaseInsert();
             //Return to main & add to database
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            databaseInsert();
             startActivity(intent);
             finish();
         }

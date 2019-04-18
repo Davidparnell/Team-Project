@@ -14,6 +14,8 @@ import com.moneyapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,6 +36,13 @@ public class History extends AppCompatActivity
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
         //DAO Object
         WalletDAO walletDAO = database.getWalletDAO();
+
+        //delete anything older than a month
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, -1);
+        Date deleteFrom = cal.getTime();
+        walletDAO.deleteOlderThenMonth(deleteFrom);
+
         //List to store wallet data
         List<WalletData> walletHistory = walletDAO.getWalletHistory();
 

@@ -12,13 +12,9 @@ import android.widget.Toast;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
-import com.moneyapp.MainActivity;
 import com.moneyapp.R;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 

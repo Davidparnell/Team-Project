@@ -34,6 +34,8 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     int notes[];
     int coins[];
     int path = 0;
+    final float nValues[] = {50f, 20f, 10f, 5f};
+    final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
     private List<ContentsData> ContentList;
@@ -64,48 +66,9 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         notes = walletData.getNotes();
         coins = walletData.getCoins();
 
+        ContentList = createContentList(notes,coins);
+
         ArrayList<String> cash = new ArrayList<String>();
-        float nValues[] = {50f, 20f, 10f, 5f};
-        float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
-
-        //Creating drawables from the cash ArrayList values.
-        for (int i = 0; i < cash.size(); i++) {
-            ContentsData item = new ContentsData();
-
-            if (cash.get( i ).equals( "50.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.fifty_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "20.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.twenty_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "10.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.ten_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "5.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.five_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "2.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.two_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "1.0" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.one_euro );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "0.5" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.fifty_cent );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "0.2" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.twenty_cent );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "0.1" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.ten_cent );
-                item.setCash( drawable );
-            } else if (cash.get( i ).equals( "0.05" )) {
-                Drawable drawable = getResources().getDrawable( R.drawable.five_cent );
-                item.setCash( drawable );
-            }
-            //Insert calculated drawable into the suggestionList ArrayList.
-            ContentList.add(item);
-        }
 
         Log.d("REG", cash.toString());
 
@@ -114,6 +77,90 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+    }
+
+    public List<ContentsData> createContentList(int[] notes,int[] coins){
+        int contNotes[] = {0,0,0,0};
+        int contCoins[] = {0,0,0,0,0,0};
+
+        ArrayList<String> cash = new ArrayList<String>();
+        ContentList = new ArrayList<>();
+
+        for(int i = 0; i < contNotes.length; i++){
+            for(int j = 0; j < contNotes[i]; j++){
+                //Add note value as cash to the cash ArrayList
+                cash.add(String.valueOf(nValues[i]));
+            }
+        }
+
+        for(int i = 0; i < contCoins.length; i++){
+            for(int j = 0; j < contCoins[i]; j++){
+                //Add coin value as cash to the cash ArrayList
+                cash.add(String.valueOf(cValues[i]));
+            }
+        }
+
+        //Creating drawables from the cash ArrayList values.
+        for (int i = 0; i < cash.size(); i++)
+        {
+            SuggestionData item = new SuggestionData();
+
+            switch (cash.get(i)) {
+                case "50.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "20.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.twenty_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "10.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ten_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "5.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.five_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "2.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.two_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "1.0": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.one_euro);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.5": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.2": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.twenty_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.1": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ten_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+                case "0.05": {
+                    Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
+                    item.setCash(drawable);
+                    break;
+                }
+            }
+            //Insert calculated drawable into the ContentsList ArrayList.
+            ContentList.add(item);
+        }
+        return ContentList;
     }
 
     @Override

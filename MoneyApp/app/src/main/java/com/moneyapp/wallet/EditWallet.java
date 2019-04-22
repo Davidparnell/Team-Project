@@ -7,9 +7,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.moneyapp.MainActivity;
 import com.moneyapp.MoneyListAdapter;
 import com.moneyapp.MoneyListData;
@@ -24,9 +24,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class EditWallet extends AppCompatActivity  implements View.OnClickListener{
+import android.widget.AdapterView;
+import android.widget.Toast;
 
-    ImageButton confirm, cancel;
+
+public class EditWallet extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemClickListener {
+
 
     AppDatabase database;//Initialize AppDatabase
     WalletDAO walletDAO;//Initialize DAO
@@ -44,21 +47,21 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_wallet);
 
-        //Wallet selection is ok
-        confirm = findViewById(R.id.ConfirmWallet);
-        confirm.setOnClickListener(this);
-
-        //Wallet selection is incorrect, stuff needs to be added
-        cancel = findViewById(R.id.CancelWallet);
-        cancel.setOnClickListener(this);
 
         //Database set up
         database = AppDatabase.getDatabase(getApplicationContext());
         walletDAO = database.getWalletDAO();
         walletData = walletDAO.getRecentWallet();
 
-        listView = findViewById(R.id.WalletContents);
+        listView = findViewById(R.id.suggestionList);
+
+        listView.setOnItemClickListener(this);
         moneyList = new ArrayList<>();
+
+        //Floating button used to go to next activity.
+        FloatingActionButton confirm = findViewById(R.id.floating_tick );
+        confirm.setOnClickListener(this);
+
     }
 
     public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
@@ -202,25 +205,32 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     //Functions after a button is pressed
     public void onClick(View v)
     {
-        //If confirm button pressed
-        if(v == (View) confirm)
+        switch (v.getId())
         {
-            //if amount same as last dont insert redundant
-            databaseInsert();
-            //Return to main & add to database
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
+            case R.id.floating_tick:
+            {
+                //Insert data into database and return home
+                walletDAO.insert(walletData);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                break;
+            }
         }
 
-        //if cancel button pressed
-        else if(v == (View) cancel)
-        {
-            //Return to wallet
-            //onBackPressed();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        }
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Log.d("WALLET", "Removed: " + moneyList.get(position));
+
+        MoneyListData item = moneyList.get(position);
+        moneyList.remove(item);
+
+        adapter = new MoneyListAdapter(moneyList, this);
+        listView.setAdapter(adapter);
+
+
+        Toast.makeText(getApplicationContext(), moneyList.get(position) +"Removed",
+                Toast.LENGTH_SHORT).show();
     }
 }

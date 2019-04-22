@@ -66,9 +66,5 @@
             android:padding="15dp"
             app:srcCompat="@drawable/camera_states"
             />
-
-
     </TableRow>
-
-
 </LinearLayout>

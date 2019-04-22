@@ -38,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toEndOf="@+id/two_euro"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/oneeuro" />
+        app:srcCompat="@drawable/one_euro" />
 
     <ImageButton
         android:id="@+id/fifty_cent"
@@ -50,7 +50,7 @@
         android:contentDescription="@string/Coin50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fiftycent" />
+        app:srcCompat="@drawable/fifty_cent" />
 
     <ImageButton
         android:id="@+id/twenty_cent"
@@ -62,7 +62,7 @@
         android:contentDescription="@string/Coin20"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/two_euro"
-        app:srcCompat="@drawable/twentycent" />
+        app:srcCompat="@drawable/twenty_cent" />
 
     <ImageButton
         android:id="@+id/ten_cent"
@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toStartOf="@+id/five_cent"
         app:layout_constraintStart_toEndOf="@+id/twenty_cent"
         app:layout_constraintTop_toBottomOf="@+id/one_euro"
-        app:srcCompat="@drawable/tencent" />
+        app:srcCompat="@drawable/ten_cent" />
 
     <ImageButton
         android:id="@+id/five_cent"
@@ -88,7 +88,7 @@
         android:contentDescription="@string/Coin5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fifty_cent"
-        app:srcCompat="@drawable/fivecent" />
+        app:srcCompat="@drawable/five_cent" />
 
     <ImageButton
         android:id="@+id/NoteBtn"

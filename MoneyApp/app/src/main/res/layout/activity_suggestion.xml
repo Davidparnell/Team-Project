@@ -14,15 +14,15 @@
         android:id="@+id/suggestionList"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_tick"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@drawable/ic_baseline_done_24px"
-        android:id="@+id/floating_tick"
-        android:layout_margin="20dp"
         android:layout_gravity="end|bottom"
-        app:maxImageSize="50dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_baseline_done_24px"
+        app:backgroundTint="#FF0000"
         app:fabCustomSize="80dp"
-        />
+        app:maxImageSize="50dp" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

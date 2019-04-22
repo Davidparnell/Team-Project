@@ -49,10 +49,10 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
-        listView = findViewById(R.id.suggestionList );
+        listView = findViewById(R.id.suggestionList);
 
         //Floating button used to go to next activity.
-        FloatingActionButton floating_btn = findViewById(R.id.floating_tick );
+        FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
         floating_btn.setOnClickListener(this);
 
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());

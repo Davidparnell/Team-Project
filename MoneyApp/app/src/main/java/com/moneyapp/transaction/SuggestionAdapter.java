@@ -1,26 +1,29 @@
-package com.moneyapp;
+package com.moneyapp.transaction;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.moneyapp.R;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class MoneyListAdapter extends ArrayAdapter<MoneyListData>
+public class SuggestionAdapter extends ArrayAdapter<SuggestionData>
 {
-    private List<MoneyListData> moneyList;
+    private List<SuggestionData> suggestionList;
     private Context context;
 
-    public MoneyListAdapter(List<MoneyListData> moneyList, Context context)
+    public SuggestionAdapter(List<SuggestionData> suggestionList, Context context)
     {
-        super(context, R.layout.money_list, moneyList);
-        this.moneyList = moneyList;
+        super(context, R.layout.suggestion_list_items, suggestionList);
+        this.suggestionList = suggestionList;
         this.context = context;
     }
 
@@ -30,11 +33,11 @@ public class MoneyListAdapter extends ArrayAdapter<MoneyListData>
     {
         LayoutInflater inflater = LayoutInflater.from(context);
         //Custom view
-        View listViewItem = inflater.inflate(R.layout.money_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.suggestion_list_items, null, true);
 
-        ImageView imgCash = listViewItem.findViewById(R.id.MoneyView);
+        ImageView imgCash = listViewItem.findViewById(R.id.NoteView);
 
-        MoneyListData items = moneyList.get(position);
+        SuggestionData items = suggestionList.get(position);
 
         imgCash.setImageDrawable(items.getCash());
 

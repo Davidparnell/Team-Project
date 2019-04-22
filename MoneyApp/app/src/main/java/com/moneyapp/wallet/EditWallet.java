@@ -11,12 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.moneyapp.MainActivity;
-import com.moneyapp.MoneyListAdapter;
-import com.moneyapp.MoneyListData;
 import com.moneyapp.R;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
+import com.moneyapp.transaction.SuggestionData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,12 +31,14 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
 
+    int notes[];
+    int coins[];
+    int path = 0;
     final float nValues[] = {50f, 20f, 10f, 5f};
     final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
-    private List<MoneyListData> moneyList;
-    MoneyListAdapter adapter;   //set on resume only because on resume happens after on create regardless
+    private List<ContentsData> ContentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +59,42 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         walletData = walletDAO.getRecentWallet();
 
         listView = findViewById(R.id.WalletContents);
-        moneyList = new ArrayList<>();
+        ContentList = new ArrayList<>();
+
+        Intent intent = getIntent();
+
+        notes = walletData.getNotes();
+        coins = walletData.getCoins();
+
+        ContentList = createContentList(notes,coins);
+
+        ArrayList<String> cash = new ArrayList<String>();
+
+        Log.d("REG", cash.toString());
+
+
+        ContentsAdapter adapter = new ContentsAdapter(ContentList, getApplicationContext());
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
-    public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
-        ArrayList<String> cash = new ArrayList<String>();
-        moneyList = new ArrayList<>();
+    public List<ContentsData> createContentList(int[] notes,int[] coins){
+        int contNotes[] = {0,0,0,0};
+        int contCoins[] = {0,0,0,0,0,0};
 
-        for(int i = 0; i < notes.length; i++){
-            for(int j = 0; j < notes[i]; j++){
+        ArrayList<String> cash = new ArrayList<String>();
+        ContentList = new ArrayList<>();
+
+        for(int i = 0; i < contNotes.length; i++){
+            for(int j = 0; j < contNotes[i]; j++){
                 //Add note value as cash to the cash ArrayList
                 cash.add(String.valueOf(nValues[i]));
             }
         }
 
-        for(int i = 0; i < coins.length; i++){
-            for(int j = 0; j < coins[i]; j++){
+        for(int i = 0; i < contCoins.length; i++){
+            for(int j = 0; j < contCoins[i]; j++){
                 //Add coin value as cash to the cash ArrayList
                 cash.add(String.valueOf(cValues[i]));
             }
@@ -82,7 +103,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         //Creating drawables from the cash ArrayList values.
         for (int i = 0; i < cash.size(); i++)
         {
-            MoneyListData item = new MoneyListData();
+            SuggestionData item = new SuggestionData();
 
             switch (cash.get(i)) {
                 case "50.0": {
@@ -137,9 +158,9 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
                 }
             }
             //Insert calculated drawable into the ContentsList ArrayList.
-            moneyList.add(item);
+            ContentList.add(item);
         }
-        return moneyList;
+        return ContentList;
     }
 
     @Override
@@ -154,12 +175,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         Intent intent = getIntent();
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
-
-        moneyList = createMoneyList(walletData.getNotes(),walletData.getCoins());
-
-        adapter = new MoneyListAdapter(moneyList, getApplicationContext());
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         Log.d("WALLET", "Edit");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
@@ -198,6 +213,11 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         walletDAO.insert(walletData);
     }
 
+    public int[] getNotes(){return new int[] {notes[0], notes[1], notes[2], notes[3]};}
+
+    public int[] getCoins(){return new int[] {coins[0], coins[1], coins[2], coins[3], coins[4], coins[5]};}
+
+
     @Override
     //Functions after a button is pressed
     public void onClick(View v)
@@ -205,7 +225,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         //If confirm button pressed
         if(v == (View) confirm)
         {
-            //if amount same as last dont insert redundant
             databaseInsert();
             //Return to main & add to database
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

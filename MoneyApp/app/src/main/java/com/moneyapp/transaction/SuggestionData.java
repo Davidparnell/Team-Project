@@ -1,8 +1,8 @@
-package com.moneyapp;
+package com.moneyapp.transaction;
 
 import android.graphics.drawable.Drawable;
 
-public class MoneyListData
+public class SuggestionData
 {
     private Drawable cash;
 

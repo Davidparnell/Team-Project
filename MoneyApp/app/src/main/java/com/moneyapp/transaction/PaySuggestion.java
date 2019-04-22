@@ -9,8 +9,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.moneyapp.MoneyListAdapter;
-import com.moneyapp.MoneyListData;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
@@ -42,7 +40,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
-    private List<MoneyListData> suggestionList;
+    private List<SuggestionData> suggestionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,12 +70,12 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
 
         walletData = updateWallet(register, pay, walletData);
 
-        MoneyListAdapter adapter = new MoneyListAdapter(suggestionList, getApplicationContext());
+        SuggestionAdapter adapter = new SuggestionAdapter(suggestionList, getApplicationContext());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
-    public List<MoneyListData> createSuggestionList(int[] pay){
+    public List<SuggestionData> createSuggestionList(int[] pay){
         int payNotes[] = {0,0,0,0};
         int payCoins[] = {0,0,0,0,0,0};
 
@@ -110,7 +108,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         //Creating drawables from the cash ArrayList values.
         for (int i = 0; i < cash.size(); i++)
         {
-            MoneyListData item = new MoneyListData();
+            SuggestionData item = new SuggestionData();
 
             switch (cash.get(i)) {
                 case "50.0": {

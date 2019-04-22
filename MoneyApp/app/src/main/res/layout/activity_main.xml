@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
@@ -11,87 +10,65 @@
     tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/Wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="8dp"
-        android:adjustViewBounds="true"
-        android:background="#FAFAFA"
-        android:contentDescription="@string/wallet"
-        android:scaleType="fitCenter"
-        android:visibility="visible"
-        app:layout_constraintEnd_toStartOf="@+id/Camera"
-        app:layout_constraintHorizontal_bias="0.291"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:srcCompat="@drawable/wallet_states"/>
-
-    <ImageButton
-        android:id="@+id/Camera"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="8dp"
-        android:adjustViewBounds="true"
-        android:background="#FAFAFA"
-        android:contentDescription="@string/camera"
-        android:scaleType="fitCenter"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Wallet"
-        app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:srcCompat="@drawable/camera_states"/>
-
-    <TextView
-        android:id="@+id/Balance"
-        android:layout_width="0dp"
+        android:layout_gravity="end"
+        android:padding="10dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="99dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="460dp"
-        android:contentDescription="@string/balance"
-        android:gravity="center_horizontal"
-        android:textColor="#828282"
-        android:textSize="60sp"
-        android:visibility="visible"
-        app:fontFamily="sans-serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/History"
-        tools:text="€ XX.XX" />
-
-    <ImageView
-        android:id="@+id/BalanceT2S"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
-        android:layout_marginEnd="170dp"
-        android:contentDescription="@string/TS2Balance"
-        android:src="@drawable/text2speech"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Balance"
-        app:layout_constraintTop_toBottomOf="@+id/Balance"
-        app:srcCompat="@drawable/text2speech" />
-
-    <ImageButton
         android:id="@+id/History"
-        android:layout_width="86dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:background="#FAFAFA"
         android:contentDescription="@string/History"
         android:src="@drawable/history_states"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/history_states" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="70dp"
+        android:id="@+id/Balance"
+        android:contentDescription="@string/balance"
+        android:textColor="#828282"
+        android:textSize="60sp"
+        app:fontFamily="sans-serif"
+        tools:text="€ XX.XX" />
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/BalanceT2S"
+        android:contentDescription="@string/TS2Balance"
+        android:src="@drawable/text2speech"
+        app:srcCompat="@drawable/text2speech" />
+
+    <TableRow
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:gravity="center|bottom"
+        android:layout_weight="1"
+        android:padding="10dp"
+        >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Wallet"
+            app:srcCompat="@drawable/wallet_states"
+            android:padding="15dp"
+            android:background="#FAFAFA"/>
+
+        <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/Camera"
+            android:background="#FAFAFA"
+            android:contentDescription="@string/camera"
+            android:padding="15dp"
+            app:srcCompat="@drawable/camera_states"
+            />
+
+
+    </TableRow>
+
+
+</LinearLayout>

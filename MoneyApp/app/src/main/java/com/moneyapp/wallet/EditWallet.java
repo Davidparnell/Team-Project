@@ -229,7 +229,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             case R.id.floating_exit:
             {
                 //Return home
-                walletData.setNote10(0);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

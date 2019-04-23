@@ -36,6 +36,7 @@
             android:screenOrientation="portrait"
             />
         <activity android:name=".wallet.EditWallet"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             />
         <activity android:name=".wallet.WalletCoins"

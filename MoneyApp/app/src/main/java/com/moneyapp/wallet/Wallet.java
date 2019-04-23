@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.moneyapp.MainActivity;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
@@ -85,6 +86,14 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     /*@Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -105,9 +114,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
         startActivity(intent);
     }*/
-
-    @Override
-    public void onBackPressed() {}
 
     @Override
     //Functions after a button is pressed

@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 public class EditWallet extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-
     AppDatabase database;//Initialize AppDatabase
     WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
@@ -47,7 +46,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_wallet);
 
-
         //Database set up
         database = AppDatabase.getDatabase(getApplicationContext());
         walletDAO = database.getWalletDAO();
@@ -63,7 +61,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         confirm.setOnClickListener(this);
 
         FloatingActionButton exit = findViewById(R.id.floating_exit );
-        confirm.setOnClickListener(this);
+        exit.setOnClickListener(this);
     }
 
     public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
@@ -171,6 +169,14 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     /*@Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -220,7 +226,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             }
             case R.id.floating_exit:
             {
-                //Insert data into database and return home
+                //Return home
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

@@ -1,8 +1,10 @@
 package com.moneyapp.wallet;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -62,6 +64,17 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         //Button to change to notes
         notes = findViewById(R.id.NoteBtn);
         notes.setOnClickListener(this);
+
+        //Listeners for Drag and Drop
+        /*
+        two_euro.setOnLongClickListener(longClickListener);
+        one_euro.setOnLongClickListener(longClickListener);
+        fifty_cent.setOnLongClickListener(longClickListener);
+        twenty_cent.setOnLongClickListener(longClickListener);
+        ten_cent.setOnLongClickListener(longClickListener);
+        five_cent.setOnLongClickListener(longClickListener);
+        wallet.setOnDragListener(dragListener);
+        */
 
         walletData = new WalletData();
     }
@@ -162,4 +175,71 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         }
     }
+
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            ClipData data = ClipData.newPlainText( "", "" );
+
+            View.DragShadowBuilder build = new View.DragShadowBuilder( v );
+            v.startDrag( data, build, v, 0 );
+
+            return true;
+        }
+    };
+
+    View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int dragEvent = event.getAction();
+
+            switch(dragEvent)
+            {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    //Find Item Dragged
+                    final View view = (View) event.getLocalState();
+
+                    if (v == (View) two_euro) {
+                        //Add €1 to wallet & notify user of addition
+                        Toast.makeText(getApplicationContext(), "--- €2 added ---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin2e(walletData.getCoin2e()+1);
+                    } else if (v == (View) one_euro) {
+                        //Add €2 to wallet & notify user of addition
+                        Toast.makeText(getApplicationContext(), "--- €1 added ---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin1e(walletData.getCoin1e()+1);
+                    } else if (v == (View) fifty_cent) {
+                        //Add 50c to wallet & notify user of addition
+                        Toast.makeText(getApplicationContext(), "--- 50c added ---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin50c(walletData.getCoin50c()+1);
+                    } else if (v == (View) twenty_cent) {
+                        //Add 20c to wallet & notify user of addition
+                        Toast.makeText(getApplicationContext(), "--- 20c added ---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin20c(walletData.getCoin20c()+1);
+                    } else if(v == (View) ten_cent){
+                        //Add 10c to wallet, for now toast
+                        Toast.makeText(getApplicationContext(),"--- 10c added ---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin10c(walletData.getCoin10c()+1);
+                    } else if(v == (View) five_cent){
+                        //Add 5c to wallet, for now toast
+                        Toast.makeText(getApplicationContext(), "--- 5c added---",
+                                Toast.LENGTH_SHORT).show();
+                        walletData.setCoin5c(walletData.getCoin5c()+1);
+                    }
+                    break;
+
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+
+                //Note dropped on wallet
+                case DragEvent.ACTION_DROP:
+                    break;
+            }
+            return true;
+        }
+    };
 }

@@ -57,10 +57,10 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         moneyList = new ArrayList<>();
 
         //Floating button used to go to next activity.
-        FloatingActionButton confirm = findViewById(R.id.floating_tick);
+        FloatingActionButton confirm = findViewById(R.id.floating_tick );
         confirm.setOnClickListener(this);
 
-        FloatingActionButton exit = findViewById(R.id.floating_exit);
+        FloatingActionButton exit = findViewById(R.id.floating_exit );
         exit.setOnClickListener(this);
     }
 
@@ -219,8 +219,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             {
                 //Insert data into database and return home
                 databaseInsert();
-                Toast.makeText(getApplicationContext(), "Money Added to Wallet",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -229,7 +227,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             case R.id.floating_exit:
             {
                 //Return home
-                walletData.setNote10(0);
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();

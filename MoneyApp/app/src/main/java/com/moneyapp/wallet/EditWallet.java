@@ -62,6 +62,8 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         FloatingActionButton confirm = findViewById(R.id.floating_tick );
         confirm.setOnClickListener(this);
 
+        FloatingActionButton exit = findViewById(R.id.floating_exit );
+        confirm.setOnClickListener(this);
     }
 
     public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
@@ -210,8 +212,18 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             case R.id.floating_tick:
             {
                 //Insert data into database and return home
-                walletDAO.insert(walletData);
+                databaseInsert();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            }
+            case R.id.floating_exit:
+            {
+                //Insert data into database and return home
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             }
         }

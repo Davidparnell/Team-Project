@@ -13,16 +13,23 @@
         android:layout_height="match_parent"
         android:id="@+id/suggestionList"/>
 
+    <ImageView
+        android:id="@+id/no_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:srcCompat="@drawable/no_money" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_tick"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
         android:src="@drawable/ic_baseline_done_24px"
         app:backgroundTint="#FF0000"
-        app:fabCustomSize="80dp"
-        app:maxImageSize="50dp" />
-
+        app:fabCustomSize="100dp"
+        app:maxImageSize="70dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

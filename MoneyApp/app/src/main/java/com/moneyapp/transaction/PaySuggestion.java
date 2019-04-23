@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,13 +36,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PaySuggestion extends AppCompatActivity implements View.OnClickListener
 {
-    int notes[];
-    int coins[];
+    int[] notes;
+    int[] coins;
     int path = 0;
-    final float nValues[] = {50f, 20f, 10f, 5f};
-    final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
+    final float[] nValues = {50f, 20f, 10f, 5f};
+    final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
+    private ImageView noMoney;
     private List<MoneyListData> suggestionList;
 
     @Override
@@ -50,6 +52,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
         listView = findViewById(R.id.suggestionList);
+        noMoney = findViewById(R.id.no_money);
 
         //Floating button used to go to next activity.
         FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
@@ -64,24 +67,27 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         notes = walletData.getNotes();
         coins = walletData.getCoins();
 
-        Log.d("WALLET","generate");
-        int pay[] = generateSuggestion(register);
+        int[] pay = generateSuggestion(register);
         /*for(int i = 0; i< pay.length; i++) {
             Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
         }*/
-        Log.d("WALLET","display");
-        suggestionList = createSuggestionList(pay);
 
-        walletData = updateWallet(register, pay, walletData);
+        if(path == 4){  //not enough money
+            noMoney.setVisibility(View.VISIBLE);
+        }
+        else{
+            suggestionList = createSuggestionList(pay);
+            walletData = updateWallet(register, pay, walletData);
 
-        MoneyListAdapter adapter = new MoneyListAdapter(suggestionList, getApplicationContext());
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+            MoneyListAdapter adapter = new MoneyListAdapter(suggestionList, getApplicationContext());
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public List<MoneyListData> createSuggestionList(int[] pay){
-        int payNotes[] = {0,0,0,0};
-        int payCoins[] = {0,0,0,0,0,0};
+        int[] payNotes = {0,0,0,0};
+        int[] payCoins = {0,0,0,0,0,0};
 
         if(path == 1) {
             payCoins = pay;
@@ -173,32 +179,29 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     }
 
     //Path for what needs to be generated using algorithm
-    public int[] generateSuggestion(float registerFloat){
-        BigDecimal balanceNotes = BigDecimal.valueOf(notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]).setScale(2, BigDecimal.ROUND_HALF_UP);;
-        BigDecimal balanceCoins = BigDecimal.valueOf(coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5]);
-        int payNotes[] = {0,0,0,0};
-        int payNotes2[] = {0,0,0,0};
-        int payCoins[] = {0,0,0,0,0,0};
-        int payCoins2[] = {0,0,0,0,0,0};
-        BigDecimal register = new BigDecimal(registerFloat).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+    public int[] generateSuggestion(float registerFloat){  //BigDecimal because floats are not accurate enough
+        BigDecimal balanceNotes = BigDecimal.valueOf(notes[0] * nValues[0] + notes[1] * nValues[1] + notes[2] * nValues[2] + notes[3] * nValues[3]).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal balanceCoins = BigDecimal.valueOf(coins[0] * cValues[0] + coins[1] + coins[2] * cValues[2] + coins[3] * cValues[3] + coins[4] * cValues[4] + coins[5] * cValues[5]).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal register = new BigDecimal(registerFloat).setScale(3, BigDecimal.ROUND_HALF_UP);
+        int[] payNotes = {0,0,0,0};
+        int[] payNotes2 = {0,0,0,0};
+        int[] payCoins = {0,0,0,0,0,0};
+        int[] payCoins2 = {0,0,0,0,0,0};
 
         if(5 > register.floatValue() && balanceCoins.floatValue() >= register.floatValue()){       //Small amounts below 5 if enough coins in wallet
             Log.d("REG", "These coins");
             setPath(1);
-            return payCoins = algorithm(getCoins(), cValues, register.floatValue(), payCoins, payCoins2);
+            return payCoins = algorithm(getCoins(), cValues, register, payCoins, payCoins2);
         }
         else if(balanceNotes.floatValue() >= register.floatValue()) {                              //amounts bigger then 5 euro or less then 5 if not enough coins
             Log.d("REG", "These notes");
             setPath(2);
-            return payNotes = algorithm(getNotes(), nValues, roundToFive(register.floatValue()), payNotes, payNotes2);
+            return payNotes = algorithm(getNotes(), nValues, new BigDecimal(roundToFive(register.floatValue())), payNotes, payNotes2);
         }
         else if(balanceNotes.add(balanceCoins).floatValue() >= register.floatValue()){             //amounts bigger then total in notes but less
             Log.d("REG", "All notes + these coins");                                     //then total in wallet - all notes and coins algorithm for remainder
             setPath(3);
-            Log.d("WALLET", register.subtract(balanceNotes).toString());
-
-            float register2 = register.subtract(balanceNotes).floatValue();
-            return payCoins = algorithm(getCoins(), cValues, register2, payCoins, payCoins2);
+            return payCoins = algorithm(getCoins(), cValues, register.subtract(balanceNotes), payCoins, payCoins2);
         }
         else{
             Log.d("REG", "Not enough money");                                            //Not enough money
@@ -208,19 +211,16 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     }
 
     //Generates 2 arrays with 2 different solutions
-    public int[] algorithm(int[] wallet, float[] value, float register, int[] pay1, int[] pay2){
-        BigDecimal regTemp = new BigDecimal(register).setScale(3, BigDecimal.ROUND_HALF_UP);//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
-        //BigDecimal register = new BigDecimal(registe).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        BigDecimal values[] = {new BigDecimal(2), new BigDecimal(1), new BigDecimal(0.50), new BigDecimal(0.20), new BigDecimal(0.10), new BigDecimal(0.05)};
-        //float regTemp = register;
+    public int[] algorithm(int[] wallet, float[] values, BigDecimal register, int[] pay1, int[] pay2){
+        BigDecimal regTemp = register.setScale(3, BigDecimal.ROUND_HALF_UP);//rounded up in 5's for notes(5 being lowest) eg. 23.50 = 25
         int i = 0;
-        int j = 0;
+        int iPrev = 0;
         int x = 0;
         //first algorithm iteration - generates first money array
         //Log.d("WALLET", register.toString());
         while (regTemp.floatValue() > 0) {
-            if (regTemp.floatValue() >= values[i].floatValue() && wallet[i] != 0) {
-                regTemp = regTemp.subtract(BigDecimal.valueOf(value[i]).setScale(3, BigDecimal.ROUND_HALF_UP));
+            if (regTemp.floatValue() >= values[i] && wallet[i] != 0) {
+                regTemp = regTemp.subtract(BigDecimal.valueOf(values[i]).setScale(3, BigDecimal.ROUND_HALF_UP));
                 wallet[i]--;
                 pay1[i]++;
                 Log.d("WALLET",regTemp.toString());
@@ -230,7 +230,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             }
 
             if(i == wallet.length){//non ideal eg. has 50 note only but needs 25
-                regTemp = BigDecimal.valueOf(register);  //reset variables
+                regTemp = register;  //reset variables
                 Arrays.fill(pay1, 0);
                 if(wallet.length == 4) {
                     wallet = getNotes();
@@ -238,11 +238,11 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
                     wallet = getCoins();
                 }
                 i = 0;
-                Log.d("WALLET","2nd");
+
                 while (regTemp.floatValue() > 0){
 
                     if ( wallet[i] != 0) {
-                        regTemp = regTemp.subtract(values[i]);
+                        regTemp = regTemp.subtract(BigDecimal.valueOf(values[i]).setScale(3, BigDecimal.ROUND_HALF_UP));
                         wallet[i]--;
                         pay1[i]++;
                     }
@@ -258,36 +258,35 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         }
 
         //Second change algorithm variation - generates 2nd money array
-        regTemp = BigDecimal.valueOf(register);
-        if(wallet.length == 4) {
+        regTemp = register;
+        if(wallet.length == 4) {//reset notes if note length
             wallet = getNotes();
-        }else {
+        }else {                 //reset coins if coin length
             wallet = getCoins();
         }
-        Log.d("WALLET","3rd");
-        while(regTemp.floatValue() > 0){
+
+        while(regTemp.floatValue() > 0){ //until all register accounted for
             i=0;
-            j=0;
+            iPrev=0;
             while(i != wallet.length){
                 if(wallet[i] != 0 ){
                     x=i;
-                    if(regTemp.floatValue() < values[j].floatValue() && regTemp.floatValue() > values[i].floatValue()) {
-                        j=i;
+                    if(regTemp.floatValue() < values[iPrev] && regTemp.floatValue() > values[i]) {
+                        iPrev=i;
                     }
                 }
-                else if(values[x].floatValue() > regTemp.floatValue()){
-                    j=x;
+                else if(values[x] > regTemp.floatValue()){
+                    iPrev=x;
                 }
                 i++;
             }
 
-            regTemp = regTemp.subtract(values[j]);
-            wallet[j]--;
-            pay2[j]++;
+            regTemp = regTemp.subtract(BigDecimal.valueOf(values[iPrev]).setScale(3, BigDecimal.ROUND_HALF_UP));
+            wallet[iPrev]--;
+            pay2[iPrev]++;
         }
-        Log.d("WALLET","after algorithm");
         //compare which is better after cleaning up the second which sometimes ends with redundant notes/coins
-        return comparePayment(register, pay1, pay2, value);
+        return comparePayment(register.floatValue(), pay1, pay2, values);
     }
 
     //takes 2 pay arrays to compare + cleans up 2nd after 2nd algorithm. register for coin compare needs to specific to coins

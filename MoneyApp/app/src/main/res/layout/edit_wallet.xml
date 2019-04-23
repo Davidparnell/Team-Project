@@ -30,7 +30,7 @@
         android:layout_height="1000dp"
         android:layout_gravity="start|bottom"
         android:layout_margin="20dp"
-        android:src="@drawable/ic_baseline_done_24px"
+        android:src="@drawable/cancel"
         app:backgroundTint="#FF0000"
         app:fabCustomSize="100dp"
         app:maxImageSize="70dp" />

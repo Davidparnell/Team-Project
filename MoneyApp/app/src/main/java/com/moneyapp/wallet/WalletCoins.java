@@ -8,8 +8,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.moneyapp.MainActivity;
-import com.moneyapp.database.AppDatabase;
-import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
@@ -25,6 +23,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
 
     //Initialize DB objects
     WalletData walletData;//Initialize Wallet
+    int i = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +74,8 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
+        Log.d("WALLET", String.valueOf(i));  //test if activity ended
+        i++;
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
 
@@ -90,27 +91,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         startActivity(intent);
         finish();
     }
-
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = getIntent();
-
-        if(intent.getStringExtra("type").equals("wallet")) {
-            intent.setClass(getApplicationContext(), Wallet.class);
-        } else {
-            intent.setClass(getApplicationContext(), EditWallet.class);
-        }
-
-        intent.putExtra("notes", walletData.getNotes());
-        intent.putExtra("coins", walletData.getCoins());
-        intent.putExtra("type", "walletCoins");
-
-        Log.d("WALLET", "Notes");
-        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
-        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
-        startActivity(intent);
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -152,14 +132,14 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
-            intent.putExtra("type", "walletCoins");
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(intent, 0);                          //go back to edit wallet if it exists, if not create it
         } else if (v == (View) notes) {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
-            intent.putExtra("type", "walletCoins");
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(intent, 0);                          //go back to Wallet if it exists, if not create it
         }
     }
 }

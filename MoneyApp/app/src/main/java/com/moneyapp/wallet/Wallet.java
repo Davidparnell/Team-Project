@@ -27,6 +27,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
 
+    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,14 +72,12 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
+        Log.d("WALLET", String.valueOf(i)); //test to see if activity ended
+        i++;
 
         if(null != intent.getIntArrayExtra("coins")) { //Stop from getting nulls first time entering
             walletData.setNotes(intent.getIntArrayExtra("notes"));
             walletData.setCoins(intent.getIntArrayExtra("coins"));
-        }
-
-        if(intent.getStringExtra("type") != null){
-            Log.d("WALLET", intent.getStringExtra("type"));
         }
 
         Log.d("WALLET", "Notes");
@@ -93,27 +92,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         startActivity(intent);
         finish();
     }
-
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = getIntent();
-
-        if(intent.getStringExtra("type").equals("walletCoins")) {
-            intent.setClass(getApplicationContext(), WalletCoins.class);
-        } else {
-            intent.setClass(getApplicationContext(), EditWallet.class);
-        }
-
-        intent.putExtra("notes", walletData.getNotes());
-        intent.putExtra("coins", walletData.getCoins());
-        intent.putExtra("type", "wallet");
-
-        Log.d("WALLET", "Notes");
-        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
-        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
-        startActivity(intent);
-    }*/
 
     @Override
     //Functions after a button is pressed
@@ -145,15 +123,15 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
-            intent.putExtra("type", "wallet");
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(intent, 0);              //go back to edit if it exists, if not create it
         } else if (v == (View) coins) {
             //Change to coins activity
             Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
-            intent.putExtra("type", "wallet");
-            startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivityIfNeeded(intent, 0);             //go back to walletCoins if it exists, if not create it
         }
     }
 }

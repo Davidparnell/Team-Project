@@ -2,12 +2,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fafafa"
-    >
+    android:background="#fafafa">
     <TableRow
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -19,18 +17,16 @@
             android:id="@+id/euro50"
             android:background="@drawable/fifty_euro"
             android:layout_width="180dp"
-            android:layout_height="105dp"
+            android:layout_height="107dp"
             android:layout_marginRight="5dp" />
 
         <ImageButton
             android:id="@+id/euro20"
             android:background="@drawable/twenty_euro"
-            android:layout_height="105dp"
+            android:layout_height="107dp"
             android:layout_width="180dp"
             android:contentDescription="@string/camera"
-            android:layout_marginLeft="5dp"
-            />
-
+            android:layout_marginLeft="5dp" />
 
     </TableRow>
 
@@ -38,15 +34,14 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:padding="10dp"
-        >
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/euro10"
             android:background="@drawable/ten_euro"
             android:contentDescription="@string/Note10"
             android:layout_width="180dp"
-            android:layout_height="105dp"
+            android:layout_height="107dp"
             android:layout_marginRight="5dp" />
 
         <ImageButton
@@ -54,10 +49,8 @@
             android:background="@drawable/five_euro"
             android:contentDescription="@string/Note5"
             android:layout_width="180dp"
-            android:layout_height="105dp"
-            android:layout_marginLeft="5dp"
-            />
-
+            android:layout_height="107dp"
+            android:layout_marginLeft="5dp" />
 
     </TableRow>
 
@@ -82,9 +75,6 @@
         android:background="#fafafa"
         android:contentDescription="@string/wallet"
         android:src="@drawable/wallet3"
-        android:visibility="visible"
-        />
-
-
+        android:visibility="visible" />
 
 </LinearLayout>

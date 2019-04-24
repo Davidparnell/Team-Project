@@ -34,9 +34,9 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
 
-    final float nValues[] = {50f, 20f, 10f, 5f};
-    final float cValues[] = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
-
+    final float[] nValues = {50f, 20f, 10f, 5f};
+    final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
+    int i = 0;
     private ListView listView;
     private List<MoneyListData> moneyList;
     MoneyListAdapter adapter;   //set on resume only because on resume happens after on create regardless
@@ -155,6 +155,8 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
+        Log.d("WALLET", String.valueOf(i));//test to see if activity ended
+        i++;
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
 
@@ -171,37 +173,23 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = getIntent();
-
-        if(intent.getStringExtra("type").equals("wallet")) {
-            intent.setClass(getApplicationContext(), Wallet.class);
-        } else {
-            intent.setClass(getApplicationContext(), WalletCoins.class);
-        }
-
+        Intent intent = new Intent(getApplicationContext(), Wallet.class);   //goes back to wallet
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         intent.putExtra("notes", walletData.getNotes());
         intent.putExtra("coins", walletData.getCoins());
-        intent.putExtra("type", "editWallet");
+        startActivityIfNeeded(intent, 0);
+        /*
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class); //or back to main
         startActivity(intent);
-        Log.d("WALLET", "Notes");
-        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
-        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
-    }*/
+        finish();*/
+    }
 
     //Insert current wallet to database
     public void databaseInsert(){
         Date date = Calendar.getInstance().getTime();
-        int notes[] = walletData.getNotes();//Note list
-        int coins[] = walletData.getCoins();//Coin list
+        int[] notes = walletData.getNotes();//Note list
+        int[] coins = walletData.getCoins();//Coin list
         float balance = notes[0] * 50f + notes[1] * 20f + notes[2] * 10f + notes[3] * 5f;
         balance += coins[0] * 2.00f + coins[1] * 1.00f + coins[2] * 0.50f + coins[3] * 0.20f + coins[4] * 0.10f + coins[5] * 0.05f;
 
@@ -219,11 +207,8 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             {
                 //Insert data into database and return home
                 databaseInsert();
-                Toast.makeText(getApplicationContext(), "Money Added to Wallet",
-                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             }
             case R.id.floating_exit:
@@ -231,11 +216,9 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
                 //Return home
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             }
         }
-
     }
 
     @Override

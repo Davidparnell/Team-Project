@@ -24,7 +24,7 @@
 
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,15 +32,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".wallet.Wallet"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             />
         <activity android:name=".wallet.EditWallet"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             />
         <activity android:name=".wallet.WalletCoins"
-            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             />
         <activity android:name=".history.History"

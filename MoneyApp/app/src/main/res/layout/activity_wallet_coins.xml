@@ -1,122 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/flexboxLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity ="center"
-    android:background="#fafafa"
-    >
+    android:orientation="vertical"
+    android:background="#fafafa">
 
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:paddingBottom="30dp">
 
     <ImageButton
         android:id="@+id/two_euro"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:background="#fafafa"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/two_euro"
         android:contentDescription="@string/Coin2"
-        android:src="@drawable/two_euro"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/two_euro" />
+        android:layout_marginRight="5dp"/>
 
     <ImageButton
         android:id="@+id/one_euro"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="36dp"
-        android:background="#fafafa"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/one_euro"
         android:contentDescription="@string/Coin1"
-        app:layout_constraintEnd_toStartOf="@+id/fifty_cent"
-        app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toEndOf="@+id/two_euro"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/one_euro" />
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"/>
 
     <ImageButton
         android:id="@+id/fifty_cent"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:background="#fafafa"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:background="@drawable/fifty_cent"
         android:contentDescription="@string/Coin50"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fifty_cent" />
+        android:layout_marginLeft="5dp"/>
 
-    <ImageButton
-        android:id="@+id/twenty_cent"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:background="#fafafa"
-        android:contentDescription="@string/Coin20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/two_euro"
-        app:srcCompat="@drawable/twenty_cent" />
+    </TableRow>
 
-    <ImageButton
-        android:id="@+id/ten_cent"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="24dp"
-        android:background="#fafafa"
-        android:contentDescription="@string/Coin10"
-        app:layout_constraintEnd_toStartOf="@+id/five_cent"
-        app:layout_constraintStart_toEndOf="@+id/twenty_cent"
-        app:layout_constraintTop_toBottomOf="@+id/one_euro"
-        app:srcCompat="@drawable/ten_cent" />
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:padding="10dp">
 
-    <ImageButton
-        android:id="@+id/five_cent"
-        android:layout_width="97dp"
-        android:layout_height="97dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
-        android:background="#fafafa"
-        android:contentDescription="@string/Coin5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fifty_cent"
-        app:srcCompat="@drawable/five_cent" />
+        <ImageButton
+            android:id="@+id/twenty_cent"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="@string/Coin20"
+            android:background= "@drawable/twenty_cent"
+            android:layout_marginRight="5dp"/>
+
+        <ImageButton
+            android:id="@+id/ten_cent"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/ten_cent"
+            android:contentDescription="@string/Coin10"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"/>
+
+        <ImageButton
+            android:id="@+id/five_cent"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/five_cent"
+            android:contentDescription="@string/Coin5"
+            android:layout_marginLeft="5dp"/>
+
+    </TableRow>
 
     <ImageButton
         android:id="@+id/NoteBtn"
-        android:layout_width="111dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="156dp"
-        android:background="#fafafa"
         android:contentDescription="@string/Change2Note"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ten_cent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="40dp"
+        android:background="#fafafa"
         app:srcCompat="@drawable/notebtn_states" />
 
     <ImageButton
+        android:paddingTop="20dp"
+        android:scaleType="fitXY"
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
         android:id="@+id/wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="166dp"
-        android:layout_marginTop="40dp"
         android:background="#fafafa"
         android:contentDescription="@string/wallet"
         android:src="@drawable/wallet3"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NoteBtn" />
+        android:visibility="visible" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

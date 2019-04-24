@@ -8,6 +8,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="210dp"
         android:layout_height="139dp"
-        android:id="@+id/MoneyView"/>
+        android:id="@+id/MoneyView"
+        android:background="#fafafa"/>
 
 </LinearLayout>

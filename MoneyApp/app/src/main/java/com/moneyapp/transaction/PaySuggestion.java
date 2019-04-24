@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.moneyapp.MoneyListAdapter;
@@ -16,6 +15,7 @@ import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
+import com.moneyapp.wallet.Wallet;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,11 +39,10 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     int[] notes;
     int[] coins;
     int path = 0;
+    float change = 0f;
     final float[] nValues = {50f, 20f, 10f, 5f};
     final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
-    private ListView listView;
-    private ImageView noMoney;
     private List<MoneyListData> suggestionList;
 
     @Override
@@ -51,8 +50,8 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestion);
-        listView = findViewById(R.id.suggestionList);
-        noMoney = findViewById(R.id.no_money);
+        ListView listView = findViewById(R.id.suggestionList);
+        ImageView noMoney = findViewById(R.id.no_money);
 
         //Floating button used to go to next activity.
         FloatingActionButton floating_btn = findViewById(R.id.floating_tick);
@@ -68,6 +67,10 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         coins = walletData.getCoins();
 
         int[] pay = generateSuggestion(register);
+        change = register;
+        for (int i1 : pay) {
+            change -= i1;
+        }
         /*for(int i = 0; i< pay.length; i++) {
             Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
         }*/
@@ -223,7 +226,6 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
                 regTemp = regTemp.subtract(BigDecimal.valueOf(values[i]).setScale(3, BigDecimal.ROUND_HALF_UP));
                 wallet[i]--;
                 pay1[i]++;
-                Log.d("WALLET",regTemp.toString());
             }
             else{
                 i++;
@@ -269,9 +271,9 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             i=0;
             iPrev=0;
             while(i != wallet.length){
-                if(wallet[i] != 0 ){
+                if(wallet[i] != 0){
                     x=i;
-                    if(regTemp.floatValue() < values[iPrev] && regTemp.floatValue() > values[i]) {
+                    if(regTemp.floatValue() <= values[iPrev] || regTemp.floatValue() > values[i]) {
                         iPrev=i;
                     }
                 }
@@ -284,18 +286,24 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             regTemp = regTemp.subtract(BigDecimal.valueOf(values[iPrev]).setScale(3, BigDecimal.ROUND_HALF_UP));
             wallet[iPrev]--;
             pay2[iPrev]++;
+
+            for(i = 0; i < pay2.length; i++){ //check negative numbers of notes/coins in case algorithm messed up
+                if(pay2[i] < 0){
+                    pay2 = pay1;
+                }
+            }
         }
         //compare which is better after cleaning up the second which sometimes ends with redundant notes/coins
         return comparePayment(register.floatValue(), pay1, pay2, values);
     }
 
     //takes 2 pay arrays to compare + cleans up 2nd after 2nd algorithm. register for coin compare needs to specific to coins
-    public int[] comparePayment(float register, int pay[], int pay2[], float values[]) { //values are note/coin numbers eg. 50,20,10,5,2,1,0.5 etc.
+    public int[] comparePayment(float register, int[] pay1, int[] pay2, float[] values) { //values are note/coin numbers eg. 50,20,10,5,2,1,0.5 etc.
         float payTotal = 0;
         float payTotal2 = 0;
 
         for(int i = 0; i < values.length; i++){
-            payTotal += pay[i] * values[i];
+            payTotal += pay1[i] * values[i];
             payTotal2 += pay2[i] * values[i];
         }
 
@@ -316,22 +324,22 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
 
         //check cleanup happened correctly, so enough pay is given
         if(payTotal2 < register){ Log.d("REG", "branch 1");
-            return pay;
+            return pay1;
         } else if(overflow > overflow2) { Log.d("REG", "branch 2");   //pay more accurate
             return pay2;
         } else if(overflow < overflow2) { Log.d("REG", "branch 1");   //pay2 more accurate
-            return pay;
+            return pay1;
         } else if(overflow == overflow2) {                                      //equal but one uses more notes/coins to get same amount
             int total = 0;
             int total2 = 0;
 
-            for(i = 0; i < pay.length; i++){
-                total += pay[i];
+            for(i = 0; i < pay1.length; i++){
+                total += pay1[i];
                 total2 += pay2[i];
             }
 
             if(total >= total2){ Log.d("REG", "branch 2"); return pay2; }  //pay2 used less notes/coins
-            else{ Log.d("REG", "branch 1"); return pay; }                  //pay used less notes/coins
+            else{ Log.d("REG", "branch 1"); return pay1; }                  //pay used less notes/coins
         }
         return null;
     }
@@ -388,14 +396,12 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-            case R.id.floating_tick:
-            {
-                //Insert code to proceed to next activity here.
-                Toast.makeText(getApplicationContext(), "Go to change", Toast.LENGTH_SHORT).show();
-                break;
-            }
+        //Insert code to proceed to next activity here.
+        if (v.getId() == R.id.floating_tick) {
+            //Insert code to proceed to next activity here.
+            Intent intent = new Intent(getApplicationContext(), Wallet.class);//getIntent so that register value passed from camera is still inside
+            intent.putExtra("change", change);
+            startActivity(intent);
         }
     }
 

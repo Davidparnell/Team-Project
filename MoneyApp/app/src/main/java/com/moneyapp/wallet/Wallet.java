@@ -121,7 +121,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         {
             //Add 10 to wallet & notify user of addition
             //Animation
-            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
             bounceAnim.setInterpolator(interpolator);
             ten.startAnimation(bounceAnim);
 
@@ -133,7 +133,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         {
             //Add 20 to wallet & notify user of addition
             //Animation
-            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
             bounceAnim.setInterpolator(interpolator);
             twenty.startAnimation(bounceAnim);
 
@@ -145,7 +145,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         {
             //Add 50 to wallet & notify user of addition
             //Animation
-            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
             bounceAnim.setInterpolator(interpolator);
             fifty.startAnimation(bounceAnim);
 

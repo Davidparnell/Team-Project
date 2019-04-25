@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="gone"
-        app:srcCompat="@drawable/no_money" />
+        app:srcCompat="@drawable/no_money"
+        android:contentDescription="If_not_enough_money" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_tick"

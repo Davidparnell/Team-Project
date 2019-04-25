@@ -25,8 +25,6 @@ import java.util.Date;
 import java.util.List;
 
 import android.widget.AdapterView;
-import android.widget.Toast;
-
 
 public class EditWallet extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -91,51 +89,71 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
                 case "50.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
                     item.setCash(drawable);
+                    item.setType("note");
+                    item.setIndex(0);
                     break;
                 }
                 case "20.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.twenty_euro);
                     item.setCash(drawable);
+                    item.setType("note");
+                    item.setIndex(1);
                     break;
                 }
                 case "10.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.ten_euro);
                     item.setCash(drawable);
+                    item.setType("note");
+                    item.setIndex(2);
                     break;
                 }
                 case "5.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.five_euro);
                     item.setCash(drawable);
+                    item.setType("note");
+                    item.setIndex(3);
                     break;
                 }
                 case "2.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.two_euro);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(0);
                     break;
                 }
                 case "1.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.one_euro);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(1);
                     break;
                 }
                 case "0.5": {
                     Drawable drawable = getResources().getDrawable(R.drawable.fifty_cent);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(2);
                     break;
                 }
                 case "0.2": {
                     Drawable drawable = getResources().getDrawable(R.drawable.twenty_cent);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(3);
                     break;
                 }
                 case "0.1": {
                     Drawable drawable = getResources().getDrawable(R.drawable.ten_cent);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(4);
                     break;
                 }
                 case "0.05": {
                     Drawable drawable = getResources().getDrawable(R.drawable.five_cent);
                     item.setCash(drawable);
+                    item.setType("coin");
+                    item.setIndex(5);
                     break;
                 }
             }
@@ -223,17 +241,21 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        Log.d("WALLET", "Removed: " + moneyList.get(position));
-
         MoneyListData item = moneyList.get(position);
         moneyList.remove(item);
 
         adapter = new MoneyListAdapter(moneyList, this);
         listView.setAdapter(adapter);
 
-
-        Toast.makeText(getApplicationContext(), moneyList.get(position) +"Removed",
-                Toast.LENGTH_SHORT).show();
+        int[] wallet;
+        if (item.getType().equals("note")) {
+            wallet = walletData.getNotes();
+            wallet[item.getIndex()]--;
+            walletData.setNotes(wallet);
+        } else if (item.getType().equals("coin")) {
+            wallet = walletData.getCoins();
+            wallet[item.getIndex()]--;
+            walletData.setCoins(wallet);
+        }
     }
 }

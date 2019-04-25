@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
@@ -63,8 +62,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         database = AppDatabase.getDatabase(getApplicationContext());
         walletDAO = database.getWalletDAO();
         walletData = walletDAO.getRecentWallet();
-
-
     }
 
     @Override
@@ -113,8 +110,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             bounceAnim.setInterpolator(interpolator);
             five.startAnimation(bounceAnim);
 
-            Toast.makeText(getApplicationContext(), "--- 5 added ---",
-                    Toast.LENGTH_SHORT).show();
             walletData.setNote5(walletData.getNote5()+1);
         }
         else if (v == (View) ten)
@@ -125,8 +120,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             bounceAnim.setInterpolator(interpolator);
             ten.startAnimation(bounceAnim);
 
-            Toast.makeText(getApplicationContext(), "--- 10 added ---",
-                    Toast.LENGTH_SHORT).show();
             walletData.setNote10(walletData.getNote10()+1);
         }
         else if (v == (View) twenty)
@@ -137,8 +130,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             bounceAnim.setInterpolator(interpolator);
             twenty.startAnimation(bounceAnim);
 
-            Toast.makeText(getApplicationContext(), "--- 20 added ---",
-                    Toast.LENGTH_SHORT).show();
             walletData.setNote20(walletData.getNote20()+1);
         }
         else if (v == (View) fifty)
@@ -149,8 +140,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             bounceAnim.setInterpolator(interpolator);
             fifty.startAnimation(bounceAnim);
 
-            Toast.makeText(getApplicationContext(), "--- 50 added ---",
-                    Toast.LENGTH_SHORT).show();
             walletData.setNote50(walletData.getNote50()+1);
             //Options
         }

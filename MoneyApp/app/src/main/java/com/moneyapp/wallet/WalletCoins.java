@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
@@ -108,8 +107,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             two_euro.startAnimation(bounceAnim);
             //Add €1 to wallet & notify user of addition
-            Toast.makeText(getApplicationContext(), "--- €2 added ---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin2e(walletData.getCoin2e()+1);
         }
         else if (v == (View) one_euro)
@@ -119,8 +117,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             one_euro.startAnimation(bounceAnim);
             //Add €2 to wallet & notify user of addition
-            Toast.makeText(getApplicationContext(), "--- €1 added ---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin1e(walletData.getCoin1e()+1);
         }
         else if (v == (View) fifty_cent)
@@ -130,8 +127,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             fifty_cent.startAnimation(bounceAnim);
             //Add 50c to wallet & notify user of addition
-            Toast.makeText(getApplicationContext(), "--- 50c added ---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin50c(walletData.getCoin50c()+1);
         }
         else if (v == (View) twenty_cent)
@@ -141,8 +137,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             twenty_cent.startAnimation(bounceAnim);
             //Add 20c to wallet & notify user of addition
-            Toast.makeText(getApplicationContext(), "--- 20c added ---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin20c(walletData.getCoin20c()+1);
         }
         else if(v == (View) ten_cent)
@@ -152,8 +147,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             ten_cent.startAnimation(bounceAnim);
             //Add 10c to wallet, for now toast
-            Toast.makeText(getApplicationContext(),"--- 10c added ---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin10c(walletData.getCoin10c()+1);
         }
         else if(v == (View) five_cent)
@@ -163,8 +157,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             bounceAnim.setInterpolator(interpolator);
             five_cent.startAnimation(bounceAnim);
             //Add 5c to wallet, for now toast
-            Toast.makeText(getApplicationContext(), "--- 5c added---",
-                    Toast.LENGTH_SHORT).show();
+
             walletData.setCoin5c(walletData.getCoin5c()+1);
             //Options
         }

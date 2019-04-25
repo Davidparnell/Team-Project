@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
@@ -93,48 +96,89 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
+        final Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
 
         //Money Buttons
-        if (v == (View) two_euro) {
+        if (v == (View) two_euro)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            two_euro.startAnimation(bounceAnim);
             //Add €1 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- €2 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin2e(walletData.getCoin2e()+1);
-        } else if (v == (View) one_euro) {
+        }
+        else if (v == (View) one_euro)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            one_euro.startAnimation(bounceAnim);
             //Add €2 to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- €1 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin1e(walletData.getCoin1e()+1);
-        } else if (v == (View) fifty_cent) {
+        }
+        else if (v == (View) fifty_cent)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            fifty_cent.startAnimation(bounceAnim);
             //Add 50c to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 50c added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin50c(walletData.getCoin50c()+1);
-        } else if (v == (View) twenty_cent) {
+        }
+        else if (v == (View) twenty_cent)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            twenty_cent.startAnimation(bounceAnim);
             //Add 20c to wallet & notify user of addition
             Toast.makeText(getApplicationContext(), "--- 20c added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin20c(walletData.getCoin20c()+1);
-        } else if(v == (View) ten_cent){
+        }
+        else if(v == (View) ten_cent)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            ten_cent.startAnimation(bounceAnim);
             //Add 10c to wallet, for now toast
             Toast.makeText(getApplicationContext(),"--- 10c added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin10c(walletData.getCoin10c()+1);
-        } else if(v == (View) five_cent){
+        }
+        else if(v == (View) five_cent)
+        {
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            five_cent.startAnimation(bounceAnim);
             //Add 5c to wallet, for now toast
             Toast.makeText(getApplicationContext(), "--- 5c added---",
                     Toast.LENGTH_SHORT).show();
             walletData.setCoin5c(walletData.getCoin5c()+1);
             //Options
-        } else if (v == (View) wallet) {
+        }
+        else if (v == (View) wallet)
+        {
             //Open EditWallet Activity
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(intent, 0);                          //go back to edit wallet if it exists, if not create it
-        } else if (v == (View) notes) {
+        }
+        else if (v == (View) notes)
+        {
             Intent intent = new Intent(getApplicationContext(), Wallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());

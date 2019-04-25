@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
@@ -60,6 +63,8 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         database = AppDatabase.getDatabase(getApplicationContext());
         walletDAO = database.getWalletDAO();
         walletData = walletDAO.getRecentWallet();
+
+
     }
 
     @Override
@@ -95,37 +100,71 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     //Functions after a button is pressed
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
+        final Animation bounceAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
         //Money Buttons
-        if (v == (View) five) {
+        if (v == (View) five)
+        {
             //Add 5 to wallet & notify user of addition
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.05, 15);
+            bounceAnim.setInterpolator(interpolator);
+            five.startAnimation(bounceAnim);
+
             Toast.makeText(getApplicationContext(), "--- 5 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setNote5(walletData.getNote5()+1);
-        } else if (v == (View) ten) {
+        }
+        else if (v == (View) ten)
+        {
             //Add 10 to wallet & notify user of addition
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            bounceAnim.setInterpolator(interpolator);
+            ten.startAnimation(bounceAnim);
+
             Toast.makeText(getApplicationContext(), "--- 10 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setNote10(walletData.getNote10()+1);
-        } else if (v == (View) twenty) {
+        }
+        else if (v == (View) twenty)
+        {
             //Add 20 to wallet & notify user of addition
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            bounceAnim.setInterpolator(interpolator);
+            twenty.startAnimation(bounceAnim);
+
             Toast.makeText(getApplicationContext(), "--- 20 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setNote20(walletData.getNote20()+1);
-        } else if (v == (View) fifty) {
+        }
+        else if (v == (View) fifty)
+        {
             //Add 50 to wallet & notify user of addition
+            //Animation
+            BounceInterpolator interpolator = new BounceInterpolator(0.2, 20);
+            bounceAnim.setInterpolator(interpolator);
+            fifty.startAnimation(bounceAnim);
+
             Toast.makeText(getApplicationContext(), "--- 50 added ---",
                     Toast.LENGTH_SHORT).show();
             walletData.setNote50(walletData.getNote50()+1);
             //Options
-        } else if (v == (View) wallet) {
+        }
+        else if (v == (View) wallet)
+        {
             //Open EditWallet Activity
             Intent intent = new Intent(getApplicationContext(), EditWallet.class);
             intent.putExtra("notes", walletData.getNotes());
             intent.putExtra("coins", walletData.getCoins());
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(intent, 0);              //go back to edit if it exists, if not create it
-        } else if (v == (View) coins) {
+        }
+        else if (v == (View) coins)
+        {
             //Change to coins activity
             Intent intent = new Intent(getApplicationContext(), WalletCoins.class);
             intent.putExtra("notes", walletData.getNotes());

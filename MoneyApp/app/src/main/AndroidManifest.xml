@@ -10,45 +10,58 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.moneyapp.MainActivity" />
+        </activity>
+
         <service
             android:name=".SpeechService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".wallet.Wallet"
+        <activity
+            android:name=".wallet.Wallet"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".wallet.EditWallet"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".wallet.WalletCoins"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".history.History"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".transaction.Camera"
             android:screenOrientation="portrait" />
-        <activity android:name=".transaction.PaySuggestion"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".wallet.EditWallet"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wallet.WalletCoins"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".history.History"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".transaction.Camera"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".transaction.PaySuggestion"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

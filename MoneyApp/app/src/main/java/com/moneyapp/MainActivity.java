@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
-    ImageButton btnHist, btnWallet, btnCamera;
+    ImageButton btnHist, btnWallet, btnCamera,settings;
     ImageView btnBalT2S;
     TextView balanceView;
     String balance;
@@ -69,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnBalT2S = findViewById(R.id.BalanceT2S);
         btnBalT2S.setOnClickListener(this);
         //balanceView.setOnLongClickListener(this);
+
+        settings = findViewById(R.id.Settings);
+        settings.setOnClickListener(this);
 
         //Date formatting
         Date date = Calendar.getInstance().getTime();
@@ -145,6 +148,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Start Text to speech.
             getApplicationContext().startService(speechIntent);
         }
+
+        else if(v ==(View) settings)
+        {
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -198,4 +207,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
+
+
 }

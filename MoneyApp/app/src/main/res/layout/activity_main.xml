@@ -20,6 +20,14 @@
         android:src="@drawable/history_states"
         app:srcCompat="@drawable/history_states" />
 
+    <ImageButton
+        android:id="@+id/Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="#FAFAFA"
+        android:src="@drawable/settings" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

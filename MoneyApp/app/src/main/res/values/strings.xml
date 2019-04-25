@@ -31,4 +31,14 @@
     <string name="Balance">Balance </string>
     <string name="ConfWallet">Confirm Wallet Contents</string>
     <string name="CancelWallet">Cancel Wallet Contents</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Drag and Drop Preferences -->
+    <string name="dnd_title">Enable Drag and Drop</string>
+
+    <!-- Dark Mode Preferences -->
+    <string name="dark_mode_title">Enable Dark Mode</string>
+
+    <!-- -->
+
 </resources>

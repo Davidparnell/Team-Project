@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Money App</string>
+    <string name="app_name">My Money</string>
     <string name="wallet">Wallet</string>
     <string name="camera">Camera</string>
     <string name="balance">Current Balance</string>

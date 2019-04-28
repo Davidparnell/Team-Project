@@ -14,6 +14,7 @@ import com.moneyapp.MainActivity;
 import com.moneyapp.MoneyListAdapter;
 import com.moneyapp.MoneyListData;
 import com.moneyapp.R;
+import com.moneyapp.SwipeDismissListViewTouchListener;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import android.widget.AdapterView;
+
 
 public class EditWallet extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -41,25 +43,62 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_wallet);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.edit_wallet );
 
         //Database set up
-        database = AppDatabase.getDatabase(getApplicationContext());
+        database = AppDatabase.getDatabase( getApplicationContext() );
         walletDAO = database.getWalletDAO();
         walletData = walletDAO.getRecentWallet();
 
-        listView = findViewById(R.id.suggestionList);
+        listView = findViewById( R.id.suggestionList );
 
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener( this );
         moneyList = new ArrayList<>();
 
         //Floating button used to go to next activity.
-        FloatingActionButton confirm = findViewById(R.id.floating_tick);
-        confirm.setOnClickListener(this);
+        FloatingActionButton confirm = findViewById( R.id.floating_tick );
+        confirm.setOnClickListener( this );
 
-        FloatingActionButton exit = findViewById(R.id.floating_exit);
-        exit.setOnClickListener(this);
+        FloatingActionButton exit = findViewById( R.id.floating_exit );
+        exit.setOnClickListener( this );
+
+
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listView,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+
+                                    MoneyListData item = moneyList.get(position);
+                                    moneyList.remove(item);
+
+                                    adapter = new MoneyListAdapter(moneyList, getApplicationContext());
+                                    listView.setAdapter(adapter);
+
+                                    int[] wallet;
+                                    if (item.getType().equals("note")) {
+                                        wallet = walletData.getNotes();
+                                        wallet[item.getIndex()]--;
+                                        walletData.setNotes(wallet);
+                                    } else if (item.getType().equals("coin")) {
+                                        wallet = walletData.getCoins();
+                                        wallet[item.getIndex()]--;
+                                        walletData.setCoins(wallet);
+                                    }
+
+                                }
+
+                            }
+                        });
+        listView.setOnTouchListener(touchListener);
     }
 
     public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
@@ -258,4 +297,5 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             walletData.setCoins(wallet);
         }
     }
+
 }

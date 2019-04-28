@@ -211,6 +211,14 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             switch(dragEvent)
             {
                 case DragEvent.ACTION_DRAG_ENTERED:
+
+                    break;
+
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+
+                //Note dropped on wallet
+                case DragEvent.ACTION_DROP:
                     //Find Item Dragged
                     final View view = (View) event.getLocalState();
 
@@ -247,11 +255,7 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
                     }
                     break;
 
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-
-                //Note dropped on wallet
-                case DragEvent.ACTION_DROP:
+                case DragEvent.ACTION_DRAG_ENDED:
                     break;
             }
             return true;

@@ -214,27 +214,27 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
                     //Find Item Dragged
                     final View view = (View) event.getLocalState();
 
-                    if (v == (View) two_euro) {
+                    if (view == (View) two_euro) {
                         //Add €1 to wallet & notify user of addition
                         Toast.makeText(getApplicationContext(), "--- €2 added ---",
                                 Toast.LENGTH_SHORT).show();
                         walletData.setCoin2e(walletData.getCoin2e()+1);
-                    } else if (v == (View) one_euro) {
+                    } else if (view == (View) one_euro) {
                         //Add €2 to wallet & notify user of addition
                         Toast.makeText(getApplicationContext(), "--- €1 added ---",
                                 Toast.LENGTH_SHORT).show();
                         walletData.setCoin1e(walletData.getCoin1e()+1);
-                    } else if (v == (View) fifty_cent) {
+                    } else if (view == (View) fifty_cent) {
                         //Add 50c to wallet & notify user of addition
                         Toast.makeText(getApplicationContext(), "--- 50c added ---",
                                 Toast.LENGTH_SHORT).show();
                         walletData.setCoin50c(walletData.getCoin50c()+1);
-                    } else if (v == (View) twenty_cent) {
+                    } else if (view == (View) twenty_cent) {
                         //Add 20c to wallet & notify user of addition
                         Toast.makeText(getApplicationContext(), "--- 20c added ---",
                                 Toast.LENGTH_SHORT).show();
                         walletData.setCoin20c(walletData.getCoin20c()+1);
-                    } else if(v == (View) ten_cent){
+                    } else if(view == (View) ten_cent){
                         //Add 10c to wallet, for now toast
                         Toast.makeText(getApplicationContext(),"--- 10c added ---",
                                 Toast.LENGTH_SHORT).show();
@@ -252,38 +252,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
 
                 //Note dropped on wallet
                 case DragEvent.ACTION_DROP:
-                    //Find Item Dragged
-                    if (v == (View) two_euro) {
-                        //Add €1 to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- €2 added ---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin2e(walletData.getCoin2e()+1);
-                    } else if (v == (View) one_euro) {
-                        //Add €2 to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- €1 added ---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin1e(walletData.getCoin1e()+1);
-                    } else if (v == (View) fifty_cent) {
-                        //Add 50c to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- 50c added ---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin50c(walletData.getCoin50c()+1);
-                    } else if (v == (View) twenty_cent) {
-                        //Add 20c to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- 20c added ---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin20c(walletData.getCoin20c()+1);
-                    } else if(v == (View) ten_cent){
-                        //Add 10c to wallet, for now toast
-                        Toast.makeText(getApplicationContext(),"--- 10c added ---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin10c(walletData.getCoin10c()+1);
-                    } else if(v == (View) five_cent){
-                        //Add 5c to wallet, for now toast
-                        Toast.makeText(getApplicationContext(), "--- 5c added---",
-                                Toast.LENGTH_SHORT).show();
-                        walletData.setCoin5c(walletData.getCoin5c()+1);
-                    }
                     break;
             }
             return true;

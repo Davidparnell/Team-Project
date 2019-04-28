@@ -198,22 +198,24 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
                     //Find Item Dragged
                     final View view = (View) event.getLocalState();
 
-                    if (v == (View) five) {
+                    Log.d("ITEM", "Item:" +view);
+
+                    if (view == (View) five) {
                         //Add 5 to wallet & notify user of addition
                         Toast.makeText( getApplicationContext(), "--- 5 added ---",
                                 Toast.LENGTH_SHORT ).show();
                         walletData.setNote5( walletData.getNote5() + 1 );
-                    } else if (v == (View) ten) {
+                    } else if (view == (View) ten) {
                         //Add 10 to wallet & notify user of addition
                         Toast.makeText( getApplicationContext(), "--- 10 added ---",
                                 Toast.LENGTH_SHORT ).show();
                         walletData.setNote10( walletData.getNote10() + 1 );
-                    } else if (v == (View) twenty) {
+                    } else if (view == (View) twenty) {
                         //Add 20 to wallet & notify user of addition
                         Toast.makeText( getApplicationContext(), "--- 20 added ---",
                                 Toast.LENGTH_SHORT ).show();
                         walletData.setNote20( walletData.getNote20() + 1 );
-                    } else if (v == (View) fifty) {
+                    } else if (view == (View) fifty) {
                         //Add 50 to wallet & notify user of addition
                         Toast.makeText( getApplicationContext(), "--- 50 added ---",
                                 Toast.LENGTH_SHORT ).show();
@@ -227,6 +229,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
                 //Note dropped on wallet
                 case DragEvent.ACTION_DROP:
                     break;
+
             }
             return true;
         }

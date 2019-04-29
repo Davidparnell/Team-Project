@@ -25,7 +25,6 @@ public class MoneyListAdapter extends ArrayAdapter<MoneyListData>
         this.context = context;
     }
 
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)

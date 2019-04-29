@@ -1,4 +1,4 @@
-package com.moneyapp;
+package com.moneyapp.wallet;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,8 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
+public class SwipeListener implements View.OnTouchListener {
 
     private int mSlop;
     private int mMinFlingVelocity;
@@ -43,15 +42,12 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
 
     public interface DismissCallbacks {
-
         boolean canDismiss(int position);
-
-
         void onDismiss(ListView listView, int[] reverseSortedPositions);
     }
 
 
-    public SwipeDismissListViewTouchListener(ListView listView, DismissCallbacks callbacks) {
+    public SwipeListener(ListView listView, DismissCallbacks callbacks) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
         mMinFlingVelocity = vc.getScaledMinimumFlingVelocity() * 16;
@@ -91,8 +87,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 if (mPaused) {
                     return false;
                 }
-
-                // TODO: ensure this is a finger, and set a flag
 
                 // Find the child view that was touched (perform a hit test)
                 Rect rect = new Rect();

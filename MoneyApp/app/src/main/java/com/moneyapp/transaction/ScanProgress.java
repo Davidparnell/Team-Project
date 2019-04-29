@@ -11,7 +11,7 @@ import static com.google.android.gms.flags.FlagSource.G;
 
 class ScanProgress extends AsyncTask<Void, Integer, Void> {
     ProgressBar progressBar;
-    int i =0;
+    int i = 0;
     @Override
     protected Void doInBackground(Void... args) {
         while(i < 6){
@@ -22,7 +22,6 @@ class ScanProgress extends AsyncTask<Void, Integer, Void> {
                 e.printStackTrace();
             }
         }
-
         // code where data is processing
         return null;
     }
@@ -41,7 +40,6 @@ class ScanProgress extends AsyncTask<Void, Integer, Void> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
-        //Log.d("REG", String.valueOf(values[0]));
         progressBar.setProgress(values[0]*25);
     }
 

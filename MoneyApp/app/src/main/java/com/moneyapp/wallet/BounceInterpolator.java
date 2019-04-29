@@ -1,4 +1,4 @@
-package com.moneyapp;
+package com.moneyapp.wallet;
 
 public class BounceInterpolator implements android.view.animation.Interpolator
 {

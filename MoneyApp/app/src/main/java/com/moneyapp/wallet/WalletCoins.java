@@ -8,16 +8,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
-import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
 import com.moneyapp.database.WalletData;
 import com.moneyapp.R;
 
-
 import android.view.DragEvent;
 import java.util.Arrays;
 import android.content.ClipData;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class WalletCoins extends AppCompatActivity implements View.OnClickListener {
@@ -28,7 +25,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
 
     //Initialize DB objects
     WalletData walletData;//Initialize Wallet
-    int i = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
         ten_cent.setOnLongClickListener(longClickListener);
         five_cent.setOnLongClickListener(longClickListener);
 
-
         //wallet button
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
@@ -89,12 +84,10 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
-        Log.d("WALLET", String.valueOf(i));  //test if activity ended
-        i++;
+
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
 
-        Log.d("WALLET", "Coins");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
@@ -191,16 +184,13 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(intent, 0);                          //go back to Wallet if it exists, if not create it
         }
-    }View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData data = ClipData.newPlainText( "", "" );
+    }View.OnLongClickListener longClickListener = v -> {
+        ClipData data = ClipData.newPlainText( "", "" );
 
-            View.DragShadowBuilder build = new View.DragShadowBuilder( v );
-            v.startDrag( data, build, v, 0 );
+        View.DragShadowBuilder build = new View.DragShadowBuilder( v );
+        v.startDrag( data, build, v, 0 );
 
-            return true;
-        }
+        return true;
     };
 
     View.OnDragListener dragListener = new View.OnDragListener() {
@@ -211,7 +201,6 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
             switch(dragEvent)
             {
                 case DragEvent.ACTION_DRAG_ENTERED:
-
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
@@ -224,33 +213,21 @@ public class WalletCoins extends AppCompatActivity implements View.OnClickListen
 
                     if (view == (View) two_euro) {
                         //Add €1 to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- €2 added ---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin2e(walletData.getCoin2e()+1);
                     } else if (view == (View) one_euro) {
                         //Add €2 to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- €1 added ---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin1e(walletData.getCoin1e()+1);
                     } else if (view == (View) fifty_cent) {
                         //Add 50c to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- 50c added ---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin50c(walletData.getCoin50c()+1);
                     } else if (view == (View) twenty_cent) {
                         //Add 20c to wallet & notify user of addition
-                        Toast.makeText(getApplicationContext(), "--- 20c added ---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin20c(walletData.getCoin20c()+1);
                     } else if(view == (View) ten_cent){
                         //Add 10c to wallet, for now toast
-                        Toast.makeText(getApplicationContext(),"--- 10c added ---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin10c(walletData.getCoin10c()+1);
-                    } else if(v == (View) five_cent){
+                    } else if(view == (View) five_cent){
                         //Add 5c to wallet, for now toast
-                        Toast.makeText(getApplicationContext(), "--- 5c added---",
-                                Toast.LENGTH_SHORT).show();
                         walletData.setCoin5c(walletData.getCoin5c()+1);
                     }
                     break;

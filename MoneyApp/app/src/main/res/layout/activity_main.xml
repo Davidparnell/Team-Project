@@ -27,7 +27,7 @@
         android:paddingTop="70dp"
         android:id="@+id/Balance"
         android:contentDescription="@string/balance"
-        android:textColor="#828282"
+        android:textColor="#000000"
         android:textSize="60sp"
         app:fontFamily="sans-serif"
         tools:text="€ XX.XX" />

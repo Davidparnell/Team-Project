@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.moneyapp.database.AppDatabase;
@@ -67,15 +66,11 @@ public class History extends AppCompatActivity
             }
 
             historyList.add(item);
-
-            //test output to log, can be deleted and formatted later
-            Log.d("HIS", walletHistory.get(i).getDate()+" "+String.format("%.02f", walletHistory.get(i).getBalance())+" "+String.format("%.02f", walletHistory.get(i).getRegister())+" ");
         }
 
         //Adapter to display data from ArrayList
         HistoryAdapter adapter = new HistoryAdapter(historyList, getApplicationContext());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 }

@@ -86,9 +86,7 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
     private UtteranceProgressListener speechProgressListener = new UtteranceProgressListener()
     {
         @Override
-        public void onStart(String utteranceId) {
-
-        }
+        public void onStart(String utteranceId) { }
 
         @Override
         public void onDone(String utteranceId)
@@ -97,9 +95,7 @@ public class SpeechService extends Service implements TextToSpeech.OnInitListene
         }
 
         @Override
-        public void onError(String utteranceId) {
-
-        }
+        public void onError(String utteranceId) { }
     };
 
 }

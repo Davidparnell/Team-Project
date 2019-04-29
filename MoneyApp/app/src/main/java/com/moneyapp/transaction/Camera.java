@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -29,9 +28,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-
 public class Camera extends AppCompatActivity {
-    private TextRecognizer textRecognizer;
     private static final int requestID = 1;
     SurfaceView cameraSurface;
     CameraSource cameraSource;
@@ -63,7 +60,6 @@ public class Camera extends AppCompatActivity {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             return;
         }
-        //progressTask.onPostExecute(null);-----------------------------
 
         //if camera permission is granted, start the cameraSource
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -79,7 +75,7 @@ public class Camera extends AppCompatActivity {
     }
 
     private void cameraSource() {
-        textRecognizer = new TextRecognizer.Builder(this).build();
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(this).build();
         if(!textRecognizer.isOperational()) { return; }
 
         //Setting up camera
@@ -127,7 +123,7 @@ public class Camera extends AppCompatActivity {
 
                 if (items.size() > 0) {
                     StringBuilder stringBuilder = new StringBuilder();
-                    //progressBar.setVisibility(View.VISIBLE);
+
                     for (int i=0; i<items.size(); i++) {
                         TextBlock item = items.valueAt(i);
                         stringBuilder.append(item.getValue());
@@ -154,7 +150,6 @@ public class Camera extends AppCompatActivity {
                             scanCounter++;
                         }
                         else{
-                            //progressBar.setVisibility(View.INVISIBLE);---------------
                             //check when enough scans have been made
                             scanCounter = 0;
                             int highestFreq = 0;
@@ -182,13 +177,10 @@ public class Camera extends AppCompatActivity {
                                 progressTask.setI(6);
                                 Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 intent.putExtra("register", register);
-                                Log.d("REG", String.valueOf(register));
                                 startActivity(intent);
                                 finish();
                             }
                         }
-                        Log.d("REG", regList.toString());
-                        Log.d("REG", register);
                     }
                 }
             }

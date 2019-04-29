@@ -5,7 +5,6 @@ import androidx.room.Room;
 
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,11 +19,7 @@ import com.moneyapp.wallet.Wallet;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
@@ -44,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Database object
         database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "wallet")
-                //.fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
 
@@ -68,24 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         balanceView = findViewById(R.id.Balance);
         btnBalT2S = findViewById(R.id.BalanceT2S);
         btnBalT2S.setOnClickListener(this);
-        //balanceView.setOnLongClickListener(this);
-
-        //Date formatting
-        Date date = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK);
-
-        //dummy data
-        /*try {
-            date = dateFormat.parse("2019-4-14 14:15:14"); //for testing date with hard coding
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        //walletData = walletDAO.getRecentWallet();
-        walletData.setWalletOptions(date, (float) 3.50, (float)0.00);
-        walletData.setNotes(new int[] {0, 0, 0, 0});
-        walletData.setCoins(new int[] {1,1,1,0,0,0});
-        //walletDAO.insert(walletData);
     }
 
     @Override
@@ -109,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         balance = String.format(Locale.UK, "%.02f", walletData.getBalance());
         balanceView.setText("\u20ac" +balance);
-        balanceView.setTextSize(80);
+        balanceView.setTextSize(90);
     }
 
     @Override
@@ -164,33 +140,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             case R.id.Wallet:
             {
-                String buttoninfo = "wallet";
+                String buttonInfo = "wallet";
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", buttoninfo);
+                speechIntent.putExtra("textData", buttonInfo);
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;
             }
             case R.id.Camera:
             {
-                String buttoninfo = "camera";
+                String buttonInfo = "camera";
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", buttoninfo);
+                speechIntent.putExtra("textData", buttonInfo);
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;
             }
             case R.id.History:
             {
-                String buttoninfo = "history";
+                String buttonInfo = "history";
                 //Intent for text to speech.
                 Intent speechIntent = new Intent(getApplicationContext(), SpeechService.class);
                 //Pass data to be spoken to the SpeechService class.
-                speechIntent.putExtra("textData", buttoninfo);
+                speechIntent.putExtra("textData", buttonInfo);
                 //Start Text to speech.
                 getApplicationContext().startService(speechIntent);
                 break;

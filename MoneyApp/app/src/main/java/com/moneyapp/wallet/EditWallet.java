@@ -14,7 +14,6 @@ import com.moneyapp.MainActivity;
 import com.moneyapp.MoneyListAdapter;
 import com.moneyapp.MoneyListData;
 import com.moneyapp.R;
-import com.moneyapp.SwipeDismissListViewTouchListener;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
 import com.moneyapp.database.WalletData;
@@ -36,38 +35,38 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
     final float[] nValues = {50f, 20f, 10f, 5f};
     final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
-    int i = 0;
+
     private ListView listView;
     private List<MoneyListData> moneyList;
     MoneyListAdapter adapter;   //set on resume only because on resume happens after on create regardless
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.edit_wallet );
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.edit_wallet);
 
         //Database set up
-        database = AppDatabase.getDatabase( getApplicationContext() );
+        database = AppDatabase.getDatabase(getApplicationContext());
         walletDAO = database.getWalletDAO();
         walletData = walletDAO.getRecentWallet();
 
-        listView = findViewById( R.id.suggestionList );
+        listView = findViewById(R.id.suggestionList);
 
-        listView.setOnItemClickListener( this );
+        listView.setOnItemClickListener(this);
         moneyList = new ArrayList<>();
 
         //Floating button used to go to next activity.
-        FloatingActionButton confirm = findViewById( R.id.floating_tick );
-        confirm.setOnClickListener( this );
+        FloatingActionButton confirm = findViewById(R.id.floating_tick);
+        confirm.setOnClickListener(this);
 
-        FloatingActionButton exit = findViewById( R.id.floating_exit );
-        exit.setOnClickListener( this );
+        FloatingActionButton exit = findViewById(R.id.floating_exit);
+        exit.setOnClickListener(this);
 
 
-        SwipeDismissListViewTouchListener touchListener =
-                new SwipeDismissListViewTouchListener(
+        SwipeListener touchListener =
+                new SwipeListener(
                         listView,
-                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                        new SwipeListener.DismissCallbacks() {
                             @Override
                             public boolean canDismiss(int position) {
                                 return true;
@@ -93,9 +92,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
                                         wallet[item.getIndex()]--;
                                         walletData.setCoins(wallet);
                                     }
-
                                 }
-
                             }
                         });
         listView.setOnTouchListener(touchListener);
@@ -212,8 +209,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
-        Log.d("WALLET", String.valueOf(i));//test to see if activity ended
-        i++;
         walletData.setNotes(intent.getIntArrayExtra("notes"));
         walletData.setCoins(intent.getIntArrayExtra("coins"));
 
@@ -223,7 +218,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        Log.d("WALLET", "Edit");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
@@ -235,11 +229,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         intent.putExtra("notes", walletData.getNotes());
         intent.putExtra("coins", walletData.getCoins());
         startActivityIfNeeded(intent, 0);
-        /*
-        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class); //or back to main
-        startActivity(intent);
-        finish();*/
     }
 
     //Insert current wallet to database
@@ -280,22 +269,5 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MoneyListData item = moneyList.get(position);
-        moneyList.remove(item);
-
-        adapter = new MoneyListAdapter(moneyList, this);
-        listView.setAdapter(adapter);
-
-        int[] wallet;
-        if (item.getType().equals("note")) {
-            wallet = walletData.getNotes();
-            wallet[item.getIndex()]--;
-            walletData.setNotes(wallet);
-        } else if (item.getType().equals("coin")) {
-            wallet = walletData.getCoins();
-            wallet[item.getIndex()]--;
-            walletData.setCoins(wallet);
-        }
     }
-
 }

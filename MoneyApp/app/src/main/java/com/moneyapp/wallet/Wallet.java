@@ -10,7 +10,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
-import com.moneyapp.BounceInterpolator;
 import com.moneyapp.MainActivity;
 import com.moneyapp.database.AppDatabase;
 import com.moneyapp.database.WalletDAO;
@@ -20,7 +19,6 @@ import com.moneyapp.R;
 import android.view.DragEvent;
 import java.util.Arrays;
 import android.content.ClipData;
-import android.widget.Toast;
 
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,7 +30,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     WalletDAO walletDAO;//Initialize DAO
     WalletData walletData;//Initialize Wallet
 
-    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +52,15 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
         fifty.setOnClickListener(this);
 
         //Listeners for Drag and Drop
-
         fifty.setOnLongClickListener(longClickListener);
         twenty.setOnLongClickListener(longClickListener);
         ten.setOnLongClickListener(longClickListener);
         five.setOnLongClickListener(longClickListener);
 
-
-
         //Wallet button
         wallet = findViewById(R.id.wallet);
         wallet.setOnClickListener(this);
         wallet.setOnDragListener(dragListener);
-
 
         //Button to change to coins
         coins = findViewById(R.id.CoinBtn);
@@ -88,15 +81,12 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         Intent intent = getIntent();
-        Log.d("WALLET", String.valueOf(i)); //test to see if activity ended
-        i++;
 
         if(null != intent.getIntArrayExtra("coins")) { //Stop from getting nulls first time entering
             walletData.setNotes(intent.getIntArrayExtra("notes"));
             walletData.setCoins(intent.getIntArrayExtra("coins"));
         }
 
-        Log.d("WALLET", "Notes");
         Log.d("WALLET", Arrays.toString(walletData.getNotes()));
         Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
@@ -175,16 +165,13 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivityIfNeeded(intent, 0);             //go back to walletCoins if it exists, if not create it
         }
-    }View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData data = ClipData.newPlainText( "", "" );
+    }View.OnLongClickListener longClickListener = v -> {
+        ClipData data = ClipData.newPlainText( "", "" );
 
-            View.DragShadowBuilder build = new View.DragShadowBuilder( v );
-            v.startDrag( data, build, v, 0 );
+        View.DragShadowBuilder build = new View.DragShadowBuilder( v );
+        v.startDrag( data, build, v, 0 );
 
-            return true;
-        }
+        return true;
     };
 
     View.OnDragListener dragListener = new View.OnDragListener() {
@@ -198,38 +185,23 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
                     //Find Item Dragged
                     final View view = (View) event.getLocalState();
 
-                    Log.d("ITEM", "Item:" +view);
-
                     if (view == (View) five) {
                         //Add 5 to wallet & notify user of addition
-                        Toast.makeText( getApplicationContext(), "--- 5 added ---",
-                                Toast.LENGTH_SHORT ).show();
                         walletData.setNote5( walletData.getNote5() + 1 );
                     } else if (view == (View) ten) {
                         //Add 10 to wallet & notify user of addition
-                        Toast.makeText( getApplicationContext(), "--- 10 added ---",
-                                Toast.LENGTH_SHORT ).show();
                         walletData.setNote10( walletData.getNote10() + 1 );
                     } else if (view == (View) twenty) {
                         //Add 20 to wallet & notify user of addition
-                        Toast.makeText( getApplicationContext(), "--- 20 added ---",
-                                Toast.LENGTH_SHORT ).show();
                         walletData.setNote20( walletData.getNote20() + 1 );
                     } else if (view == (View) fifty) {
                         //Add 50 to wallet & notify user of addition
-                        Toast.makeText( getApplicationContext(), "--- 50 added ---",
-                                Toast.LENGTH_SHORT ).show();
                         walletData.setNote50( walletData.getNote50() + 1 );
                     }
                     break;
 
-                case DragEvent.ACTION_DRAG_EXITED:
+                case DragEvent.ACTION_DRAG_ENDED:
                     break;
-
-                //Note dropped on wallet
-                case DragEvent.ACTION_DROP:
-                    break;
-
             }
             return true;
         }

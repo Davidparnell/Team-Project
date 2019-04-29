@@ -71,9 +71,6 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         for (int i1 : pay) {
             change -= i1;
         }
-        /*for(int i = 0; i< pay.length; i++) {
-            Log.d("REG", "["+String.valueOf(i)+"] - "+String.valueOf(pay[i]));
-        }*/
 
         if(path == 4){  //not enough money
             noMoney.setVisibility(View.VISIBLE);
@@ -219,8 +216,8 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         int i = 0;
         int iPrev = 0;
         int x = 0;
+
         //first algorithm iteration - generates first money array
-        //Log.d("WALLET", register.toString());
         while (regTemp.floatValue() > 0) {
             if (regTemp.floatValue() >= values[i] && wallet[i] != 0) {
                 regTemp = regTemp.subtract(BigDecimal.valueOf(values[i]).setScale(3, BigDecimal.ROUND_HALF_UP));

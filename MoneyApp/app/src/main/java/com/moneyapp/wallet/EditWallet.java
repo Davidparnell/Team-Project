@@ -63,6 +63,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         exit.setOnClickListener(this);
 
 
+        //Swipe listener for item removal
         SwipeListener touchListener =
                 new SwipeListener(
                         listView,
@@ -72,16 +73,23 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
                                 return true;
                             }
 
+                            /*
+                            when item's dismissed, remove that item from the Moneylist
+                            and update the  listView
+                             */
                             @Override
                             public void onDismiss(ListView listView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
 
+                                    //Remove from list
                                     MoneyListData item = moneyList.get(position);
                                     moneyList.remove(item);
 
+                                    //Update list view
                                     adapter = new MoneyListAdapter(moneyList, getApplicationContext());
                                     listView.setAdapter(adapter);
 
+                                    //Remove the item from the wallet
                                     int[] wallet;
                                     if (item.getType().equals("note")) {
                                         wallet = walletData.getNotes();
@@ -98,10 +106,12 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         listView.setOnTouchListener(touchListener);
     }
 
+    //Create money list and populate
     public List<MoneyListData> createMoneyList(int[] notes, int[] coins){
         ArrayList<String> cash = new ArrayList<String>();
         moneyList = new ArrayList<>();
 
+        //add notes
         for(int i = 0; i < notes.length; i++){
             for(int j = 0; j < notes[i]; j++){
                 //Add note value as cash to the cash ArrayList
@@ -109,6 +119,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             }
         }
 
+        //add coins
         for(int i = 0; i < coins.length; i++){
             for(int j = 0; j < coins[i]; j++){
                 //Add coin value as cash to the cash ArrayList
@@ -259,7 +270,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
             }
             case R.id.floating_exit:
             {
-                //Return home
+                //Return home but dont insert into DB
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 break;

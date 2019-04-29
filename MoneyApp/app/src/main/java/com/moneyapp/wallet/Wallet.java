@@ -168,12 +168,14 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     }View.OnLongClickListener longClickListener = v -> {
         ClipData data = ClipData.newPlainText( "", "" );
 
+        //Builds shadow of dragged image
         View.DragShadowBuilder build = new View.DragShadowBuilder( v );
         v.startDrag( data, build, v, 0 );
 
         return true;
     };
 
+    //Drag & Drop
     View.OnDragListener dragListener = new View.OnDragListener() {
         @Override
         public boolean onDrag(View v, DragEvent event) {

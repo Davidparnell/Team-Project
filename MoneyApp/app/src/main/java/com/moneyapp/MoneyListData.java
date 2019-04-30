@@ -2,6 +2,10 @@ package com.moneyapp;
 
 import android.graphics.drawable.Drawable;
 
+/*
+Stores data for the edit and suggestion lists
+ */
+
 public class MoneyListData
 {
     private Drawable cash;

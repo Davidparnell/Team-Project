@@ -9,8 +9,8 @@ Progress bar for the camera scan in a separate thread not interrupt the UI threa
  */
 
 class ScanProgress extends AsyncTask<Void, Integer, Void> {
-    ProgressBar progressBar;
-    int progress = 0;
+    private ProgressBar progressBar;
+    private int progress = 0;
 
     @Override
     protected Void doInBackground(Void... args) {

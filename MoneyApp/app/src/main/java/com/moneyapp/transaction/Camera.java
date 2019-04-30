@@ -53,9 +53,10 @@ public class Camera extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         cameraSurface = findViewById(R.id.cameraSurface);
 
+        //Progress bar while scanning register
         progressTask.setProgressBar(progressBar);
         progressTask.execute();
-
+        //camera setup and running image recognition
         cameraSource();
     }
 
@@ -129,7 +130,7 @@ public class Camera extends AppCompatActivity {
 
                 if (items.size() > 0) {
                     StringBuilder stringBuilder = new StringBuilder();
-
+                    //convert scanned text Block
                     for (int i=0; i<items.size(); i++) {
                         TextBlock item = items.valueAt(i);
                         stringBuilder.append(item.getValue());
@@ -142,11 +143,10 @@ public class Camera extends AppCompatActivity {
 
                     if(matcher.find()){
                         progressTask.setProgress(scanCounter);
-                        String group = matcher.group(1).replace("-", ".");
+                        String group = matcher.group(1).replace("-", ".");//for consistency with pattern
 
-                        //Add numbers to frequency map
+                        //Add scanned numbers to frequency map
                         if(scanCounter < maxScans){
-
                             if(regList.get(group) == null) {
                                 regList.put(group, 1);
                             }
@@ -180,7 +180,7 @@ public class Camera extends AppCompatActivity {
                                 return;
                             }
                             else{
-                                progressTask.setProgress(6);
+                                progressTask.setProgress(6);//progress bar end do doInBackground
                                 Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 intent.putExtra("register", register);
                                 startActivity(intent);

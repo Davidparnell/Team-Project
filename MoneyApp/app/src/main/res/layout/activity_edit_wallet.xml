@@ -34,6 +34,4 @@
         app:backgroundTint="#FF0000"
         app:fabCustomSize="100dp"
         app:maxImageSize="70dp" />
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

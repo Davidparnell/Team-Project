@@ -74,7 +74,7 @@
         android:id="@+id/wallet"
         android:background="#fafafa"
         android:contentDescription="@string/wallet"
-        android:src="@drawable/wallet3"
+        android:src="@drawable/edit_wallet_states"
         android:visibility="visible" />
 
 </LinearLayout>

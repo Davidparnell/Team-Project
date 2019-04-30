@@ -60,6 +60,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         AppDatabase database = AppDatabase.getDatabase(getApplicationContext());
         WalletDAO walletDAO = database.getWalletDAO();
 
+        //get current wallet and register reading from camera
         WalletData walletData = walletDAO.getRecentWallet();
         Intent intent = getIntent();
         float register = Float.parseFloat(intent.getStringExtra("register"));
@@ -80,7 +81,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             }
         }
 
-        if(path == 4){  //not enough money
+        if(path == 4){  //if not enough money
             noMoney.setVisibility(View.VISIBLE);
         }
         else{
@@ -97,6 +98,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         int[] payNotes = {0,0,0,0};
         int[] payCoins = {0,0,0,0,0,0};
 
+        //Convert suggested notes/coins to into arrays dependant on algorithm path
         if(path == 1) {
             payCoins = pay;
         } else if(path == 2){
@@ -107,7 +109,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         }
 
         ArrayList<String> cash = new ArrayList<String>();
-        suggestionList = new ArrayList<>();
+        suggestionList = new ArrayList<>();//suggested notes/coins turned into into single string array
 
         cash.add("arrow");
         for(int i = 0; i < payNotes.length; i++){
@@ -203,22 +205,18 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         int[] payCoins2 = {0,0,0,0,0,0};
 
         if(5 > register.floatValue() && balanceCoins.floatValue() >= register.floatValue()){       //Small amounts below 5 if enough coins in wallet
-            Log.d("REG", "These coins");
             setPath(1);
             return payCoins = algorithm(getCoins(), cValues, register, payCoins, payCoins2);
         }
         else if(balanceNotes.floatValue() >= register.floatValue()) {                              //amounts bigger then 5 euro or less then 5 if not enough coins
-            Log.d("REG", "These notes");
             setPath(2);
             return payNotes = algorithm(getNotes(), nValues, new BigDecimal(roundToFive(register.floatValue())), payNotes, payNotes2);
         }
         else if(balanceNotes.add(balanceCoins).floatValue() >= register.floatValue()){             //amounts bigger then total in notes but less
-            Log.d("REG", "All notes + these coins");                                     //then total in wallet - all notes and coins algorithm for remainder
-            setPath(3);
+            setPath(3);                                                                            //then total in wallet - all notes and coins algorithm for remainder
             return payCoins = algorithm(getCoins(), cValues, register.subtract(balanceNotes), payCoins, payCoins2);
         }
-        else{
-            Log.d("REG", "Not enough money");                                            //Not enough money
+        else{//Not enough money
             setPath(4);
             return payNotes;
         }
@@ -373,7 +371,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
 
         int[] notes = walletData.getNotes();
         int[] coins = walletData.getCoins();
-        if(path == 1){
+        if(path == 1){ //wallet - suggested notes
             for(int i = 0; i< coins.length; i++){
                 coins[i] -= pay[i];
             }
@@ -393,6 +391,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             return null;
         }
 
+        //balance after suggestion balance
         float total = notes[0] * 50f + notes[1] * 20f + notes[2] * 10f + notes[3] * 5f;
         total += coins[0] * 2.00f + coins[1] * 1.00f + coins[2] * 0.50f + coins[3] * 0.20f + coins[4] * 0.10f + coins[5] * 0.05f;
 

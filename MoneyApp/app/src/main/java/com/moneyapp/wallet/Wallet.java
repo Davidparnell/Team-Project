@@ -20,6 +20,12 @@ import android.view.DragEvent;
 import java.util.Arrays;
 import android.content.ClipData;
 
+/*
+Allows for adding notes to the wallet by clicking or dragging.
+Can switch between this and the WalletCoins activity keeping one instance of each in memory
+passing anything added to WalletCoins
+ */
+
 public class Wallet extends AppCompatActivity implements View.OnClickListener {
 
     //Initialize Layout Buttons

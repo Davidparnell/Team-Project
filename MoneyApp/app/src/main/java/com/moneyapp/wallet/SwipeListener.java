@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/*
+Deleting from edit list by swiping
+ */
+
 public class SwipeListener implements View.OnTouchListener {
 
     private int mSlop;

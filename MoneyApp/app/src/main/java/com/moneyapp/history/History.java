@@ -18,6 +18,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/*
+Lists all wallet edits and transactions with a date, balance, register reading
+and type of change it was eg.transaction or wallet change
+ */
+
 public class History extends AppCompatActivity
 {
     private ListView listView;
@@ -51,8 +56,11 @@ public class History extends AppCompatActivity
             HistoryData item = new HistoryData();
             item.setDate(new SimpleDateFormat("yyyy-MMMM-dd HH:mm:ss", Locale.UK).format(walletHistory.get(i).getDate()));
             item.setBalance("Balance: " + String.format(Locale.UK, "%.02f", walletHistory.get(i).getBalance()));
-            item.setRegister("Bill: " + String.format(Locale.UK,"%.02f", walletHistory.get(i).getRegister()));
-
+            if(walletHistory.get(i).getRegister() == 0) {
+                item.setRegister("Bill: --");
+            }else{
+                item.setRegister("Bill: " + String.format(Locale.UK, "%.02f", walletHistory.get(i).getRegister()));
+            }
             //Setting transaction type, with transaction type image chosen.
             if(walletHistory.get(i).getRegister() == 0)
             {

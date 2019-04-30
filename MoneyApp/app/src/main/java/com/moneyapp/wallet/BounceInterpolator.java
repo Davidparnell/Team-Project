@@ -1,9 +1,13 @@
 package com.moneyapp.wallet;
 
+/*
+Animations for all notes and coins buttons
+ */
+
 public class BounceInterpolator implements android.view.animation.Interpolator
 {
     private double amplitude = 1;
-    private double frequency = 10;
+    private double frequency = 10; //speed
 
     public BounceInterpolator(double amplitude, double frequency)
     {

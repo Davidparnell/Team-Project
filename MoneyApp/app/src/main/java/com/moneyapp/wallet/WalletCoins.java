@@ -17,6 +17,12 @@ import java.util.Arrays;
 import android.content.ClipData;
 import androidx.appcompat.app.AppCompatActivity;
 
+/*
+Allows for adding coins to the wallet by clicking or dragging.
+Can switch between this and the Wallet activity keeping one instance of each in memory
+passing anything added to the Wallet
+ */
+
 public class WalletCoins extends AppCompatActivity implements View.OnClickListener {
 
     //Initialize Layout Buttons

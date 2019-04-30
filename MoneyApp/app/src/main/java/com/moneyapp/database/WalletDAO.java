@@ -9,6 +9,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+/*
+Converting SQL to to java allowing to query the database
+ */
+
 @Dao
 public interface WalletDAO {
     @Query("SELECT * FROM wallet Order BY date DESC")

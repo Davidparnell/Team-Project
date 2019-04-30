@@ -7,6 +7,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/*
+Database attributes and getters and setters for them
+ */
+
 @Entity(tableName = "wallet")
 public class WalletData {
     //--------Attributes---------

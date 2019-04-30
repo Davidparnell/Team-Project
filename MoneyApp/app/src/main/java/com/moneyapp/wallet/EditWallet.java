@@ -26,6 +26,10 @@ import java.util.List;
 
 import android.widget.AdapterView;
 
+/*
+Activity Listing all money in wallet allowing removing individual notes/coins
+Has option to cancel or confirm to add or exit without adding to the database
+ */
 
 public class EditWallet extends AppCompatActivity  implements View.OnClickListener, AdapterView.OnItemClickListener {
 
@@ -37,7 +41,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
     private ListView listView;
-    private List<MoneyListData> moneyList;
+    private List<MoneyListData> moneyList; //for listView
     MoneyListAdapter adapter;   //set on resume only because on resume happens after on create regardless
 
     @Override
@@ -62,47 +66,46 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         FloatingActionButton exit = findViewById(R.id.floating_exit);
         exit.setOnClickListener(this);
 
-        //Swipe listener for item removal
-        SwipeListener touchListener =
-                new SwipeListener(
-                        listView,
-                        new SwipeListener.DismissCallbacks() {
-                            @Override
-                            public boolean canDismiss(int position) {
-                                return true;
-                            }
-
-                            /*
-                            when item's dismissed, remove that item from the Moneylist
-                            and update the  listView
-                             */
-                            @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
-
-                                    //Remove from list
-                                    MoneyListData item = moneyList.get(position);
-                                    moneyList.remove(item);
-
-                                    //Update list view
-                                    adapter = new MoneyListAdapter(moneyList, getApplicationContext());
-                                    listView.setAdapter(adapter);
-
-                                    //Remove the item from the wallet
-                                    int[] wallet;
-                                    if (item.getType().equals("note")) {
-                                        wallet = walletData.getNotes();
-                                        wallet[item.getIndex()]--;
-                                        walletData.setNotes(wallet);
-                                    } else if (item.getType().equals("coin")) {
-                                        wallet = walletData.getCoins();
-                                        wallet[item.getIndex()]--;
-                                        walletData.setCoins(wallet);
-                                    }
-                                }
-                            }
-                        });
+        SwipeListener touchListener = makeSwipeListener();
         listView.setOnTouchListener(touchListener);
+    }
+
+    public SwipeListener makeSwipeListener(){
+        return new SwipeListener(listView, new SwipeListener.DismissCallbacks() {
+            @Override
+            public boolean canDismiss(int position) {
+                        return true;
+                    }
+                    /*
+                    when item's dismissed, remove that item from the Moneylist
+                    and update the  listView
+                    */
+                    @Override
+                    public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                        for (int position : reverseSortedPositions) {
+
+                            //Remove from list
+                            MoneyListData item = moneyList.get(position);
+                            moneyList.remove(item);
+
+                            //Update list view
+                            adapter = new MoneyListAdapter(moneyList, getApplicationContext());
+                            listView.setAdapter(adapter);
+
+                            //Remove the item from the wallet
+                            int[] wallet;
+                            if (item.getType().equals("note")) {
+                                wallet = walletData.getNotes();
+                                wallet[item.getIndex()]--;
+                                walletData.setNotes(wallet);
+                            } else if (item.getType().equals("coin")) {
+                                wallet = walletData.getCoins();
+                                wallet[item.getIndex()]--;
+                                walletData.setCoins(wallet);
+                            }
+                        }
+                    }
+                });
     }
 
     //Create money list and populate
@@ -278,6 +281,5 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    }
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) { }
 }

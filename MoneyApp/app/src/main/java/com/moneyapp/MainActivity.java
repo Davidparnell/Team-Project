@@ -22,6 +22,12 @@ import com.moneyapp.database.WalletData;
 import java.util.Calendar;
 import java.util.Locale;
 
+/*
+Displays the balance and a text-to-speech button for it.
+Gives options to go to the wallet, camera and history
+With text-to-speech on all button if longClicked
+ */
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     ImageButton btnHist, btnWallet, btnCamera;
     ImageView btnBalT2S;

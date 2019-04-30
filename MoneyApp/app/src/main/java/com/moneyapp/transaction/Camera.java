@@ -28,6 +28,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+/*
+Reads the value off the register in format 0.00 or 0-00
+Scans 5 times and confirms by checking if the same value was read enough times
+Also displays a progress bar while scanning in a separate thread
+ */
+
 public class Camera extends AppCompatActivity {
     private static final int requestID = 1;
     SurfaceView cameraSurface;
@@ -135,7 +141,7 @@ public class Camera extends AppCompatActivity {
                     Matcher matcher = pattern.matcher(stringBuilder);
 
                     if(matcher.find()){
-                        progressTask.setI(scanCounter);
+                        progressTask.setProgress(scanCounter);
                         String group = matcher.group(1).replace("-", ".");
 
                         //Add numbers to frequency map
@@ -174,7 +180,7 @@ public class Camera extends AppCompatActivity {
                                 return;
                             }
                             else{
-                                progressTask.setI(6);
+                                progressTask.setProgress(6);
                                 Intent intent = new Intent(Camera.this, PaySuggestion.class);
                                 intent.putExtra("register", register);
                                 startActivity(intent);

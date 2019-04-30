@@ -1,21 +1,21 @@
 package com.moneyapp.transaction;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.moneyapp.R;
-
-import static com.google.android.gms.flags.FlagSource.G;
+/*
+Progress bar for the camera scan in a separate thread not interrupt the UI thread
+ */
 
 class ScanProgress extends AsyncTask<Void, Integer, Void> {
     ProgressBar progressBar;
-    int i = 0;
+    int progress = 0;
+
     @Override
     protected Void doInBackground(Void... args) {
-        while(i < 6){
-            publishProgress(i);
+        while(progress < 6){
+            publishProgress(progress);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -47,7 +47,7 @@ class ScanProgress extends AsyncTask<Void, Integer, Void> {
         this.progressBar = bar;
     }
 
-    public void setI(int i) {
-        this.i = i;
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }

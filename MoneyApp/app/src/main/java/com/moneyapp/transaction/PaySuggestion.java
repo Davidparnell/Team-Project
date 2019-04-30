@@ -39,7 +39,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     int[] notes;
     int[] coins;
     int path = 0;
-    float change = 0f;
+    BigDecimal change = new BigDecimal(0).setScale(3, BigDecimal.ROUND_HALF_UP);
     final float[] nValues = {50f, 20f, 10f, 5f};
     final float[] cValues = {2f, 1f, 0.50f, 0.20f, 0.10f, 0.05f};
 
@@ -67,9 +67,17 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         coins = walletData.getCoins();
 
         int[] pay = generateSuggestion(register);
-        change = register;
-        for (int i1 : pay) {
-            change -= i1;
+
+        //Calculate change to know if wallet is necessary
+        change = BigDecimal.valueOf(register);
+        for (int i = 0; i < pay.length; i++) {
+            if(path == 1 || path == 3){
+                change = change.subtract(BigDecimal.valueOf(cValues[i] * pay[i]));
+            }else if(path == 2){
+                change = change.subtract(BigDecimal.valueOf(nValues[i] * pay[i]));
+            }else{
+                change = BigDecimal.ZERO;
+            }
         }
 
         if(path == 4){  //not enough money
@@ -401,10 +409,14 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
     {
         //Insert code to proceed to next activity here.
         if (v.getId() == R.id.floating_tick) {
-            //Insert code to proceed to next activity here.
-            Intent intent = new Intent(getApplicationContext(), Wallet.class);//getIntent so that register value passed from camera is still inside
-            intent.putExtra("change", change);
-            startActivity(intent);
+
+            if(change.compareTo(BigDecimal.ZERO) != 0){
+                //Insert code to proceed to next activity here.
+                Intent intent = new Intent(getApplicationContext(), Wallet.class);//getIntent so that register value passed from camera is still inside
+                startActivity(intent);
+            }else{
+                finish();
+            }
         }
     }
 

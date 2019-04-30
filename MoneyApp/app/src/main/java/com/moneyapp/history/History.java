@@ -56,12 +56,12 @@ public class History extends AppCompatActivity
             //Setting transaction type, with transaction type image chosen.
             if(walletHistory.get(i).getRegister() == 0)
             {
-                Drawable drawable = getResources().getDrawable(R.drawable.moneybutton);
+                Drawable drawable = getResources().getDrawable(R.drawable.wallet);
                 item.setType(drawable);
             }
             else
             {
-                Drawable drawable = getResources().getDrawable(R.drawable.camerabutton);
+                Drawable drawable = getResources().getDrawable(R.drawable.camera);
                 item.setType(drawable);
             }
 

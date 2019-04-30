@@ -101,6 +101,7 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         ArrayList<String> cash = new ArrayList<String>();
         suggestionList = new ArrayList<>();
 
+        cash.add("arrow");
         for(int i = 0; i < payNotes.length; i++){
             for(int j = 0; j < payNotes[i]; j++){
                 //Add note value as cash to the cash ArrayList
@@ -121,6 +122,11 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
             MoneyListData item = new MoneyListData();
 
             switch (cash.get(i)) {
+                case "arrow":{
+                    Drawable arrow = getResources().getDrawable(R.drawable.transaction_arrow);
+                    item.setCash(arrow);
+                    break;
+                }
                 case "50.0": {
                     Drawable drawable = getResources().getDrawable(R.drawable.fifty_euro);
                     item.setCash(drawable);

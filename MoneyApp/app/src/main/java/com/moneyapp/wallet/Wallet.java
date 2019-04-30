@@ -33,7 +33,7 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wallet);
+        setContentView(R.layout.activity_wallet);
 
         //€5 Button
         five = findViewById(R.id.euro5);

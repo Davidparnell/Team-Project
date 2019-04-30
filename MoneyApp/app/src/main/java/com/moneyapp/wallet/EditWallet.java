@@ -43,7 +43,7 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_wallet);
+        setContentView(R.layout.activity_edit_wallet);
 
         //Database set up
         database = AppDatabase.getDatabase(getApplicationContext());
@@ -61,7 +61,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
 
         FloatingActionButton exit = findViewById(R.id.floating_exit);
         exit.setOnClickListener(this);
-
 
         //Swipe listener for item removal
         SwipeListener touchListener =

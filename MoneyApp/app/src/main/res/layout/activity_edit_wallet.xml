@@ -33,5 +33,5 @@
         android:src="@drawable/cancel"
         app:backgroundTint="#FF0000"
         app:fabCustomSize="100dp"
-        app:maxImageSize="70dp" />
+        app:maxImageSize="50dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

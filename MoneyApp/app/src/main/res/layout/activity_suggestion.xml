@@ -31,6 +31,6 @@
         android:src="@drawable/ic_baseline_done_24px"
         app:backgroundTint="#FF0000"
         app:fabCustomSize="100dp"
-        app:maxImageSize="70dp" />
+        app:maxImageSize="90dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

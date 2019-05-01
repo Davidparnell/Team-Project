@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         balance = String.format(Locale.UK, "%.02f", walletData.getBalance());
         balanceView.setText("\u20ac" +balance);
-        balanceView.setTextSize(90);
     }
 
     @Override

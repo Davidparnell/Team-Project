@@ -31,7 +31,9 @@
         android:textColor="#000000"
         android:textSize="90sp"
         app:fontFamily="sans-serif"
-        tools:text="€ XX.XX" />
+        tools:text="€ XX.XX"
+		android:singleLine="true"
+        android:ellipsize="end"/>
 
     <ImageView
         android:layout_height="wrap_content"

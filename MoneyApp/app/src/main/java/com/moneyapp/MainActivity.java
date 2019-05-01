@@ -90,6 +90,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         balance = String.format(Locale.UK, "%.02f", walletData.getBalance());
+
+        if(walletData.getBalance() > 999){ //If balance is too long make font size smaller to fit
+            balanceView.setTextSize(80);
+        } else if(walletData.getBalance() > 9999){
+            balanceView.setTextSize(60);
+        }
+
         balanceView.setText("\u20ac" +balance);
     }
 

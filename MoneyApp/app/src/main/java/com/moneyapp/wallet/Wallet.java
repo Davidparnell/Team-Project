@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -92,9 +91,6 @@ public class Wallet extends AppCompatActivity implements View.OnClickListener {
             walletData.setNotes(intent.getIntArrayExtra("notes"));
             walletData.setCoins(intent.getIntArrayExtra("coins"));
         }
-
-        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
-        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
     @Override

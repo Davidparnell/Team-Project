@@ -3,7 +3,6 @@ package com.moneyapp.transaction;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -332,13 +331,13 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
         payTotal2 = pay2[0] * values[0] + pay2[1] * values[1] + pay2[2] * values[2] + pay2[3] * values[3];
 
         //check cleanup happened correctly, so enough pay is given
-        if(payTotal2 < register){ Log.d("REG", "branch 1");
+        if(payTotal2 < register){
             return pay1;
-        } else if(overflow > overflow2) { Log.d("REG", "branch 2");   //pay more accurate
+        } else if(overflow > overflow2) {    //pay more accurate
             return pay2;
-        } else if(overflow < overflow2) { Log.d("REG", "branch 1");   //pay2 more accurate
+        } else if(overflow < overflow2) {    //pay2 more accurate
             return pay1;
-        } else if(overflow == overflow2) {                                      //equal but one uses more notes/coins to get same amount
+        } else if(overflow == overflow2) {   //equal but one uses more notes/coins to get same amount
             int total = 0;
             int total2 = 0;
 
@@ -347,8 +346,8 @@ public class PaySuggestion extends AppCompatActivity implements View.OnClickList
                 total2 += pay2[i];
             }
 
-            if(total >= total2){ Log.d("REG", "branch 2"); return pay2; }  //pay2 used less notes/coins
-            else{ Log.d("REG", "branch 1"); return pay1; }                  //pay used less notes/coins
+            if(total >= total2){ return pay2; }  //pay2 used less notes/coins
+            else{ return pay1; }                  //pay used less notes/coins
         }
         return null;
     }

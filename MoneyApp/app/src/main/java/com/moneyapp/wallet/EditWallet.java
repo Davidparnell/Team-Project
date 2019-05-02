@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -230,9 +229,6 @@ public class EditWallet extends AppCompatActivity  implements View.OnClickListen
         adapter = new MoneyListAdapter(moneyList, getApplicationContext());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
-        Log.d("WALLET", Arrays.toString(walletData.getNotes()));
-        Log.d("WALLET", Arrays.toString(walletData.getCoins()));
     }
 
     @Override
